@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    font-family: 'Galvji';
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+@font-face {
+    font-family: 'Galvji';
+    /* 自定义字体名称 */
+    src: url('../assets/font/Galvji.ttc') format('ttc'),
+        url('../assets/font/Montserrat/Montserrat-Black.ttf') format('ttf')
+        /* 字体文件路径和格式 */
+        /* 可以添加其他字体格式，确保跨浏览器兼容性 */
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    /* 自定义字体名称 */
+    src: url('../assets/font/Montserrat/Montserrat-Black.ttf') format('ttf');
+    /* 字体文件路径和格式 */
+    /* 可以添加其他字体格式，确保跨浏览器兼容性 */
+}
+
+@font-face {
+    font-family: 'DS-Digital';
+    /* 自定义字体名称 */
+    src: url('../assets/font/DS-DIGI/DS-DIGI.TTF'),
+        url('../assets/font/DS-DIGI/DS-DIGIB.TTF'),
+        url('../assets/font/DS-DIGI/DS-DIGII.TTF'),
+        url('../assets/font/DS-DIGI/DS-DIGIT.TTF') format('TTF')
+        /* 字体文件路径和格式 */
+        /* 可以添加其他字体格式，确保跨浏览器兼容性 */
+}
+
+@font-face {
+    font-family: 'DINCondensed';
+    /* 自定义字体名称 */
+    src: url('../assets/font/DIN\ Condensed\ Bold.ttf') format('TTF')
+        /* 字体文件路径和格式 */
+        /* 可以添加其他字体格式，确保跨浏览器兼容性 */
+}
+
+.a-link {
+    text-decoration: none;
+    color: var(--link);
+    cursor: pointer;
+}
+
+.container-body {
+    margin: 0 auto;
+}
