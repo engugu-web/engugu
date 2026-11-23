@@ -3,7 +3,7 @@
   <main class="home-page">
     <section class="hero shell">
       <p>Guarantee Creativity To Reality</p>
-      <h1>ORANGE GLOBAL<br />MEDIA</h1>
+      <h1>ORANGE 测试<br />MEDIA</h1>
       <h2>
         No game is too hard to market, make the<br class="desktop-break" />
         game marketing easy.
