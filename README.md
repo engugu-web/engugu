@@ -23,7 +23,7 @@ Connect the existing Vercel project `express-glacier-fotrgir` to the GitHub
 repository `engugu-web/engugu`, using `main` as the production branch.
 Subsequent pushes to `main` trigger production deployments.
 
-Production website: https://express-glacier-fotrgir.tmp.now/
+Production website: https://express-glacier-fotrgir.vercel.app/
 
 `vercel.json` configures Vite, `npm ci`, `npm run build`, the `docs/` output
 directory, and the SPA fallback used by routes such as `/services`.
