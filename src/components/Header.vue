@@ -1,109 +1,128 @@
 <template>
-  <div>
-    <div class="header">
-      <div
-        class="header-content"
-        :style="{ width: proxy.globalInfo.bodyWidth + 'px' }"
+  <header class="site-header">
+    <div class="shell header-inner">
+      <router-link to="/" class="brand" aria-label="Orange Global Media home"
+        ><span class="wordmark">ORAN<span>G</span>E</span></router-link
+      ><button
+        class="menu-toggle"
+        type="button"
+        :aria-expanded="menuOpen"
+        aria-controls="main-nav"
+        @click="menuOpen = !menuOpen"
       >
-        <!-- logo -->
-        <router-link to="/" class="logo">
-          <el-image style="width: 80px; height: 50px" :src="url" />
-        </router-link>
-        <div>
-          <el-menu
-            class="menu-panel"
-            mode="horizontal"
-            background-color="#000"
-            text-color="#fff"
-            active-text-color="#00FFCE"
-            :ellipsis="false"
-            popper-effect="light"
-            menu-trigger="click"
-            @select="handleSelect"
-          >
-            <el-menu-item class="menu-item" index="1">
-              <a href="services">services</a>
-            </el-menu-item>
-            <el-menu-item class="menu-item" index="2">
-              <a href="/#about-row">About</a>
-            </el-menu-item>
-            <el-menu-item class="menu-item" index="3"
-              ><a href="/#our-services-row">Our Work</a></el-menu-item
-            >
-            <el-menu-item class="menu-item" index="4" @click="Contact"
-              >Contact</el-menu-item
-            >
-          </el-menu>
-        </div>
-      </div>
+        {{ menuOpen ? "Close" : "Menu" }}
+      </button>
+      <nav
+        id="main-nav"
+        :class="{ open: menuOpen }"
+        aria-label="Main navigation"
+        @click="menuOpen = false"
+      >
+        <router-link to="/services">Services</router-link
+        ><router-link to="/#about-row">About</router-link
+        ><router-link to="/#our-work">Our Work</router-link
+        ><a class="nav-contact" href="#contact">Contact</a>
+      </nav>
     </div>
-    <Dialog :dialogVisible="dialogVisible" @close="close" />
-  </div>
+  </header>
 </template>
-
 <script setup>
-import { ref, reactive, getCurrentInstance } from "vue";
-import Dialog from "../components/Dialog.vue";
-const { proxy } = getCurrentInstance();
-import img from "../assets/image/logo.png";
-const url = img;
-const dialogVisible = ref(false);
-
-function Contact() {
-  dialogVisible.value = true;
-}
-const close = () => {
-  dialogVisible.value = false;
-};
+import { ref } from "vue";
+const menuOpen = ref(false);
 </script>
-<style lang="scss" scoped>
-.header {
-  position: fixed;
+<style scoped>
+.site-header {
+  position: relative;
+  z-index: 20;
   width: 100%;
-  z-index: 1000;
-  background: #000;
-  top: 0px;
-  border-bottom: 1px solid;
-  border-image: linear-gradient(to right, #00ffce, black, #00ffce) 1;
-  border-image-slice: 1; /* 可选：指定边框图像的切片 */
-  border-image-width: 1; /* 可选：指定边框图像的宽度 */
-  border-image-outset: 0; /* 可选：指定边框图像的偏移量 */
-  .header-content {
+  max-width: 1920px;
+  height: calc(101 * var(--du));
+  margin-inline: auto;
+  background: white;
+}
+.header-inner {
+  position: relative;
+  width: calc(1700 * var(--du));
+  height: 100%;
+}
+.brand {
+  position: absolute;
+  top: calc(38 * var(--du));
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  height: calc(25 * var(--du));
+}
+.wordmark {
+  font: 600 calc(28 * var(--du))/1 var(--font-display);
+  letter-spacing: calc(3 * var(--du));
+}
+.wordmark span {
+  color: var(--orange);
+}
+.header-inner nav {
+  position: absolute;
+  top: calc(38 * var(--du));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(574 * var(--du));
+  height: calc(25 * var(--du));
+  font: 400 calc(18 * var(--du))/1 var(--font-display);
+  letter-spacing: 0;
+}
+.header-inner nav a:hover {
+  color: var(--orange);
+}
+.menu-toggle {
+  display: none;
+}
+@media (max-width: 1023px) {
+  .site-header {
+    height: 80px;
+  }
+  .header-inner {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    height: 77px;
-
-    .logo {
-      font-size: 30px;
-      text-decoration: none;
-      margin-right: 150px;
-      display: block;
-    }
-    .menu-panel {
-      display: flex;
-      align-items: center;
-      .el-menu-item {
-        font-size: 16px;
-        font-family: Galvji;
-      }
-      .el-menu-item:hover {
-        color: #00ffce;
-      }
-    }
-    .el-menu--horizontal.el-menu {
-      border-bottom: none;
-      width: 1000px;
-      display: flex;
-      justify-content: space-around;
-    }
-    .el-menu--horizontal > .el-menu-item.is-active {
-      border-bottom: none;
-    }
-    .el-menu--horizontal > .el-menu-item {
-      border-bottom: none;
-    }
+    justify-content: space-between;
+    width: calc(100% - 40px);
+  }
+  .brand {
+    position: static;
+    height: auto;
+  }
+  .wordmark {
+    font-size: 23px;
+    letter-spacing: 3px;
+  }
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    padding: 9px 16px;
+  }
+  .header-inner nav {
+    display: none;
+    position: absolute;
+    top: 80px;
+    left: -20px;
+    right: -20px;
+    width: auto;
+    height: auto;
+    transform: none;
+    background: white;
+    padding: 24px;
+    box-shadow: 0 14px 25px #0000000d;
+    gap: 16px;
+    flex-direction: column;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  .header-inner nav.open {
+    display: flex;
   }
 }
 </style>

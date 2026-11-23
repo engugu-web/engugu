@@ -1,66 +1,119 @@
-body {
-    margin: 0;
-    padding: 0;
-    background: #000;
-    font-family: 'Galvji';
+@font-face {
+  font-family: Montserrat;
+  src: url("./font/Montserrat/Montserrat-VariableFont_wght.woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
 }
-
+:root {
+  --du: min(1px, calc(100vw / 1920));
+  --font-display: "MADE Okine Sans PERSONAL USE", Montserrat, sans-serif;
+  --font-body:
+    "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+    sans-serif;
+  --orange: #f1542d;
+  --ink: #101010;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: #fff;
+  font-synthesis: none;
+}
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
 }
-
+body {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
 a {
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.shell {
+  width: calc(1589 * var(--du));
+  margin-inline: auto;
+}
+section[id],
+footer[id],
+article[id] {
+  scroll-margin-top: 30px;
+}
+html {
+  scroll-behavior: smooth;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 5px;
+}
+.eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.section-title {
+  font-size: clamp(26px, 3.1vw, 46px);
+  font-weight: 750;
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+}
+.text-link {
+  display: inline-block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 7px;
+}
+.accent {
+  color: var(--orange);
+}
+@media (max-width: 1023px) {
+  .shell {
+    width: calc(100% - 40px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
-li {
-    list-style: none;
-}
-
-@font-face {
-    font-family: 'Galvji';
-    /* 自定义字体名称 */
-    src: url('../assets/font/Galvji.ttc') format('ttc'),
-        url('../assets/font/Montserrat/Montserrat-Black.ttf') format('ttf')
-        /* 字体文件路径和格式 */
-        /* 可以添加其他字体格式，确保跨浏览器兼容性 */
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    /* 自定义字体名称 */
-    src: url('../assets/font/Montserrat/Montserrat-Black.ttf') format('ttf');
-    /* 字体文件路径和格式 */
-    /* 可以添加其他字体格式，确保跨浏览器兼容性 */
-}
-
-@font-face {
-    font-family: 'DS-Digital';
-    /* 自定义字体名称 */
-    src: url('../assets/font/DS-DIGI/DS-DIGI.TTF'),
-        url('../assets/font/DS-DIGI/DS-DIGIB.TTF'),
-        url('../assets/font/DS-DIGI/DS-DIGII.TTF'),
-        url('../assets/font/DS-DIGI/DS-DIGIT.TTF') format('TTF')
-        /* 字体文件路径和格式 */
-        /* 可以添加其他字体格式，确保跨浏览器兼容性 */
-}
-
-@font-face {
-    font-family: 'DINCondensed';
-    /* 自定义字体名称 */
-    src: url('../assets/font/DIN\ Condensed\ Bold.ttf') format('TTF')
-        /* 字体文件路径和格式 */
-        /* 可以添加其他字体格式，确保跨浏览器兼容性 */
-}
-
-.a-link {
-    text-decoration: none;
-    color: var(--link);
-    cursor: pointer;
-}
-
-.container-body {
-    margin: 0 auto;
+/* Use the available content width rather than counting the scrollbar as canvas. */
+@supports (width: 1cqw) {
+  :root {
+    --du: min(1px, calc(100cqw / 1920));
+  }
+  body {
+    container-type: inline-size;
+  }
 }

@@ -1,676 +1,759 @@
 <template>
-  <div>
-    <Header />
-    <div class="body-content">
-      <div class="homebox">
-        <div class="video-box">
-          <video id="video-background" autoplay loop muted>
-            <source src="../assets/video/bgVideo.mp4" type="video/mp4" />
-          </video>
-          <div class="videoLine1"></div>
-          <div class="videoLine2"></div>
-          <div class="companyText">
-            <h1>
-              Orangeglobal<br />
-              Media
-            </h1>
-            <div class="box">
-              <button class="btn" @click="Contact">
-                Get Start <el-icon><Right /></el-icon>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="about-content" id="about-row">
-          <div class="line1-bg">
-            <div class="arrow-bottom"></div>
-            <div class="dian1"></div>
-            <div class="dian2"></div>
-          </div>
-          <div class="line2-bg"></div>
-          <div class="oblong-bg"></div>
-          <div class="line3-bg"></div>
-          <div class="text-content">
-            <h5>Versatile overseas game</h5>
-            <h3>squad leader</h3>
-            <p>
-              Founded in 2021<br />
-              an overseas marketing advertising service company focusing on the
-              game industry.<br />
-              We are committed to providing support for Chinese game
-              manufactures,<br />
-              including professional diversified business and plans deeply
-              rooted in local culture, helping the ninth art grow abroad.
-            </p>
-          </div>
-          <div class="main-content">
-            <div class="description-content">
-              <h5>
-                Every overseas game
-                <el-icon color="#00ffce"><Menu /></el-icon><br />
-                is an emerging high-potential ADC, <br />
-                and Orange Global Media is willing to act as the <br />
-                game’s “versatile squad leader”.
-              </h5>
-              <div class="bottom-text">
-                <div class="setpsBox">
-                  <div class="setp1"></div>
-                  <div class="setp2"></div>
-                  <div class="setp3"></div>
-                </div>
-                <div>
-                  <p>
-                    We can be as stable as a tank, providing all-round
-                    protection and support
-                  </p>
-                  <p />
-
-                  <p>
-                    we can also be as careful as a support, providing key
-                    assistance and<br />
-                    guidance for the growth of the product at every step
-                  </p>
-
-                  <p>
-                    We will take on an important supporting role to adapt to
-                    different demand<br />
-                    scenarios flexibly, fully supporting and accompanying the
-                    growth of the<br />
-                    product in the overseas market
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="img-box">
-              <el-image style="width: 449px; height: 539px" :src="indexImg" />
-            </div>
-          </div>
-          <div class="case-studies">
-            <div style="text-align: center; margin-bottom: 30px">
-              <div class="title">
-                <h3 class="title-text">CASE STUDIES</h3>
-                <div class="icon"></div>
-              </div>
-            </div>
-            <div class="carousel-content">
-              <el-carousel type="card" height="206px" indicator-position="none">
-                <el-carousel-item
-                  v-for="item in caseStudiesImgList"
-                  :key="item"
-                >
-                  <el-image
-                    style="width: 332px; height: 166px"
-                    :src="item.url"
-                  />
-                </el-carousel-item>
-                <!-- <el-carousel-item v-for="item in 10" :key="item">
-              <h3 text="2xl" justify="center">{{ item }}</h3>
-            </el-carousel-item> -->
-              </el-carousel>
-            </div>
-          </div>
-        </div>
-        <div class="our-services" id="our-services-row">
-          <div class="bg-box"></div>
-          <div class="oblong-box"></div>
-          <div class="line-box"></div>
-          <div style="text-align: center; margin-bottom: 30px">
-            <div class="title">
-              <h3 class="title-text">OUR SERVICES</h3>
-              <div class="icon"></div>
-            </div>
-          </div>
-          <el-carousel trigger="click" height="500px" arrow="never">
-            <el-carousel-item>
-              <div class="carousel-content">
-                <el-image style="width: 400px; height: 253px" :src="manImg" />
-                <el-image style="width: 400px; height: 253px" :src="fullImg" />
-                <el-image style="width: 400px; height: 253px" :src="blackImg" />
-                <div class="gradient-box">
-                  <div class="border-gradient">
-                    <h6>
-                      <el-icon color="#00ffce"><Menu /></el-icon>
-                      Gaming Global Campaign
-                    </h6>
-                    <p>
-                      Result-oriented global marketing strategies, creative
-                      promotion strategies and project execution services based
-                      on local market research and insights.
-                    </p>
-                  </div>
-                  <div class="border-gradient">
-                    <h6>
-                      <el-icon color="#00ffce"><Menu /></el-icon> Influencer
-                      Marketing
-                    </h6>
-                    <p>
-                      Provides one-stop global influencer cooperation services
-                      covering 27 regional languages and 100+ countries/regions,
-                      from planning to execution and effect tracking.
-                    </p>
-                  </div>
-                  <div class="border-gradient">
-                    <h6>
-                      <el-icon color="#00ffce"><Menu /></el-icon> Community
-                      operations
-                    </h6>
-                    <p>
-                      Provide event planning and long-term operation services
-                      for global mainstream media platforms/communities for
-                      products, becoming the core position for accumulating and
-                      activating players.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </el-carousel-item>
-            <el-carousel-item>
-              <div class="carousel-content">
-                <el-image
-                  style="width: 400px; height: 253px"
-                  :src="luminousImg"
-                />
-                <el-image
-                  style="width: 400px; height: 253px"
-                  :src="cartoonImg"
-                />
-                <el-image
-                  style="width: 400px; height: 253px"
-                  :src="futuriImg"
-                />
-                <div class="gradient-box">
-                  <div class="border-gradient">
-                    <h6>
-                      <el-icon color="#00ffce"><Menu /></el-icon> Creative
-                      Production
-                    </h6>
-                    <p>
-                      According to the content preferences of local user groups,
-                      we produce various promotional materials, covering AE, PV,
-                      UE4, live-action shooting and other businesses.
-                    </p>
-                  </div>
-                  <div class="border-gradient">
-                    <h6>
-                      <el-icon color="#00ffce"><Menu /></el-icon> Localized PR
-                      services
-                    </h6>
-                    <p>
-                      China Unicom local media provides PR services, covering
-                      news/topic planning and other services, providing brands
-                      with maximum local brand exposure and reputation
-                      enhancement.
-                    </p>
-                  </div>
-                  <div class="border-gradient">
-                    <h6>
-                      <el-icon color="#00ffce"><Menu /></el-icon> Celebrity
-                      endorsements
-                    </h6>
-                    <p>
-                      Provide globally influential celebrities to endorse
-                      products, covering multiple offline and online channels,
-                      assisting products in gaining massive exposure and
-                      implanting them into users' minds.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-        <OurClinets />
+  <Header />
+  <main class="home-page">
+    <section class="hero shell">
+      <p>Guarantee Creativity To Reality</p>
+      <h1>ORANGE GLOBAL<br />MEDIA</h1>
+      <h2>
+        No game is too hard to market, make the<br class="desktop-break" />
+        game marketing easy.
+      </h2>
+      <a class="start-button" href="#contact"
+        >GO START <span aria-hidden="true">→</span></a
+      >
+    </section>
+    <section id="our-work" class="work-section" aria-label="Our work">
+      <div class="orbit" aria-hidden="true"></div>
+      <div class="game-wall">
+        <img
+          v-for="(url, i) in games"
+          :key="url"
+          :src="url"
+          :alt="`Game campaign ${i + 1}`"
+          loading="lazy"
+          decoding="async"
+          width="384"
+          height="384"
+        />
       </div>
-    </div>
-    <Footer />
-    <Dialog :dialogVisible="dialogVisible" @close="close" />
-  </div>
+      <h2 class="mission">
+        FOUNDED TO HELP CHINESE <span class="games-word">GAMES</span><br />REACH
+        <span class="global-word">GLOBAL</span> AUDIENCES.
+      </h2>
+    </section>
+    <section id="our-services-row" class="services-panel shell">
+      <h2>7 CORE SERVICES</h2>
+      <div class="service-grid">
+        <div class="service-intro">
+          <h3>END-TO-END<br />MARKETING<br />SOLUTIONS</h3>
+          <p>
+            Global marketing solutions powered by local insights, strategic
+            planning,<br />creative execution, and resource integration.
+          </p>
+        </div>
+        <router-link
+          v-for="service in services"
+          :key="service.id"
+          :to="`/services#${service.id}`"
+          class="service-item"
+          ><svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path
+              d="M7 5h14l4 4v17H7zM20 5v6h5M11 14h9M11 18h9M11 22h5"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <path d="m21 25 7-7 2 2-7 7-3 1z" fill="currentColor" />
+          </svg>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.text }}</p></router-link
+        >
+      </div>
+    </section>
+    <OurClients />
+    <section
+      id="about-row"
+      class="about-grid shell"
+      aria-label="About Orange Global Media"
+    >
+      <article v-for="(item, i) in stats" :key="item.title" class="stat-card">
+        <h2>{{ item.title }}</h2>
+        <strong>{{ item.value }}<span>+</span></strong>
+        <div class="stat-copy">
+          <p>{{ item.text }}</p>
+          <p>{{ item.detail }}</p>
+        </div>
+        <div :class="['stat-art', `stat-art-${i}`]" aria-hidden="true">
+          <span v-for="n in 12" :key="n" :style="{ '--i': n }"></span
+          ><b>{{ i === 0 ? "◎" : i === 1 ? "✦" : "◉" }}</b>
+        </div>
+      </article>
+    </section>
+    <section class="partner-section shell">
+      <div class="partner-rating">
+        <span class="partner-emblem" aria-hidden="true">✺</span
+        ><span aria-label="Five stars">★★★★★</span>
+      </div>
+      <h2 class="section-title">
+        ALL-AROUND PARTNER<br />PROFESSIONAL EXPERTISE, POWERING<br
+          class="desktop-break"
+        />
+        GAME BRANDS.
+      </h2>
+      <p>
+        INFLUENCER MARKETING<br />SOCIAL STRATEGY<br />CONTENT PRODUCTION<br />COMMUNITY
+        MARKETING & DISTRIBUTION
+      </p>
+    </section>
+  </main>
+  <Footer />
 </template>
-
 <script setup>
-import { ref, reactive, getCurrentInstance } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import Header from "../../src/components/Header.vue";
-import Footer from "../../src/components/Footer.vue";
-import Dialog from "../../src/components/Dialog.vue";
-import OurClinets from "../../src/components/OurClinets.vue";
-import img from "../assets/image/logo.png";
-import blackImg from "../assets/image/servicesimg/black-teen-smiling-girl-headset-playing-video-games-video-game-club-with-blue-red-illumination-keyboard-with-illumination.jpg";
-import cartoonImg from "../assets/image/servicesimg/cartoon-woman-wearing-vr-glasses.jpg";
-import fullImg from "../assets/image/servicesimg/full-shot-man-augmented-reality-technology.jpg";
-import luminousImg from "../assets/image/servicesimg/luminous-metaverse-background.jpg";
-import manImg from "../assets/image/servicesimg/man-neon-suit-sits-chair-with-neon-sign-that-says-word-it.jpg";
-import futuriImg from "../assets/image/servicesimg/futurImg.jpg";
-import caseStudiesImg1 from "../assets/image/caseStudiesImg/1.png";
-import caseStudiesImg2 from "../assets/image/caseStudiesImg/2.png";
-import caseStudiesImg3 from "../assets/image/caseStudiesImg/3.png";
-import caseStudiesImg4 from "../assets/image/caseStudiesImg/4.png";
-import caseStudiesImg5 from "../assets/image/caseStudiesImg/5.png";
-import caseStudiesImg6 from "../assets/image/caseStudiesImg/6.png";
-import caseStudiesImg7 from "../assets/image/caseStudiesImg/7.png";
-import caseStudiesImg8 from "../assets/image/caseStudiesImg/8.png";
-import caseStudiesImg9 from "../assets/image/caseStudiesImg/9.png";
-import caseStudiesImg10 from "../assets/image/caseStudiesImg/10.png";
-import indexImg from "../assets/image/indexImg.jpg";
-
-const { proxy } = getCurrentInstance();
-const router = useRouter();
-const route = useRoute();
-const url = img;
-const dialogVisible = ref(false);
-function Contact() {
-  dialogVisible.value = true;
-}
-const close = () => {
-  dialogVisible.value = false;
-};
-const caseStudiesImgList = [
-  { url: caseStudiesImg1 },
-  { url: caseStudiesImg2 },
-  { url: caseStudiesImg3 },
-  { url: caseStudiesImg4 },
-  { url: caseStudiesImg5 },
-  { url: caseStudiesImg6 },
-  { url: caseStudiesImg7 },
-  { url: caseStudiesImg8 },
-  { url: caseStudiesImg9 },
-  { url: caseStudiesImg10 },
+import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
+import OurClients from "../components/OurClinets.vue";
+import { services } from "../data/services";
+const assets = import.meta.glob("../assets/image/caseStudiesImg/*.webp", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+const games = Object.entries(assets)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([, url]) => url)
+  .reverse();
+const stats = [
+  {
+    title: "CLIENTS SERVED",
+    value: "40",
+    text: "Founded in 2021, we are a global marketing and advertising agency dedicated to the gaming industry.",
+    detail: "We empower Chinese games to reach players and markets worldwide.",
+  },
+  {
+    title: "MARKETS COVERED",
+    value: "110",
+    text: "We create waves through resources, strategy, diversified services, and localized creativity—empowering game publishers to market smarter and scale globally.",
+    detail:
+      "We help game publishers reduce the time and resources spent on marketing, so they can focus on what matters most—their products and players.",
+  },
+  {
+    title: "INTERNATIONAL STAFF",
+    value: "108",
+    text: "Every game expanding globally is like a rising ADC, with Orange Spirit as its all-round team captain.",
+    detail:
+      "With tank-like stability and support-style care, we guide each game through every stage of its global journey.",
+  },
 ];
 </script>
-<style lang="scss">
-.body-content {
-  margin-top: 77px;
+<style scoped>
+/* Desktop coordinates are measured against Figma's 1920 × 6375 landing page.
+   --du scales the desktop canvas while the mobile layout remains in flow. */
+.home-page {
   position: relative;
-  background: #000;
-  .title {
-    position: relative;
-    display: inline-block;
-    .title-text {
-      color: #00ffce;
-      font-size: 35px;
-      line-height: 22px;
-      font-family: "Galvji";
-      display: inline-block;
-    }
-    .icon {
-      position: absolute;
-      top: -18px;
-      right: -18px;
-      width: 18px;
-      height: 18px;
-      background-image: url("../assets/image/bottomLeft.png");
-    }
+  width: 100%;
+  max-width: 1920px;
+  height: calc(5194.41 * var(--du));
+  margin-inline: auto;
+}
+.hero {
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  height: calc(653 * var(--du));
+  text-align: center;
+}
+.hero > p {
+  position: absolute;
+  top: calc(144 * var(--du));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(547 * var(--du));
+  height: calc(30 * var(--du));
+  font: 500 calc(28 * var(--du))/1.26 var(--font-body);
+  letter-spacing: 0;
+}
+.hero h1 {
+  position: absolute;
+  top: calc(222 * var(--du));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(836 * var(--du));
+  height: calc(204 * var(--du));
+  font: 500 calc(102 * var(--du))/1 var(--font-display);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.hero h2 {
+  position: absolute;
+  top: calc(450 * var(--du));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(667 * var(--du));
+  height: calc(77 * var(--du));
+  font: 500 calc(28 * var(--du))/1 var(--font-display);
+  letter-spacing: 0;
+}
+.start-button {
+  position: absolute;
+  top: calc(576 * var(--du));
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(28 * var(--du));
+  width: calc(270 * var(--du));
+  height: calc(77 * var(--du));
+  border-radius: calc(40 * var(--du));
+  box-shadow: 0 4px 7.4px #00000017;
+  background: white;
+  font: 500 calc(24 * var(--du))/1 var(--font-display);
+}
+.start-button:hover {
+  box-shadow: 0 5px 20px #f1542d30;
+}
+.work-section {
+  position: absolute;
+  top: calc(653 * var(--du));
+  left: 0;
+  width: 100%;
+  height: calc(1191 * var(--du));
+  overflow: hidden;
+  isolation: isolate;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 12%,
+    black 95%,
+    transparent
+  );
+}
+.orbit {
+  position: absolute;
+  width: calc(2304 * var(--du));
+  height: calc(590 * var(--du));
+  left: 44%;
+  top: calc(110 * var(--du));
+  transform: translateX(-50%) rotate(-22deg);
+  border: calc(90 * var(--du)) solid white;
+  border-radius: 50%;
+  background: linear-gradient(
+    115deg,
+    #91bfc0,
+    #f29c6d 30%,
+    #ed6848 65%,
+    #ba81ab
+  );
+  box-shadow: 0 0 calc(90 * var(--du)) calc(30 * var(--du)) #e9b8b887;
+  z-index: -1;
+}
+.game-wall {
+  position: absolute;
+  top: calc(246 * var(--du));
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: calc(16 * var(--du));
+  width: calc(1040 * var(--du));
+  mask-image: linear-gradient(
+    110deg,
+    transparent,
+    #000 15%,
+    #000 83%,
+    transparent
+  );
+}
+.game-wall img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: calc(16 * var(--du));
+  transition: transform 0.25s;
+}
+.game-wall img:hover {
+  transform: translateY(-6px);
+}
+.mission {
+  white-space: nowrap;
+  position: absolute;
+  top: calc(807 * var(--du));
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(970 * var(--du));
+  height: calc(140 * var(--du));
+  text-align: center;
+  font: 500 calc(58 * var(--du))/1.2 var(--font-display);
+  letter-spacing: 0;
+}
+.games-word {
+  background: linear-gradient(90deg, #ed84b7, #86b7bb, #f29535);
+  color: transparent;
+  background-clip: text;
+}
+.global-word {
+  color: #e66c2a;
+  text-shadow:
+    1px 3px #a72c12,
+    2px 5px #80231a;
+}
+.services-panel {
+  position: absolute;
+  top: calc(1844 * var(--du));
+  left: calc(165 * var(--du));
+  width: calc(1589 * var(--du));
+  height: calc(943 * var(--du));
+  border-radius: calc(40 * var(--du));
+  background: linear-gradient(110deg, #ed3e13, #f07e51);
+  color: white;
+}
+.services-panel > h2 {
+  position: absolute;
+  top: calc(89 * var(--du));
+  left: calc(553 * var(--du));
+  width: calc(461 * var(--du));
+  height: calc(70 * var(--du));
+  text-align: center;
+  font: 500 calc(58 * var(--du))/1.2 var(--font-display);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.service-grid {
+  position: absolute;
+  top: calc(251 * var(--du));
+  left: calc(175 * var(--du));
+  display: grid;
+  grid-template-columns: repeat(4, calc(269 * var(--du)));
+  grid-auto-rows: calc(254 * var(--du));
+  column-gap: calc(80 * var(--du));
+  row-gap: calc(62 * var(--du));
+}
+.service-grid h3 {
+  width: calc(220 * var(--du));
+  min-height: calc(58 * var(--du));
+  text-transform: uppercase;
+  font: 500 calc(24 * var(--du))/1.2 var(--font-display);
+  letter-spacing: 0;
+}
+.service-grid p {
+  width: calc(212 * var(--du));
+  margin-top: calc(17 * var(--du));
+  font: 400 clamp(10px, calc(14 * var(--du)), 14px)/1.2 var(--font-body);
+  letter-spacing: 0;
+}
+.service-intro h3 {
+  width: calc(269 * var(--du));
+  height: calc(114 * var(--du));
+  font-size: calc(32 * var(--du));
+}
+.service-intro p {
+  margin-top: calc(44 * var(--du));
+}
+.service-item {
+  transition: opacity 0.2s;
+}
+.service-item:hover {
+  opacity: 0.75;
+}
+.service-item svg {
+  display: block;
+  width: calc(44 * var(--du));
+  height: calc(44 * var(--du));
+  margin-bottom: calc(44 * var(--du));
+}
+.service-item:nth-child(-n + 4)::after {
+  content: "";
+  display: block;
+  width: calc(215 * var(--du));
+  margin-top: calc(38 * var(--du));
+  border-bottom: 1px solid #ffffff3a;
+}
+.about-grid {
+  position: absolute;
+  top: calc(3651 * var(--du));
+  left: calc(166 * var(--du));
+  width: calc(1589 * var(--du));
+  height: calc(577.41 * var(--du));
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(18.13 * var(--du));
+}
+.stat-card {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  border-radius: calc(12.69 * var(--du));
+  border: calc(1.81 * var(--du)) solid #717171;
+  background: linear-gradient(#191919, #000);
+  color: white;
+}
+.stat-card h2 {
+  position: absolute;
+  top: calc(55.3 * var(--du));
+  left: calc(58.01 * var(--du));
+  width: calc(398.84 * var(--du));
+  height: calc(33 * var(--du));
+  font: 400 calc(27.19 * var(--du))/1.2 var(--font-display);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.stat-card strong {
+  position: absolute;
+  top: calc(87.93 * var(--du));
+  left: calc(58.01 * var(--du));
+  color: #ff5526;
+  font: 400 calc(58.01 * var(--du))/1.2 var(--font-display);
+  letter-spacing: 0;
+}
+.stat-card strong span {
+  font: inherit;
+}
+.stat-copy {
+  position: absolute;
+  top: calc(197.61 * var(--du));
+  left: calc(58.01 * var(--du));
+  width: calc(398.84 * var(--du));
+  color: #9a9aa3;
+  font: 400 calc(18.13 * var(--du))/1.2 var(--font-body);
+  letter-spacing: 0;
+}
+.stat-copy p + p {
+  margin-top: calc(21.756 * var(--du));
+}
+.stat-art {
+  position: absolute;
+  bottom: calc(-35 * var(--du));
+  left: 15%;
+  width: 70%;
+  height: calc(170 * var(--du));
+  opacity: 0.7;
+}
+.stat-art b {
+  display: block;
+  text-align: center;
+  font-size: calc(125 * var(--du));
+  font-weight: 300;
+  color: #ccc;
+}
+.stat-art span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 110%;
+  height: calc(70 * var(--du));
+  border: 1px dotted #bbb;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(calc(var(--i) * 15deg));
+}
+.stat-art-0 span {
+  height: calc(140 * var(--du));
+  width: calc(140 * var(--du));
+  transform: translate(-50%, -50%) rotateX(55deg) rotate(calc(var(--i) * 15deg));
+}
+.stat-art-1 {
+  width: 95%;
+  left: 2.5%;
+  height: calc(150 * var(--du));
+  bottom: calc(-50 * var(--du));
+}
+.stat-art-1 span {
+  height: calc(100 * var(--du));
+  transform: translate(-50%, -50%) rotate(calc(var(--i) * 8deg));
+}
+.stat-art-2 span {
+  width: calc(135 * var(--du));
+  height: calc(135 * var(--du));
+  transform: translate(-50%, -50%) rotateY(calc(var(--i) * 15deg));
+}
+.partner-section {
+  position: absolute;
+  top: calc(4488.41 * var(--du));
+  left: calc(438 * var(--du));
+  width: calc(1045 * var(--du));
+  height: calc(446 * var(--du));
+  text-align: center;
+}
+.partner-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: calc(24 * var(--du));
+  height: calc(60 * var(--du));
+  margin-bottom: calc(24 * var(--du));
+}
+.partner-rating > span {
+  color: #f5cc56;
+  letter-spacing: calc(4 * var(--du));
+  font-size: calc(32 * var(--du));
+}
+.partner-rating .partner-emblem {
+  font-size: calc(52 * var(--du));
+  color: #ec6936;
+}
+.partner-section .section-title {
+  white-space: nowrap;
+  font: 500 calc(58 * var(--du))/1.2 var(--font-display);
+  letter-spacing: 0;
+}
+.partner-section > p {
+  margin-top: calc(30 * var(--du));
+  color: #777;
+  font: 400 calc(14 * var(--du))/2.2 var(--font-body);
+}
+@media (max-width: 1023px) {
+  .home-page {
+    height: auto;
   }
-  .video-box {
+  .hero,
+  .work-section,
+  .services-panel,
+  .about-grid,
+  .partner-section {
     position: relative;
-    height: 923px;
-    width: 100%;
-    background-color: #102132;
-    overflow: hidden;
-    #video-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: auto;
-      height: auto;
-    }
-    .videoLine1 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 338px;
-      width: 443px;
-      background-image: url("../assets/image/videoLine1.png");
-    }
-    .videoLine2 {
-      position: absolute;
-      top: 443px;
-      right: 0;
-      height: 393px;
-      width: 527px;
-      background-image: url("../assets/image/vedioLine2.png");
-    }
-    .companyText {
-      position: absolute;
-      padding-top: 189px;
-      width: 100%;
-      h1 {
-        font-size: 210px;
-        font-family: "DINCondensed", DINCondensed;
-        font-weight: bold;
-        color: rgba(255, 255, 255, 0.5);
-        line-height: 200px;
-        text-align: center;
-      }
-      // .box {
-      //   width: 220px;
-      //   height: 58px;
-      //   // padding: 1px;
-      //   background: linear-gradient(135deg, transparent 20px, #2baaca 0),
-      //     linear-gradient(-45deg, transparent 10px, #2baaca 0);
-      //   margin: 80px auto;
-      // }
-      .btn {
-        display: block;
-        width: 220px;
-        height: 58px;
-        border: 1px solid #00ffce;
-        text-align: center;
-        margin: 80px auto;
-        font-size: 22px;
-        font-family: Galvji;
-        color: #00ffce;
-        line-height: 26px;
-        background-color: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(2px);
-        border-radius: 6px;
-        // background: linear-gradient(135deg, transparent 9px, #fff 0),
-        //   linear-gradient(-45deg, transparent 10px, #2baaca 0);
-        // linear-gradient(-45deg, transparent 10px, #2baaca 0);
-        cursor: pointer;
-      }
-      .btn:hover {
-        background: #00ffce;
-        color: #000;
-      }
-    }
+    top: auto;
+    left: auto;
+    transform: none;
   }
-  .about-content {
-    height: 1613px;
-    width: 100%;
-    position: relative;
-    .line1-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 471px;
-      width: 371px;
-      background-image: url("../assets/image/aboutLine1.png");
-      .arrow-bottom {
-        position: absolute;
-        bottom: 0;
-        width: 40px;
-        height: 40px;
-        left: 48%;
-        transform: translateX(-50%);
-        background-image: url("../assets/image/arrowBottom.png");
-      }
-      .dian1,
-      .dian2 {
-        position: absolute;
-        bottom: 356px;
-        width: 5px;
-        height: 5px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #00ffce;
-      }
-      .dian2 {
-        left: 45%;
-        transform: translateX(-45%);
-      }
-    }
-    .line1-bg::before,
-    .line1-bg::after {
-      content: "";
-      position: absolute;
-      bottom: 280px;
-      width: 5px;
-      height: 5px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #00ffce;
-    }
-    .line1-bg::before {
-      left: 45%;
-      transform: translateX(-45%);
-    }
-
-    .about-content::before {
-      left: 45%;
-      transform: translateX(-45%);
-    }
-    .line2-bg {
-      position: absolute;
-      top: 113px;
-      right: 0;
-      height: 341px;
-      width: 441px;
-      background-image: url("../assets/image/aboutLine2.png");
-    }
-    .line3-bg {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 699px;
-      width: 907px;
-      background-image: url("../assets/image/partnerBg.png");
-      background-position: center bottom;
-      background-size: cover;
-    }
-    .oblong-bg {
-      position: absolute;
-      top: 643px;
-      right: 50px;
-      height: 673px;
-      width: 673px;
-      background-image: url("../assets/image/aboutOblong.png");
-    }
-    .text-content {
-      padding-top: 136px;
-      h5 {
-        font-size: 20px;
-        font-family: Galvji;
-        color: #00ffce;
-        line-height: 23px;
-        text-align: center;
-      }
-      h3 {
-        font-size: 73px;
-        font-family: DS-Digital;
-        font-weight: bold;
-        color: #00ffce;
-        text-align: center;
-      }
-      p {
-        font-size: 16px;
-        font-family: Galvji;
-        color: #ffffff;
-        line-height: 26px;
-        text-align: center;
-      }
-    }
-    .main-content {
-      width: 1300px;
-      margin: 200px auto 129px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .description-content {
-        h5 {
-          text-align: left;
-          font-size: 26px;
-          font-family: Galvji, Galvji;
-          font-weight: bold;
-          color: #00ffce;
-          line-height: 40px;
-        }
-        p {
-          font-size: 16px;
-          font-family: Galvji;
-          color: #ffffff;
-          line-height: 26px;
-          text-align: left;
-          margin-bottom: 40px;
-          margin-left: 10px;
-        }
-        .bottom-text {
-          margin-top: 40px;
-          display: flex;
-          .setpsBox {
-            .setp1 {
-              width: 2px;
-              height: 63px;
-              background: #00ffce;
-              position: relative;
-              margin-top: 15px;
-            }
-            .setp1::before {
-              content: "。";
-              position: absolute;
-              top: -35px;
-              left: -7px;
-              font-size: 30px;
-              color: #00ffce;
-            }
-            .setp2 {
-              width: 2px;
-              height: 83px;
-              background: #00ffce;
-              position: relative;
-              margin-top: 6px;
-            }
-            .setp2::before {
-              content: "。";
-              position: absolute;
-              top: -35px;
-              left: -7px;
-              font-size: 30px;
-              color: #00ffce;
-            }
-            .setp3 {
-              width: 2px;
-              height: 60px;
-              background: #00ffce;
-              position: relative;
-              margin-top: 6px;
-            }
-            .setp3::before {
-              content: "。";
-              position: absolute;
-              top: -35px;
-              left: -7px;
-              font-size: 30px;
-              color: #00ffce;
-            }
-          }
-        }
-      }
-    }
+  .hero {
+    height: auto;
+    padding: 60px 20px 10px;
   }
-  .case-studies {
+  .hero > p,
+  .hero h1,
+  .hero h2,
+  .start-button {
+    position: static;
+    transform: none;
+    width: auto;
+    height: auto;
+  }
+  .hero > p {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+  .hero h1 {
+    font-size: clamp(42px, 7vw, 76px);
+    line-height: 1;
+  }
+  .hero h2 {
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 24px auto 40px;
+    max-width: 600px;
+  }
+  .start-button {
+    min-width: 210px;
+    min-height: 60px;
+    padding: 15px 28px;
+    gap: 28px;
+    border-radius: 40px;
+    font-size: 18px;
+  }
+  .work-section {
     width: 100%;
+    height: 620px;
+  }
+  .orbit {
+    top: 120px;
+    width: 140%;
+    height: 320px;
+    border-width: 40px;
+  }
+  .game-wall {
+    top: 160px;
+    width: 78%;
+    gap: 8px;
+  }
+  .game-wall img {
+    border-radius: 8px;
+  }
+  .mission {
+    white-space: normal;
+    top: 445px;
+    width: 90%;
+    height: auto;
+    font-size: 32px;
+  }
+  .services-panel {
+    width: calc(100% - 40px);
+    height: auto;
+    margin: 0 auto;
+    border-radius: 24px;
+    padding: 45px 32px;
+  }
+  .services-panel > h2 {
+    position: static;
+    width: auto;
+    height: auto;
+    font-size: 38px;
+    margin-bottom: 48px;
+  }
+  .service-grid {
+    position: static;
+    width: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
+    gap: 44px 30px;
+  }
+  .service-grid h3,
+  .service-grid p,
+  .service-intro h3 {
+    width: auto;
+    height: auto;
+    min-height: 0;
+  }
+  .service-grid h3 {
+    font-size: 22px;
+  }
+  .service-grid p,
+  .service-intro p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-top: 18px;
+  }
+  .service-intro h3 {
+    font-size: 28px;
+  }
+  .service-item svg {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 24px;
+  }
+  .service-item:nth-child(-n + 4)::after {
+    display: none;
+  }
+  .about-grid {
+    width: calc(100% - 40px);
+    height: auto;
+    margin: 0 auto;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .stat-card {
+    height: auto;
+    min-height: 440px;
+    padding: 40px 32px 150px;
+    border-radius: 12.69px;
+    border-width: 1.81px;
+  }
+  .stat-card h2,
+  .stat-card strong,
+  .stat-copy {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+  .stat-card h2 {
+    font-size: 24px;
+  }
+  .stat-card strong {
+    display: block;
+    font-size: 52px;
+    margin: 10px 0 28px;
+  }
+  .stat-copy {
+    max-width: 520px;
+    font-size: 16px;
+  }
+  .stat-copy p + p {
+    margin-top: 20px;
+  }
+  .stat-art {
+    width: 60%;
+    left: 35%;
+    height: 150px;
+    bottom: -30px;
+  }
+  .stat-art b {
+    font-size: 125px;
+  }
+  .stat-art span {
+    width: 140px;
+    height: 100px;
+  }
+  .partner-section {
+    width: calc(100% - 40px);
+    height: auto;
+    margin: 0 auto;
+    padding: 100px 0 120px;
+  }
+  .partner-rating {
+    height: 50px;
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+  .partner-rating > span {
+    font-size: 26px;
+    letter-spacing: 4px;
+  }
+  .partner-rating .partner-emblem {
+    font-size: 40px;
+  }
+  .partner-section .section-title {
+    white-space: normal;
+    font-size: 38px;
+  }
+  .partner-section > p {
+    font-size: 12px;
+    line-height: 2;
+    margin-top: 25px;
+  }
+}
+@media (max-width: 500px) {
+  .hero {
+    padding-top: 45px;
+  }
+  .hero > p {
+    font-size: 17px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 9.2vw, 46px);
+  }
+  .hero h2 {
+    font-size: 18px;
+  }
+  .work-section {
     height: 450px;
-    .carousel-content {
-      width: 1500px;
-      height: 260px;
-      margin: 0 auto;
-      .el-carousel__arrow {
-        color: #00ffce;
-        font-size: 48px;
-        background-color: rgba(173, 216, 230, 0);
-        border-radius: 0;
-      }
-      .el-carousel__arrow--left {
-        left: 0;
-      }
-      .el-carousel__arrow--right {
-        right: 0;
-      }
-      .el-carousel__item {
-        width: 332px;
-        height: 166px;
-        margin: 0 100px;
-      }
-      .el-carousel__item h3 {
-        color: #475669;
-        opacity: 0.75;
-        line-height: 200px;
-        margin: 0;
-        text-align: center;
-        width: 200px;
-      }
-
-      .el-carousel__item:nth-child(2n) {
-        background-color: #99a9bf;
-      }
-
-      .el-carousel__item:nth-child(2n + 1) {
-        background-color: #d3dce6;
-      }
-    }
   }
-  .our-services {
-    position: relative;
-    height: 760px;
-    padding-top: 30px;
-    .el-carousel__button {
-      width: 88px;
-    }
-    .el-carousel__indicator--horizontal.is-active .el-carousel__button {
-      background: #00ffce;
-    }
-
-    .carousel-content {
-      width: 1200px;
-      height: 440px;
-      margin: 0 auto;
-      color: #fff;
-      font-size: 0;
-      .gradient-box {
-        display: flex;
-      }
-      .border-gradient {
-        // display: inline-block;
-        width: 400px;
-        height: 187px;
-        border-width: 1px;
-        border-style: solid;
-        border-image: linear-gradient(to bottom, black, #00ffce) 1;
-        border-image-slice: 1; /* 可选：指定边框图像的切片 */
-        border-image-width: 1; /* 可选：指定边框图像的宽度 */
-        border-image-outset: 0; /* 可选：指定边框图像的偏移量 */
-        h6 {
-          margin: 24px 0 12px 25px;
-          font-size: 20px;
-          color: #00ffce;
-          display: flex;
-          align-items: center;
-        }
-        h6 :first-child {
-          margin-right: 5px;
-        }
-        p {
-          margin: 0 50px;
-          font-size: 14px;
-        }
-      }
-    }
-    .bg-box {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 394px;
-      width: 100%;
-      background-image: url("../assets/image/bg8.png");
-    }
-    .oblong-box {
-      position: absolute;
-      top: 475px;
-      left: 70px;
-      width: 284px;
-      height: 284px;
-      background: url("../assets/image/oblong2.png") center;
-      background-size: contain;
-    }
-    .line-box {
-      position: absolute;
-      top: -85px;
-      right: 0;
-      width: 150px;
-      height: 356px;
-      background: url("../assets/image/line9.png") center;
-    }
+  .orbit {
+    top: 90px;
+    height: 230px;
+    border-width: 28px;
+  }
+  .game-wall {
+    top: 135px;
+    width: 84%;
+    gap: 4px;
+  }
+  .game-wall img {
+    border-radius: 5px;
+  }
+  .mission {
+    top: 320px;
+    font-size: 23px;
+  }
+  .services-panel {
+    padding: 35px 24px;
+  }
+  .services-panel > h2 {
+    font-size: 28px;
+  }
+  .service-grid {
+    gap: 34px 22px;
+  }
+  .service-grid h3 {
+    font-size: 17px;
+  }
+  .service-grid p {
+    font-size: 13px;
+  }
+  .service-intro h3 {
+    font-size: 22px;
+  }
+  .stat-card {
+    padding: 32px 24px 130px;
+  }
+  .stat-card h2 {
+    font-size: 22px;
+  }
+  .stat-copy {
+    font-size: 15px;
+  }
+  .partner-section .section-title {
+    font-size: 27px;
+  }
+  .desktop-break {
+    display: none;
   }
 }
 </style>

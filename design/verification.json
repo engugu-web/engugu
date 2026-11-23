@@ -1,0 +1,190 @@
+{
+  "canvasWidth": 1920,
+  "pageHeight": 6375,
+  "noHorizontalOverflow": true,
+  "checks": [
+    {
+      "selector": ".header-inner nav",
+      "expected": {
+        "x": 673,
+        "y": 38,
+        "width": 574,
+        "height": 25
+      },
+      "actual": {
+        "fontSize": "18px",
+        "fontWeight": "400",
+        "height": 25.000001907348633,
+        "lineHeight": "18px",
+        "selector": ".header-inner nav",
+        "width": 574,
+        "x": 673.2857666015625,
+        "y": 38
+      },
+      "passed": true
+    },
+    {
+      "selector": ".hero h1",
+      "expected": {
+        "x": 542,
+        "y": 323,
+        "width": 836,
+        "height": 204
+      },
+      "actual": {
+        "fontSize": "102px",
+        "fontWeight": "500",
+        "height": 204.00001525878903,
+        "lineHeight": "102px",
+        "selector": ".hero h1",
+        "width": 836.0000610351562,
+        "x": 542.2857666015625,
+        "y": 323
+      },
+      "passed": true
+    },
+    {
+      "selector": ".services-panel",
+      "expected": {
+        "x": 165,
+        "y": 1945,
+        "width": 1589,
+        "height": 943,
+        "radius": 40
+      },
+      "actual": {
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "height": 943.0000610351562,
+        "lineHeight": "normal",
+        "selector": ".services-panel",
+        "width": 1589.0001220703125,
+        "x": 165.2857208251953,
+        "y": 1945.0001220703125
+      },
+      "passed": true
+    },
+    {
+      "selector": ".clients",
+      "expected": {
+        "x": 337,
+        "y": 2969,
+        "width": 1247,
+        "height": 539,
+        "logos": {
+          "x": 419.37,
+          "y": 3140,
+          "width": 1052.83,
+          "height": 297.65
+        }
+      },
+      "actual": {
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "height": 539,
+        "lineHeight": "normal",
+        "selector": ".clients",
+        "width": 1247,
+        "x": 337.2857360839844,
+        "y": 2969.000244140625
+      },
+      "passed": true
+    },
+    {
+      "selector": ".about-grid",
+      "expected": {
+        "x": 166,
+        "y": 3752,
+        "width": 1589,
+        "height": 577.41,
+        "gap": 18.13,
+        "cardWidth": 517.58,
+        "radius": 12.69,
+        "border": 1.81
+      },
+      "actual": {
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "height": 577.4017944335938,
+        "lineHeight": "normal",
+        "selector": ".about-grid",
+        "width": 1589.0001220703125,
+        "x": 166.2857208251953,
+        "y": 3752.000244140625
+      },
+      "passed": true
+    },
+    {
+      "selector": ".partner-section",
+      "expected": {
+        "x": 438,
+        "y": 4589.41,
+        "width": 1045,
+        "height": 446
+      },
+      "actual": {
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "height": 446.0000305175781,
+        "lineHeight": "normal",
+        "selector": ".partner-section",
+        "width": 1045,
+        "x": 438.2857360839844,
+        "y": 4589.40185546875
+      },
+      "passed": true
+    },
+    {
+      "selector": ".site-footer",
+      "expected": {
+        "x": 0,
+        "y": 5295.41,
+        "width": 1920,
+        "height": 1080
+      },
+      "actual": {
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "height": 1080,
+        "lineHeight": "normal",
+        "selector": ".site-footer",
+        "width": 1920.0001220703125,
+        "x": 0.2857142984867096,
+        "y": 5295.40185546875
+      },
+      "passed": true
+    }
+  ],
+  "typography": [
+    {
+      "fontSize": "27.19px",
+      "fontWeight": "400",
+      "height": 33,
+      "lineHeight": "32.628px",
+      "selector": ".stat-card h2",
+      "width": 398.83929443359375,
+      "x": 226.00894165039065,
+      "y": 3809.009033203125
+    },
+    {
+      "fontSize": "58.01px",
+      "fontWeight": "400",
+      "height": 69.60714721679688,
+      "lineHeight": "69.612px",
+      "selector": ".stat-card strong",
+      "width": 110.55357360839844,
+      "x": 226.00894165039065,
+      "y": 3841.64306640625
+    },
+    {
+      "fontSize": "18.13px",
+      "fontWeight": "400",
+      "height": 130.54464721679688,
+      "lineHeight": "21.756px",
+      "selector": ".stat-copy",
+      "width": 398.83929443359375,
+      "x": 226.00894165039065,
+      "y": 3951.321533203125
+    }
+  ]
+}

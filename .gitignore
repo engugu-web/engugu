@@ -10,10 +10,14 @@ node_modules
 
 # Bundle
 dist
+.vercel
 coverage
 packages/element-plus/version.ts
 
 # local env files
+.env
+.env.*
+!.env.example
 *.local
 .eslintcache
 cypress/screenshots/*

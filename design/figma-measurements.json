@@ -1,0 +1,199 @@
+{
+  "file": "https://www.figma.com/design/XAbQVqTQhL6Gfx4YSqOc31/OGM-Website-Design-New2027",
+  "canvas": {
+    "width": 1920,
+    "height": 6375
+  },
+  "geometry": {
+    "navigation": {
+      "x": 673,
+      "y": 38,
+      "width": 574,
+      "height": 25
+    },
+    "hero": {
+      "x": 542,
+      "y": 245,
+      "width": 836,
+      "height": 509
+    },
+    "mission": {
+      "x": 475,
+      "y": 1542,
+      "width": 970,
+      "height": 159
+    },
+    "services": {
+      "x": 165,
+      "y": 1945,
+      "width": 1589,
+      "height": 943,
+      "radius": 40
+    },
+    "clients": {
+      "x": 337,
+      "y": 2969,
+      "width": 1247,
+      "height": 539,
+      "logos": {
+        "x": 419.37,
+        "y": 3140,
+        "width": 1052.83,
+        "height": 297.65
+      }
+    },
+    "stats": {
+      "x": 166,
+      "y": 3752,
+      "width": 1589,
+      "height": 577.41,
+      "gap": 18.13,
+      "cardWidth": 517.58,
+      "radius": 12.69,
+      "border": 1.81
+    },
+    "partner": {
+      "x": 438,
+      "y": 4589.41,
+      "width": 1045,
+      "height": 446
+    },
+    "footer": {
+      "x": 0,
+      "y": 5295.41,
+      "width": 1920,
+      "height": 1080
+    }
+  },
+  "typography": {
+    "heroLead": {
+      "family": "SF Pro Display",
+      "size": 28,
+      "weight": 500,
+      "lineHeight": 1.26,
+      "letterSpacing": 0
+    },
+    "heroTitle": {
+      "family": "MADE Okine Sans PERSONAL USE",
+      "size": 102,
+      "weight": 500,
+      "lineHeight": 1,
+      "letterSpacing": 0
+    },
+    "heroSubtitle": {
+      "family": "MADE Okine Sans PERSONAL USE",
+      "size": 28,
+      "weight": 500,
+      "lineHeight": 1,
+      "letterSpacing": 0
+    },
+    "servicesHeading": {
+      "size": 58,
+      "weight": 500,
+      "lineHeight": 1.2
+    },
+    "serviceIntroHeading": {
+      "size": 32,
+      "weight": 500,
+      "lineHeight": 1.2
+    },
+    "serviceHeading": {
+      "size": 24,
+      "weight": 500,
+      "lineHeight": 1.2
+    },
+    "serviceBody": {
+      "family": "SF Pro Display",
+      "size": 14,
+      "weight": 400,
+      "lineHeight": 1.2
+    },
+    "statHeading": {
+      "size": 27.19,
+      "weight": 400,
+      "lineHeight": 1.2
+    },
+    "statBody": {
+      "family": "SF Pro Display",
+      "size": 18.13,
+      "weight": 400,
+      "lineHeight": 1.2,
+      "color": "#9A9AA3",
+      "offsetX": 59.82,
+      "offsetY": 199.42
+    },
+    "navigation": {
+      "size": 18,
+      "weight": 400,
+      "lineHeight": 1
+    },
+    "mission": {
+      "size": 58,
+      "weight": 500,
+      "lineHeight": 1.2,
+      "textY": 1561,
+      "textHeight": 140
+    },
+    "statValue": {
+      "size": 58.01,
+      "weight": 400,
+      "lineHeight": 1.2,
+      "offsetY": 89.74,
+      "color": "#FF5526"
+    },
+    "clientsTitle": {
+      "size": 58,
+      "weight": 500,
+      "lineHeight": 1.2,
+      "x": 783,
+      "y": 3438,
+      "width": 356,
+      "height": 70
+    },
+    "clientsCaption": {
+      "size": 16,
+      "weight": 400,
+      "lineHeight": 1.2,
+      "x": 846,
+      "y": 3376,
+      "width": 230,
+      "height": 38
+    },
+    "footerTitle": {
+      "size": 102,
+      "weight": 500,
+      "lineHeight": 1.2,
+      "x": 727,
+      "y": 5653,
+      "width": 466,
+      "height": 122
+    },
+    "footerBody": {
+      "size": 16,
+      "weight": 400,
+      "lineHeight": 1.2,
+      "x": 576,
+      "y": 5789.59,
+      "width": 768,
+      "height": 38
+    },
+    "footerEmail": {
+      "size": 28,
+      "weight": 500,
+      "lineHeight": 1.2,
+      "rotation": 3.32
+    },
+    "partnerTitle": {
+      "size": 58,
+      "weight": 500,
+      "lineHeight": 1.2,
+      "y": 4673.41,
+      "height": 210
+    }
+  },
+  "limitations": [
+    "Original MADE Okine Sans and SF Pro Display font files are not present; CSS declares them with local fallbacks.",
+    "Decorative illustrations remain simplified pending source assets.",
+    "Only observed layer values are listed here; other decorative details are not pixel-perfect verified."
+  ]
+}

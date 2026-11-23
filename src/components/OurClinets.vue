@@ -1,235 +1,268 @@
 <template>
-  <div class="ourclients-content">
-    <div style="text-align: center">
-      <div class="title">
-        <h3 class="title-text">OUR CLIENTS</h3>
-        <div class="icon"></div>
+  <section class="clients shell" aria-labelledby="clients-title">
+    <div
+      class="logo-arc"
+      :class="{ 'is-paused': paused }"
+      aria-label="Our game publishing clients"
+    >
+      <div
+        v-for="(client, i) in featured"
+        :key="client.name"
+        :class="['client-logo', client.tone]"
+        :style="{ '--delay': `${-(featured.length - i - 0.5) * 4.8}s` }"
+      >
+        <img :src="client.url" :alt="client.name" />
       </div>
     </div>
-    <div class="partner-content">
-      <div class="bg"></div>
-      <div class="oblong"></div>
-      <div class="line"></div>
-      <div class="partner-list">
-        <div class="partner-first-line">
-          <el-image
-            style="width: 183px; height: 80px"
-            :src="logoList.yoka.url"
-          />
-          <el-image
-            style="width: 143px; height: 80px"
-            :src="logoList.eworld.url"
-          />
-          <el-image
-            style="width: 170px; height: 80px"
-            :src="logoList.leiting.url"
-          />
-          <el-image
-            style="width: 214px; height: 80px"
-            :src="logoList.idreamSky.url"
-            fit="scale-down"
-          />
-          <el-image
-            style="width: 173px; height: 80px"
-            :src="logoList.zhaoxi.url"
-          />
-        </div>
-        <div class="partner-second-line">
-          <el-image
-            style="width: 155px; height: 80px"
-            :src="logoList.zLonGame.url"
-            fit="cover"
-          />
-          <el-image
-            style="width: 179px; height: 80px"
-            :src="logoList.thirdSevengame.url"
-          />
-          <el-image
-            style="width: 172px; height: 80px"
-            :src="logoList.funplus.url"
-          />
-          <el-image style="width: 89px; height: 80px" :src="logoList.igg.url" />
-          <el-image
-            style="width: 180px; height: 80px"
-            :src="logoList.happyGame.url"
-          />
-        </div>
-        <div class="partner-third-line">
-          <el-image
-            style="width: 165px; height: 80px"
-            :src="logoList.qingCi.url"
-          />
-          <el-image
-            style="width: 100px; height: 80px"
-            :src="logoList.sevenRoad.url"
-          />
-          <el-image
-            style="width: 160px; height: 80px"
-            :src="logoList.lilisi.url"
-          />
-          <el-image
-            style="width: 124px; height: 80px"
-            :src="logoList.melTing.url"
-          />
-          <el-image
-            style="width: 74px; height: 80px"
-            :src="logoList.yoTta.url"
-          />
-          <el-image
-            style="width: 113px; height: 80px"
-            :src="logoList.changYou.url"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+    <button
+      class="carousel-control"
+      type="button"
+      :aria-pressed="paused"
+      @click="paused = !paused"
+    >
+      {{ paused ? "Play carousel" : "Pause carousel" }}
+    </button>
+    <p>
+      CHINESE GAME PUBLISHERS <span class="accent">50+</span><br />PROJECTS
+      DELIVERED <span class="accent">400+</span>
+    </p>
+    <h2 id="clients-title" class="section-title">OUR CLIENTS</h2>
+  </section>
 </template>
-
 <script setup>
 import { ref } from "vue";
-import yoka from "../assets/image/partner/游卡.png";
-import eworld from "../assets/image/partner/image-removebg-preview.png";
-import leiting from "../assets/image/partner/雷霆游戏-removebg-preview.png";
-import idreamSky from "../assets/image/partner/创梦天地-removebg-preview.png";
-import zhaoxi from "../assets/image/partner/朝夕光年-removebg-preview.png";
-import zLonGame from "../assets/image/partner/紫龙-removebg-preview (2).png";
-import thirdSevengame from "../assets/image/partner/三七互娱-removebg-preview.png";
-import funplus from "../assets/image/partner/Funplus-removebg-preview.png";
-import igg from "../assets/image/partner/IGG.png";
-import happyGame from "../assets/image/partner/欢乐互娱.png";
-import qingCi from "../assets/image/partner/青瓷游戏.png";
-import sevenRoad from "../assets/image/partner/第七大道-removebg-preview.png";
-import lilisi from "../assets/image/partner/莉莉丝.png";
-import melTing from "../assets/image/partner/火溶.png";
-import yoTta from "../assets/image/partner/友塔.png";
-import changYou from "../assets/image/partner/image-removebg-preview (1).png";
-const logoList = {
-  yoka: {
-    url: yoka,
-  },
-  eworld: {
-    url: eworld,
-  },
-  leiting: {
-    url: leiting,
-  },
-  idreamSky: {
-    url: idreamSky,
-  },
-  zhaoxi: {
-    url: zhaoxi,
-  },
-  zLonGame: {
-    url: zLonGame,
-  },
-  thirdSevengame: {
-    url: thirdSevengame,
-  },
-  funplus: {
-    url: funplus,
-  },
-  igg: {
-    url: igg,
-  },
-  happyGame: {
-    url: happyGame,
-  },
-  qingCi: {
-    url: qingCi,
-  },
-  sevenRoad: {
-    url: sevenRoad,
-  },
-  lilisi: {
-    url: lilisi,
-  },
-  melTing: {
-    url: melTing,
-  },
-  yoTta: {
-    url: yoTta,
-  },
-  changYou: {
-    url: changYou,
-  },
-};
+import funplus from "../assets/image/partner/Funplus-removebg-preview.webp";
+import igg from "../assets/image/partner/IGG.webp";
+import lilith from "../assets/image/partner/莉莉丝.webp";
+import yoka from "../assets/image/partner/游卡.webp";
+import leiting from "../assets/image/partner/雷霆游戏-removebg-preview.webp";
+const paused = ref(false);
+const featured = [
+  { name: "Yoka Games", url: yoka, tone: "monochrome" },
+  { name: "FunPlus", url: funplus, tone: "orange" },
+  { name: "Lilith Games", url: lilith, tone: "red" },
+  { name: "IGG", url: igg, tone: "dark" },
+  { name: "Leiting Games", url: leiting, tone: "monochrome" },
+];
 </script>
-<style lang="scss" scoped>
-.ourclients-content {
-  background-color: #000;
-  .title {
-    position: relative;
-    display: inline-block;
-    .title-text {
-      color: #00ffce;
-      font-size: 35px;
-      line-height: 22px;
-      font-family: "Galvji";
-      display: inline-block;
-    }
-    .icon {
-      position: absolute;
-      top: -18px;
-      right: -18px;
-      width: 18px;
-      height: 18px;
-      background-image: url("../assets/image/bottomLeft.png");
-    }
+<style scoped>
+.clients {
+  position: absolute;
+  top: calc(2868 * var(--du));
+  left: calc(337 * var(--du));
+  width: calc(1247 * var(--du));
+  height: calc(539 * var(--du));
+  text-align: center;
+}
+.logo-arc {
+  --arc-rise: calc(220 * var(--du));
+  position: absolute;
+  top: calc(171 * var(--du));
+  left: calc(82.37 * var(--du));
+  width: calc(1052.83 * var(--du));
+  height: calc(297.65 * var(--du));
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 12%,
+    black 88%,
+    transparent
+  );
+}
+.client-logo {
+  position: absolute;
+  width: calc(170 * var(--du));
+  height: calc(80 * var(--du));
+  padding: calc(18 * var(--du)) calc(22 * var(--du));
+  border: 1px solid #ddd;
+  border-radius: calc(50 * var(--du));
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: client-orbit 24s linear var(--delay) infinite !important;
+}
+.logo-arc.is-paused .client-logo {
+  animation-play-state: paused !important;
+}
+.carousel-control {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 6px 12px;
+  border: 0;
+  background: transparent;
+  color: #737373;
+  font-size: 12px;
+}
+.carousel-control:hover {
+  color: var(--orange);
+}
+.client-logo img {
+  max-height: 100%;
+  object-fit: contain;
+}
+.client-logo.monochrome img {
+  filter: brightness(0);
+}
+.client-logo.orange img {
+  filter: brightness(0) saturate(100%) invert(43%) sepia(92%) saturate(2012%)
+    hue-rotate(351deg) brightness(100%) contrast(94%);
+}
+.client-logo.red img {
+  filter: brightness(0) saturate(100%) invert(26%) sepia(99%) saturate(3535%)
+    hue-rotate(346deg) brightness(93%) contrast(99%);
+}
+.client-logo.dark {
+  width: calc(80 * var(--du));
+  padding: calc(10 * var(--du));
+  background: #181818;
+}
+@keyframes client-orbit {
+  0% {
+    left: 110%;
+    top: var(--arc-rise);
+    transform: translateX(-50%) rotate(36deg);
+    opacity: 0;
   }
-  .partner-content {
+  12.5% {
+    left: 95%;
+    top: calc(var(--arc-rise) * 0.5625);
+    transform: translateX(-50%) rotate(27deg);
+    opacity: 0.5;
+  }
+  25% {
+    left: 80%;
+    top: calc(var(--arc-rise) * 0.25);
+    transform: translateX(-50%) rotate(18deg);
+    opacity: 1;
+  }
+  37.5% {
+    left: 65%;
+    top: calc(var(--arc-rise) * 0.0625);
+    transform: translateX(-50%) rotate(9deg);
+  }
+  50% {
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%) rotate(0deg);
+  }
+  62.5% {
+    left: 35%;
+    top: calc(var(--arc-rise) * 0.0625);
+    transform: translateX(-50%) rotate(-9deg);
+  }
+  75% {
+    left: 20%;
+    top: calc(var(--arc-rise) * 0.25);
+    transform: translateX(-50%) rotate(-18deg);
+    opacity: 1;
+  }
+  87.5% {
+    left: 5%;
+    top: calc(var(--arc-rise) * 0.5625);
+    transform: translateX(-50%) rotate(-27deg);
+    opacity: 0.5;
+  }
+  100% {
+    left: -10%;
+    top: var(--arc-rise);
+    transform: translateX(-50%) rotate(-36deg);
+    opacity: 0;
+  }
+}
+
+.clients > p {
+  white-space: nowrap;
+  position: absolute;
+  top: calc(407 * var(--du));
+  left: calc(509 * var(--du));
+  width: calc(230 * var(--du));
+  height: calc(38 * var(--du));
+  margin: 0;
+  font: 400 calc(16 * var(--du))/1.2 var(--font-display);
+  letter-spacing: 0;
+  color: #666;
+}
+.clients h2 {
+  position: absolute;
+  top: calc(469 * var(--du));
+  left: calc(446 * var(--du));
+  width: calc(356 * var(--du));
+  height: calc(70 * var(--du));
+  font: 500 calc(58 * var(--du))/1.2 var(--font-display);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+@media (max-width: 1023px) {
+  .clients {
     position: relative;
+    top: auto;
+    left: auto;
+    width: calc(100% - 40px);
+    height: auto;
+    padding: 90px 0 100px;
+    margin: 0 auto;
+  }
+  .logo-arc {
+    --arc-rise: 140px;
+    position: relative;
+    top: auto;
+    left: auto;
     width: 100%;
-    height: 552px;
-    .partner-list {
-      padding: 30px 0 140px;
-      .partner-second-line,
-      .partner-third-line,
-      .partner-first-line {
-        width: 1200px;
-        z-index: 3;
-        display: flex;
-        justify-content: space-between;
-        margin: 0 auto 80px;
-      }
-    }
-    .bg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: url("../assets/image/partnerBg.png") center;
-      z-index: 2;
-    }
-    .oblong {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 585px;
-      height: 471px;
-      background: url("../assets/image/oblong.png") center;
-    }
-    .line {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 297px;
-      height: 129px;
-      background: url("../assets/image/ourClinetsLine.png") center;
-    }
-    .line::before,
-    .line::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 4px;
-      height: 4px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #00ffce; /* 调整点的颜色 */
-    }
-    .line::before {
-      left: 45%;
-      transform: translateX(-45%);
-    }
+    max-width: 820px;
+    height: 190px;
+    margin: 0 auto;
+  }
+  .client-logo {
+    width: 130px;
+    height: 65px;
+    padding: 17px 22px;
+    border-radius: 40px;
+  }
+  .client-logo.dark {
+    width: 65px;
+    padding: 10px;
+  }
+  .clients > p,
+  .clients h2 {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+  .clients > p {
+    font-size: 12px;
+    margin: 12px 0 24px;
+  }
+  .clients h2 {
+    font-size: 40px;
+  }
+  .carousel-control {
+    bottom: 55px;
+  }
+}
+@media (max-width: 650px) {
+  .clients {
+    padding: 80px 0;
+  }
+  .logo-arc {
+    --arc-rise: 100px;
+    height: 130px;
+  }
+  .client-logo {
+    width: 82px;
+    height: 44px;
+    padding: 10px 13px;
+  }
+  .client-logo.dark {
+    width: 44px;
+  }
+  .clients h2 {
+    font-size: 30px;
+  }
+  .carousel-control {
+    bottom: 35px;
   }
 }
 </style>

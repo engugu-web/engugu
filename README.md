@@ -1,29 +1,29 @@
-# orange-media
+# Orange Global Media
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 and Vite website for Orange Global Media.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Development
 
 ```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
+npm ci
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Production build
 
 ```sh
 npm run build
 ```
+
+The production files are generated in `docs/`.
+
+## Vercel deployment
+
+Connect the existing Vercel project `express-glacier-fotrgir` to the GitHub
+repository `engugu-web/engugu`, using `main` as the production branch.
+Subsequent pushes to `main` trigger production deployments.
+
+`vercel.json` configures Vite, `npm ci`, `npm run build`, the `docs/` output
+directory, and the SPA fallback used by routes such as `/services`.
+
+Figma measurements and verification records are stored in `design/`.
