@@ -8,7 +8,7 @@
     role="img"
     aria-label="Game campaigns scrolling inside the star ring"
     :style="{
-      '--ring-mask': `url(${a.imgRectangle6})`,
+      '--ring-mask': ringMask,
       '--carousel-state': playing ? 'running' : 'paused',
     }"
   >
@@ -29,6 +29,8 @@
 </template>
 <script setup>
 import { figmaAssets as a } from "../data/figmaAssets";
+// Production SVG data URLs contain parentheses; quote them for valid CSS urls.
+const ringMask = `url("${a.imgRectangle6}")`;
 defineProps({ playing: { type: Boolean, default: false } });
 // The original twelve image fills, including their Figma crop transforms.
 const slides = [
