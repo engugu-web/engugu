@@ -1,0 +1,405 @@
+[
+  {
+    "key": "img13X2",
+    "file": "064f1.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/064f1.png",
+    "runtimeFile": "064f1.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgRectangle7",
+    "file": "6a087.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/6a087.png",
+    "runtimeFile": "6a087-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "6a087.webp",
+    "runtimeDimensions": [768, 464],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle12",
+    "file": "0e809.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/0e809.png",
+    "runtimeFile": "0e809-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "0e809.webp",
+    "runtimeDimensions": [320, 195],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle8",
+    "file": "ec0dc.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/ec0dc.png",
+    "runtimeFile": "ec0dc-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "ec0dc.webp",
+    "runtimeDimensions": [579, 354],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle13",
+    "file": "1da4a.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/1da4a.png",
+    "runtimeFile": "1da4a-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "1da4a.webp",
+    "runtimeDimensions": [525, 320],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle9",
+    "file": "6aaf2.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/6aaf2.png",
+    "runtimeFile": "6aaf2-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "6aaf2.webp",
+    "runtimeDimensions": [758, 424],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle14",
+    "file": "08308.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/08308.png",
+    "runtimeFile": "08308-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "08308.webp",
+    "runtimeDimensions": [320, 174],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle10",
+    "file": "23d14.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/23d14.png",
+    "runtimeFile": "23d14-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "23d14.webp",
+    "runtimeDimensions": [526, 296],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle15",
+    "file": "ba6c9.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/ba6c9.png",
+    "runtimeFile": "ba6c9-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "ba6c9.webp",
+    "runtimeDimensions": [320, 180],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle11",
+    "file": "1c354.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/1c354.png",
+    "runtimeFile": "1c354-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "1c354.webp",
+    "runtimeDimensions": [320, 195],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle16",
+    "file": "73c98.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/73c98.png",
+    "runtimeFile": "73c98-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "73c98.webp",
+    "runtimeDimensions": [320, 180],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle17",
+    "file": "56c73.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/56c73.png",
+    "runtimeFile": "56c73-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "56c73.webp",
+    "runtimeDimensions": [525, 320],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgRectangle18",
+    "file": "d9c54.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/d9c54.png",
+    "runtimeFile": "d9c54-2x.webp",
+    "losslessPixelsVerified": true,
+    "losslessMasterFile": "d9c54.webp",
+    "runtimeDimensions": [610, 379],
+    "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
+  },
+  {
+    "key": "imgGlobal1",
+    "file": "a51ab.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/a51ab.png",
+    "runtimeFile": "a51ab.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "img1",
+    "file": "c3360.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/c3360.png",
+    "runtimeFile": "c3360.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgFunplusRemovebgPreview1",
+    "file": "64143.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/64143.png",
+    "runtimeFile": "64143.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgIgg1",
+    "file": "8b6ac.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/8b6ac.png",
+    "runtimeFile": "8b6ac.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgRemovebgPreview1",
+    "file": "60e94.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/60e94.png",
+    "runtimeFile": "60e94.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgBilibili1",
+    "file": "0c908.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/0c908.png",
+    "runtimeFile": "0c908.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "img3",
+    "file": "00bbb.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/00bbb.png",
+    "runtimeFile": "00bbb.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "img121121",
+    "file": "8c8f3.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/8c8f3.png",
+    "runtimeFile": "8c8f3.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgEarth2",
+    "file": "5f4c6.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/5f4c6.png",
+    "runtimeFile": "5f4c6.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "img5",
+    "file": "19bc4.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/19bc4.png",
+    "runtimeFile": "19bc4.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "img6",
+    "file": "c3518.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/c3518.png",
+    "runtimeFile": "c3518.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "img13X4",
+    "file": "dac88.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/dac88.png",
+    "runtimeFile": "dac88.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgStar1",
+    "file": "23e09.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/23e09.png",
+    "runtimeFile": "23e09.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgEllipse5",
+    "file": "5410b.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/5410b.png",
+    "runtimeFile": "5410b.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgEllipse6",
+    "file": "935f4.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/935f4.png",
+    "runtimeFile": "935f4.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgEllipse7",
+    "file": "f0df7.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/f0df7.png",
+    "runtimeFile": "f0df7.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgEllipse8",
+    "file": "4b4bd.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/4b4bd.png",
+    "runtimeFile": "4b4bd.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgEllipse9",
+    "file": "d341d.png",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/d341d.png",
+    "runtimeFile": "d341d.webp",
+    "losslessPixelsVerified": true
+  },
+  {
+    "key": "imgGroup",
+    "file": "24bef.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/24bef.svg",
+    "runtimeFile": "24bef.svg"
+  },
+  {
+    "key": "imgUnion",
+    "file": "ab763.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/ab763.svg",
+    "runtimeFile": "ab763.svg"
+  },
+  {
+    "key": "imgSubtract",
+    "file": "f67d4.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/f67d4.svg",
+    "runtimeFile": "f67d4.svg"
+  },
+  {
+    "key": "imgEllipse1",
+    "file": "39a54.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/39a54.svg",
+    "runtimeFile": "39a54.svg"
+  },
+  {
+    "key": "imgRectangle6",
+    "file": "6467b.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/6467b.svg",
+    "runtimeFile": "6467b.svg"
+  },
+  {
+    "key": "imgRectangle19",
+    "file": "88a64.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/88a64.svg",
+    "runtimeFile": "88a64.svg"
+  },
+  {
+    "key": "img2",
+    "file": "4b964.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/4b964.svg",
+    "runtimeFile": "4b964.svg"
+  },
+  {
+    "key": "imgEarth1",
+    "file": "c14c8.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/c14c8.svg",
+    "runtimeFile": "c14c8.svg"
+  },
+  {
+    "key": "imgFirstperson1",
+    "file": "be97c.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/be97c.svg",
+    "runtimeFile": "be97c.svg"
+  },
+  {
+    "key": "imgFirstperson2",
+    "file": "1f974.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/1f974.svg",
+    "runtimeFile": "1f974.svg"
+  },
+  {
+    "key": "imgFirstperson3",
+    "file": "33aa9.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/33aa9.svg",
+    "runtimeFile": "33aa9.svg"
+  },
+  {
+    "key": "img4",
+    "file": "36c88.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/36c88.svg",
+    "runtimeFile": "36c88.svg"
+  },
+  {
+    "key": "imgIcon1",
+    "file": "20a2f.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/20a2f.svg",
+    "runtimeFile": "20a2f.svg"
+  },
+  {
+    "key": "imgLine7",
+    "file": "64119.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/64119.svg",
+    "runtimeFile": "64119.svg"
+  },
+  {
+    "key": "imgIcon2",
+    "file": "17fd3.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/17fd3.svg",
+    "runtimeFile": "17fd3.svg"
+  },
+  {
+    "key": "imgIcon3",
+    "file": "84f77.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/84f77.svg",
+    "runtimeFile": "84f77.svg"
+  },
+  {
+    "key": "img331",
+    "file": "4f843.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/4f843.svg",
+    "runtimeFile": "4f843.svg"
+  },
+  {
+    "key": "imgGroup34",
+    "file": "a6caa.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/a6caa.svg",
+    "runtimeFile": "a6caa.svg"
+  },
+  {
+    "key": "imgIcon6",
+    "file": "93b36.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/93b36.svg",
+    "runtimeFile": "93b36.svg"
+  },
+  {
+    "key": "imgIcon7",
+    "file": "aff79.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/aff79.svg",
+    "runtimeFile": "aff79.svg"
+  },
+  {
+    "key": "img",
+    "file": "7659e.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/7659e.svg",
+    "runtimeFile": "7659e.svg"
+  },
+  {
+    "key": "img13X3",
+    "file": "8d917.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/8d917.svg",
+    "runtimeFile": "8d917.svg"
+  },
+  {
+    "key": "imgUnion1",
+    "file": "d4ddb.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/d4ddb.svg",
+    "runtimeFile": "d4ddb.svg"
+  },
+  {
+    "key": "imgGroup1",
+    "file": "bbc4c.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/bbc4c.svg",
+    "runtimeFile": "bbc4c.svg"
+  },
+  {
+    "key": "imgGroup29",
+    "file": "c938c.svg",
+    "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/c938c.svg",
+    "runtimeFile": "c938c.svg"
+  }
+]

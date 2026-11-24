@@ -2,7 +2,7 @@
   <header class="site-header">
     <div class="shell header-inner">
       <router-link to="/" class="brand" aria-label="Orange Global Media home"
-        ><span class="wordmark">ORAN<span>G</span>E</span></router-link
+        ><img class="wordmark" :src="a.imgGroup" alt="ORANGE" /></router-link
       ><button
         class="menu-toggle"
         type="button"
@@ -28,6 +28,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
+import { figmaAssets as a } from "../data/figmaAssets";
 const menuOpen = ref(false);
 </script>
 <style scoped>
@@ -53,7 +54,20 @@ const menuOpen = ref(false);
   align-items: center;
   height: calc(25 * var(--du));
 }
+.brand:hover .wordmark {
+  animation: brand-wiggle 700ms ease-in-out infinite alternate;
+}
+@keyframes brand-wiggle {
+  0% {
+    transform: scale(1.2) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1.2) rotate(3deg);
+  }
+}
 .wordmark {
+  width: calc(146 * var(--du));
+  height: calc(26 * var(--du));
   font: 600 calc(28 * var(--du))/1 var(--font-display);
   letter-spacing: calc(3 * var(--du));
 }
@@ -94,6 +108,8 @@ const menuOpen = ref(false);
     height: auto;
   }
   .wordmark {
+    width: 125px;
+    height: auto;
     font-size: 23px;
     letter-spacing: 3px;
   }

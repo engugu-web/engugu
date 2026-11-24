@@ -1,0 +1,92 @@
+{
+  "source": "https://www.figma.com/design/XAbQVqTQhL6Gfx4YSqOc31/OGM-Website-Design-New2027?node-id=0-1",
+  "observedOn": "2026-11-24",
+  "implemented": [
+    {
+      "annotation": "按钮有玻璃效果，点击后跳转services二级页面（设计中）",
+      "implementation": "GO START links to /services with translucent background and backdrop blur"
+    },
+    {
+      "annotation": "图片内部轮播，仅展示，鼠标接触无效果无反应。",
+      "implementation": "12 original Figma image fills and crop transforms, crossfading every 4.2s without hover movement; pause offscreen, in hidden tabs or with reduced motion"
+    },
+    {
+      "annotation": "首页滑动时，games由黑色转变为彩色渐变，转变效果为格子呈现",
+      "implementation": "24 clipped gradient cells revealed according to scroll progress"
+    },
+    {
+      "annotation": "首页滑动时，global360度竖向翻转一周",
+      "implementation": "Original 221x57 GLOBAL bitmap with scroll-linked perspective rotateX 0 to 360 degrees"
+    },
+    {
+      "annotation": "液态玻璃效果，点击邮箱文案直接复制进粘贴板",
+      "implementation": "glass-styled email button, clipboard write, success or failure announcement"
+    },
+    {
+      "annotation": "点击icon时，玻璃状态icon缩小5%，即刻跳转二级services页面",
+      "implementation": "service SVG scales to 0.95 on active, existing service links preserved"
+    },
+    {
+      "annotation": "logo被hover放大20%，左右轻微摇摆",
+      "implementation": "brand and client images scale to 1.2 and oscillate without changing carousel positions"
+    },
+    {
+      "annotation": "卡片描边+发光",
+      "implementation": "stat card hover border and glow"
+    },
+    {
+      "annotation": "点击可返回顶部",
+      "implementation": "existing TOP anchor retained"
+    },
+    {
+      "annotation": "鼠标在该板块移动时 跟随鼠标手，增加玻璃块",
+      "implementation": "Original glass SVG follows pointer movement in orange services panel; bounded trail, no timers or interactions on touch/reduced-motion"
+    },
+    {
+      "annotation": "内部为星环蒙版",
+      "implementation": "Original 6467b.svg alpha mask applied to twelve game tiles with original crop transforms"
+    },
+    {
+      "annotation": "这块的模糊边缘 是向上的半圆",
+      "implementation": "Original 88a64.svg fade mask applied to client arc"
+    },
+    {
+      "annotation": "无效果，注意元素之间的距离 24px",
+      "implementation": "Partner portrait/star row and heading use 24 design-pixel gaps; removed mistaken footer spacing override"
+    }
+  ],
+  "pending": [
+    "MADE Okine Sans and SF Pro Display font files are unavailable; substitute glyphs and font metrics remain a visual difference."
+  ],
+  "verification": {
+    "build": "passed",
+    "motionLogic": "node scripts/verify-home-motion.mjs passed; no authored keyframes in get_motion_context (nodes: [])",
+    "mobile": "390px viewport / 375px content; no horizontal overflow, no broken images, service heading visible, mission and service sections separated",
+    "navigation": "GO START reaches /services; no browser console errors observed",
+    "clipboard": "success announcement observed; browser-tool clipboard read did not expose written contents",
+    "browserMotionPreference": "Reduced-motion enabled during browser QA; continuous animation timing is implemented from text annotations, not Figma keyframe data.",
+    "desktop": "1920px content width; no horizontal overflow; original icons, stat artwork and footer resources loaded",
+    "comments": "No unresolved comments overlapping landing frame 157:4",
+    "buildOutputBytes": 4757754
+  },
+  "sourceFrame": "157:4",
+  "sourceSession": "aa9cefd7-6d45-4b27-8e80-157fe9b07f4f",
+  "sourceAssets": {
+    "downloaded": 56,
+    "rasterLosslessWebP": 31,
+    "pngBytes": 17657714,
+    "webpBytes": 11744402,
+    "allRgbaPixelsEqual": true,
+    "svgFilesUnmodified": true,
+    "excludedReferenceAsset": "img6 is the cursor-position demonstration image in the design, not a production cursor graphic.",
+    "campaignMasterBytes": 10783096,
+    "campaignRuntimeBytes": 1980056,
+    "rasterPolicy": "Original PNGs and pixel-identical lossless WebP masters retained; twelve case images additionally have size-adapted 2x runtime derivatives."
+  },
+  "annotationClarifications": {
+    "pointerGlassRegion": "157:116 orange services panel; original glass asset 7659e.svg",
+    "spacing24px": "157:201 partner section spacing, not footer navigation",
+    "clientMask": "88a64.svg original upward semicircle fade mask",
+    "gamesFont": "Micro 5 Regular 97px, source Google Fonts, local font and OFL notice included"
+  }
+}

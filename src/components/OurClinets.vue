@@ -31,18 +31,14 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import funplus from "../assets/image/partner/Funplus-removebg-preview.webp";
-import igg from "../assets/image/partner/IGG.webp";
-import lilith from "../assets/image/partner/莉莉丝.webp";
-import yoka from "../assets/image/partner/游卡.webp";
-import leiting from "../assets/image/partner/雷霆游戏-removebg-preview.webp";
+import { figmaAssets as a } from "../data/figmaAssets";
 const paused = ref(false);
 const featured = [
-  { name: "Yoka Games", url: yoka, tone: "monochrome" },
-  { name: "FunPlus", url: funplus, tone: "orange" },
-  { name: "Lilith Games", url: lilith, tone: "red" },
-  { name: "IGG", url: igg, tone: "dark" },
-  { name: "Leiting Games", url: leiting, tone: "monochrome" },
+  { name: "Bilibili Games", url: a.imgBilibili1, tone: "bilibili" },
+  { name: "FunPlus", url: a.imgFunplusRemovebgPreview1, tone: "orange" },
+  { name: "Lilith Games", url: a.img1, tone: "red" },
+  { name: "IGG", url: a.imgIgg1, tone: "dark" },
+  { name: "Nuverse", url: a.imgRemovebgPreview1, tone: "nuverse" },
 ];
 </script>
 <style scoped>
@@ -87,6 +83,8 @@ const featured = [
   animation-play-state: paused !important;
 }
 .carousel-control {
+  opacity: 0;
+  pointer-events: none;
   position: absolute;
   right: 0;
   bottom: 0;
@@ -99,9 +97,26 @@ const featured = [
 .carousel-control:hover {
   color: var(--orange);
 }
+.carousel-control:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
 .client-logo img {
   max-height: 100%;
   object-fit: contain;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .client-logo:hover img {
+    animation: logo-wiggle 650ms ease-in-out infinite alternate;
+  }
+}
+@keyframes logo-wiggle {
+  from {
+    transform: scale(1.2) rotate(-4deg);
+  }
+  to {
+    transform: scale(1.2) rotate(4deg);
+  }
 }
 .client-logo.monochrome img {
   filter: brightness(0);
@@ -263,6 +278,79 @@ const featured = [
   }
   .carousel-control {
     bottom: 35px;
+  }
+}
+.logo-arc {
+  mask-image: url("../assets/figma/88a64.svg");
+  mask-size: calc(1347 * var(--du)) calc(545 * var(--du));
+  mask-position: calc(-132.37 * var(--du)) calc(-221 * var(--du));
+  mask-repeat: no-repeat;
+}
+.client-logo {
+  width: calc(169 * var(--du));
+  height: calc(76 * var(--du));
+  border-color: #b3b3b3;
+}
+.client-logo.bilibili {
+  background: #939393;
+}
+.client-logo img {
+  width: calc(87 * var(--du));
+  height: auto;
+  max-height: 100%;
+}
+.client-logo.orange img,
+.client-logo.red img {
+  filter: none;
+}
+.client-logo.dark {
+  width: calc(76 * var(--du));
+}
+.client-logo.dark img {
+  width: calc(43 * var(--du));
+}
+.client-logo.nuverse img {
+  width: calc(91.482 * var(--du));
+}
+@media (max-width: 1023px) {
+  .logo-arc {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+    mask-size: 100% 100%;
+    mask-position: center;
+  }
+  .client-logo {
+    width: 130px;
+    height: 65px;
+  }
+  .client-logo.dark {
+    width: 65px;
+  }
+  .client-logo img {
+    width: 87px;
+  }
+  .client-logo.dark img {
+    width: 43px;
+  }
+}
+@media (max-width: 650px) {
+  .client-logo {
+    width: 82px;
+    height: 44px;
+  }
+  .client-logo.dark {
+    width: 44px;
+  }
+  .client-logo img {
+    width: 58px;
+  }
+  .client-logo.dark img {
+    width: 30px;
   }
 }
 </style>

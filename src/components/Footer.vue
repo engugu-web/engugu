@@ -1,16 +1,36 @@
 <template>
   <footer id="contact" class="site-footer">
     <a class="back-top" href="#app">TOP</a>
-    <div class="footer-orbit" aria-hidden="true"></div>
+    <div class="footer-orbit" aria-hidden="true">
+      <img :src="a.img13X4" alt="" />
+    </div>
     <div class="contact-content">
-      <h2><span>Let's talk!</span> <img :src="logo" alt="" /></h2>
+      <h2>
+        <span>Let's talk!</span
+        ><span class="footer-sticker" aria-hidden="true"
+          ><img :src="a.imgStar1" alt="" /><img :src="a.imgGroup1" alt=""
+        /></span>
+      </h2>
       <p>
         If you'd like to learn more or explore collaboration opportunities,
         please feel free to reach out to us via the following email addresses.
       </p>
-      <a class="email-link" href="mailto:fanta@orangeglobalmedia.agency"
-        >fanta@orangeglobalmedia.agency</a
+      <button
+        class="email-link"
+        type="button"
+        @click="copyEmail"
+        aria-describedby="footer-copy-status"
       >
+        <img
+          class="email-glass"
+          :src="a.imgUnion1"
+          alt=""
+        />fanta@orangeglobalmedia.agency
+      </button>
+      <span id="footer-copy-status" class="copy-status" role="status">{{
+        copyStatus
+      }}</span>
+      <span class="contact-sticker" aria-hidden="true">Contact us!</span>
     </div>
     <nav class="footer-nav shell" aria-label="Footer navigation">
       <router-link to="/services">Services</router-link
@@ -22,10 +42,26 @@
   </footer>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeUnmount } from "vue";
+import { figmaAssets as a } from "../data/figmaAssets";
 import Dialog from "./Dialog.vue";
-import logo from "../assets/image/logo.webp";
 const dialogVisible = ref(false);
+const copyStatus = ref("");
+let copyTimer;
+async function copyEmail() {
+  clearTimeout(copyTimer);
+  try {
+    await navigator.clipboard.writeText("fanta@orangeglobalmedia.agency");
+    copyStatus.value = "Email copied!";
+  } catch {
+    copyStatus.value =
+      "Unable to copy. Please select and copy the email address.";
+  }
+  copyTimer = setTimeout(() => {
+    copyStatus.value = "";
+  }, 3500);
+}
+onBeforeUnmount(() => clearTimeout(copyTimer));
 </script>
 <style scoped>
 .site-footer {
@@ -49,6 +85,7 @@ const dialogVisible = ref(false);
   font: 400 calc(14 * var(--du))/1.2 var(--font-display);
 }
 .footer-orbit {
+  clip-path: inset(-50% -50% 45% -50%);
   position: absolute;
   z-index: -1;
   width: 125%;
@@ -94,6 +131,11 @@ const dialogVisible = ref(false);
   letter-spacing: 0;
 }
 .email-link {
+  color: inherit;
+  backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 #ffffff70,
+    0 8px 28px #00000050;
   position: absolute;
   top: calc(598 * var(--du));
   left: 50%;
@@ -114,15 +156,28 @@ const dialogVisible = ref(false);
 .email-link:hover {
   background: #ffffff30;
 }
+.email-link:active {
+  scale: 0.95;
+}
+.copy-status {
+  position: absolute;
+  left: 50%;
+  top: calc(685 * var(--du));
+  transform: translateX(-50%);
+  width: min(90%, 550px);
+  font-size: 14px;
+  color: #ffd2bb;
+}
 .footer-nav {
   position: absolute;
   top: calc(960 * var(--du));
   left: 50%;
   transform: translateX(-50%);
-  width: calc(1000 * var(--du));
+  width: max-content;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 24px;
   font: 400 calc(14 * var(--du))/1.2 var(--font-display);
 }
 .footer-nav button {
@@ -131,10 +186,6 @@ const dialogVisible = ref(false);
   border: 0;
   background: none;
   padding: 0;
-}
-.footer-nav a:hover,
-.footer-nav button:hover {
-  color: #f77a4a;
 }
 @media (max-width: 1023px) {
   .site-footer {
@@ -190,6 +241,10 @@ const dialogVisible = ref(false);
     white-space: normal;
     overflow-wrap: anywhere;
   }
+  .copy-status {
+    top: auto;
+    margin-top: 20px;
+  }
   .footer-orbit {
     top: 110px;
     height: 270px;
@@ -226,6 +281,145 @@ const dialogVisible = ref(false);
   .footer-orbit {
     height: 190px;
     border-width: 35px;
+  }
+}
+/* Source artwork and exact layer slots: Figma 157:167. */
+.footer-orbit {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(930 * var(--du));
+  border: 0;
+  border-radius: 0;
+  transform: none;
+  filter: none;
+  opacity: 1;
+  box-shadow: none;
+  clip-path: none;
+  mask-image: url("../assets/figma/8d917.svg");
+  mask-size: 100% 100%;
+}
+.footer-orbit img {
+  position: absolute;
+  left: calc(187 * var(--du));
+  top: calc(-147 * var(--du));
+  width: calc(1872 * var(--du));
+  height: calc(791 * var(--du));
+  max-width: none;
+  object-fit: fill;
+  filter: blur(calc(67.3 * var(--du)));
+}
+.footer-sticker {
+  position: absolute;
+  left: calc(100% + 10 * var(--du));
+  top: calc(-27 * var(--du));
+  width: calc(100 * var(--du));
+  height: calc(100 * var(--du));
+}
+.contact-content h2 .footer-sticker img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  transform: none;
+  border-radius: 0;
+}
+.contact-content h2 .footer-sticker img:nth-child(2) {
+  left: 13%;
+  top: 23%;
+  width: 74%;
+}
+.email-link {
+  left: calc(50% + 27.08 * var(--du));
+  top: calc(600 * var(--du));
+  width: calc(550.311 * var(--du));
+  height: calc(85.999 * var(--du));
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  backdrop-filter: none;
+  isolation: isolate;
+}
+.email-link:hover {
+  background: transparent;
+}
+.email-glass {
+  position: absolute;
+  left: calc(-7.9 * var(--du));
+  top: calc(-4.4 * var(--du));
+  width: calc(566.111 * var(--du));
+  height: calc(102.299 * var(--du));
+  max-width: none;
+  z-index: -1;
+}
+.contact-sticker {
+  position: absolute;
+  left: calc(656 * var(--du));
+  top: calc(584.33 * var(--du));
+  width: calc(134 * var(--du));
+  height: calc(36 * var(--du));
+  font:
+    400 calc(26 * var(--du))/1.2 "Micro 5",
+    monospace;
+  background: #f0f0f0;
+  border: 1px solid #000;
+  color: #000;
+  transform: rotate(8.53deg);
+  z-index: 2;
+}
+.footer-nav {
+  width: calc(1000 * var(--du));
+  gap: 0;
+  justify-content: space-between;
+  top: calc(970.59 * var(--du));
+  font-size: calc(20 * var(--du));
+}
+.copy-status {
+  top: calc(710 * var(--du));
+}
+@media (max-width: 1023px) {
+  .footer-orbit {
+    height: 520px;
+  }
+  .footer-orbit img {
+    left: 0;
+    top: 0;
+    width: 115%;
+    height: 400px;
+    filter: blur(30px);
+  }
+  .footer-sticker {
+    width: 56px;
+    height: 56px;
+    top: -18px;
+    left: calc(100% + 8px);
+  }
+  .email-link {
+    left: auto;
+    top: auto;
+    width: fit-content;
+    max-width: 100%;
+    height: auto;
+    padding: 18px 10px;
+    background: #ffffff17;
+    border: 1px solid #ffffff70;
+    backdrop-filter: blur(18px);
+  }
+  .email-glass {
+    display: none;
+  }
+  .contact-sticker {
+    display: none;
+  }
+  .copy-status {
+    top: auto;
+  }
+  .footer-nav {
+    width: 100%;
+    top: auto;
+    justify-content: space-evenly;
+    font-size: 14px;
   }
 }
 </style>
