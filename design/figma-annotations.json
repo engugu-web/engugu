@@ -8,7 +8,7 @@
     },
     {
       "annotation": "图片内部轮播，仅展示，鼠标接触无效果无反应。",
-      "implementation": "12 original image fills and crops in two continuously translating rows; duplicated sequences provide a seamless 30s loop, no hover response; pause offscreen, in hidden tabs or with reduced motion unless explicitly enabled"
+      "implementation": "Original image fills and crops circulate on one counterclockwise belt: upper row left, hidden left turn down, lower row right, hidden right turn up. Four extra cards fill offscreen turns for a seamless 80s circuit, preserving the original initial 6-by-2 arrangement and fixed ring mask. No hover response; pause offscreen, in hidden tabs or with reduced motion unless explicitly enabled."
     },
     {
       "annotation": "首页滑动时，games由黑色转变为彩色渐变，转变效果为格子呈现",

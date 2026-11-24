@@ -6,7 +6,7 @@
   <div
     class="game-window"
     role="img"
-    aria-label="Game campaigns scrolling inside the star ring"
+    aria-label="Game campaigns circulating counterclockwise inside the star ring"
     :style="{
       '--ring-mask': ringMask,
       '--carousel-state': playing ? 'running' : 'paused',
@@ -14,14 +14,13 @@
   >
     <div class="game-mask">
       <div class="game-wall" aria-hidden="true">
-        <div v-for="(row, r) in rows" :key="r" class="game-row">
-          <div class="game-strip">
-            <div v-for="copy in 2" :key="copy" class="game-sequence">
-              <div v-for="s in row" :key="s.src" class="game-tile">
-                <img :src="s.src" :style="crop(s)" alt="" decoding="async" />
-              </div>
-            </div>
-          </div>
+        <div
+          v-for="(s, i) in orbitSlides"
+          :key="i"
+          class="game-tile"
+          :style="{ '--slot': initialSlots[i] }"
+        >
+          <img :src="s.src" :style="crop(s)" alt="" decoding="async" />
         </div>
       </div>
     </div>
@@ -47,7 +46,11 @@ const slides = [
   [a.imgRectangle16, 100, 100, 0, 0],
   [a.imgRectangle18, 190.35, 118.12, -44.95, -4.37],
 ].map(([src, w, h, x, y]) => ({ src, w, h, x, y }));
-const rows = [slides.slice(0, 6), slides.slice(6)];
+// One connected counterclockwise belt. Four extra cards fill its hidden turns,
+// so cards never overlap at a visible corner or jump between the two rows.
+// Slots 2–7 form the lower row; 10–15 form the upper row in reverse order.
+const orbitSlides = [...slides, slides[4], slides[2], slides[7], slides[9]];
+const initialSlots = [15, 14, 13, 12, 11, 10, 2, 3, 4, 5, 6, 7, 0, 1, 8, 9];
 const crop = (s) => ({
   width: `${s.w}%`,
   height: `${s.h}%`,
@@ -90,6 +93,7 @@ const crop = (s) => ({
 }
 .game-window {
   --gallery-unit: var(--du);
+  --orbit-duration: 80s;
   position: absolute;
   left: calc(440 * var(--du));
   top: calc(517 * var(--du));
@@ -123,44 +127,39 @@ const crop = (s) => ({
   transform-origin: 0 0;
   overflow: hidden;
 }
-.game-row + .game-row {
-  margin-top: calc(16 * var(--gallery-unit));
-}
-.game-strip,
-.game-sequence {
-  display: flex;
-  width: max-content;
-}
-.game-strip {
-  animation: game-scroll 30s linear infinite;
-  animation-play-state: var(--carousel-state);
-}
-.game-sequence {
-  gap: calc(16 * var(--gallery-unit));
-  padding-right: calc(16 * var(--gallery-unit));
-  flex: none;
-}
 .game-tile {
-  flex: 0 0 calc(160 * var(--gallery-unit));
   width: calc(160 * var(--gallery-unit));
   height: calc(160 * var(--gallery-unit));
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   border-radius: calc(14 * var(--gallery-unit));
   overflow: hidden;
+  animation: game-orbit var(--orbit-duration) linear
+    calc(var(--slot) * var(--orbit-duration) / -16) infinite;
+  animation-play-state: var(--carousel-state);
 }
 .game-tile img {
   position: absolute;
   max-width: none;
   object-fit: cover;
 }
-@keyframes game-scroll {
-  to { transform: translateX(-50%); }
+/* Turns are one full card + gap outside the viewport. The upper row moves
+   left, then down the hidden left edge, right along the lower row and up the
+   hidden right edge. Cards stay upright throughout the circuit. */
+@keyframes game-orbit {
+  0% { transform: translate(calc(-176 * var(--gallery-unit)), 0); }
+  6.25% { transform: translate(calc(-176 * var(--gallery-unit)), calc(176 * var(--gallery-unit))); }
+  50% { transform: translate(calc(1056 * var(--gallery-unit)), calc(176 * var(--gallery-unit))); }
+  56.25% { transform: translate(calc(1056 * var(--gallery-unit)), 0); }
+  100% { transform: translate(calc(-176 * var(--gallery-unit)), 0); }
 }
 @media (prefers-reduced-motion: reduce) {
   /* Paused by default via the composable; the existing explicit opt-in may
      resume it without changing the visitor's system preference. */
-  .game-strip {
-    animation: game-scroll 30s linear infinite !important;
+  .game-tile {
+    animation: game-orbit var(--orbit-duration) linear
+      calc(var(--slot) * var(--orbit-duration) / -16) infinite !important;
     animation-play-state: var(--carousel-state) !important;
   }
 }
