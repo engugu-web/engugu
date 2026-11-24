@@ -8,10 +8,12 @@
       <div
         v-for="(client, i) in featured"
         :key="client.name"
-        :class="['client-logo', client.tone]"
+        :class="['client-orbit', client.tone]"
         :style="{ '--delay': `${-(featured.length - i - 0.5) * 4.8}s` }"
       >
-        <img :src="client.url" :alt="client.name" />
+        <div :class="['client-logo', client.tone]">
+          <img :src="client.url" :alt="client.name" />
+        </div>
       </div>
     </div>
     <button
@@ -77,9 +79,15 @@ const featured = [
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.client-orbit {
+  position: absolute;
+  width: calc(169 * var(--du));
+  height: calc(76 * var(--du));
   animation: client-orbit 24s linear var(--delay) infinite !important;
 }
-.logo-arc.is-paused .client-logo {
+.client-orbit.dark { width: calc(76 * var(--du)); }
+.logo-arc.is-paused .client-orbit {
   animation-play-state: paused !important;
 }
 .carousel-control {
@@ -105,9 +113,16 @@ const featured = [
   max-height: 100%;
   object-fit: contain;
 }
+@media (hover: hover) {
+  .client-orbit:hover .client-logo {
+    transform: scale(1.2);
+    transform-origin: center top;
+  }
+}
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .client-logo:hover img {
-    animation: logo-wiggle 650ms ease-in-out infinite alternate;
+  .client-orbit:hover .client-logo {
+    animation: logo-wiggle 1300ms ease-in-out infinite alternate;
+    transform-origin: center top;
   }
 }
 @keyframes logo-wiggle {
@@ -211,6 +226,8 @@ const featured = [
   white-space: nowrap;
 }
 @media (max-width: 1023px) {
+  .client-orbit { width: 130px; height: 65px; }
+  .client-orbit.dark { width: 65px; }
   .clients {
     position: relative;
     top: auto;
@@ -258,6 +275,8 @@ const featured = [
   }
 }
 @media (max-width: 650px) {
+  .client-orbit { width: 82px; height: 44px; }
+  .client-orbit.dark { width: 44px; }
   .clients {
     padding: 80px 0;
   }

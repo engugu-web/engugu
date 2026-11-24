@@ -7,18 +7,14 @@ export function useHomeMotion() {
   const carouselRunning = ref(false);
   const progress = ref(0);
   const rotation = ref(0);
-  const reducedMotion = ref(false);
-  const motionOverride = ref(false);
   const copyScale = ref(1);
   let observer;
   let raf;
   let visible = false;
-  let motion;
 
   const sync = () => {
     carouselRunning.value =
-      visible && !document.hidden &&
-      (!reducedMotion.value || motionOverride.value);
+      visible && !document.hidden;
     update();
   };
   const update = () => {
@@ -32,8 +28,7 @@ export function useHomeMotion() {
       if (first && games && first.scrollWidth) {
         copyScale.value = Math.min(1, games.offsetLeft / first.scrollWidth);
       }
-      // Color changes are safe in reduced-motion mode. Never skip directly to
-      // the final frame: the grid reveal is driven by the user's own scroll.
+      // The GLOBAL turn follows the visitor's scroll in both directions.
       progress.value = Math.max(
         0,
         Math.min(
@@ -41,31 +36,17 @@ export function useHomeMotion() {
           (window.innerHeight * 0.9 - top) / (window.innerHeight * 0.55),
         ),
       );
-      rotation.value = reducedMotion.value && !motionOverride.value
-        ? 0
-        : progress.value * 360;
+      rotation.value = progress.value * 360;
     });
-  };
-  const preferenceChanged = () => {
-    reducedMotion.value = motion.matches;
-    motionOverride.value = false;
-    sync();
-  };
-  const toggleMotion = () => {
-    motionOverride.value = !motionOverride.value;
-    sync();
   };
 
   onMounted(() => {
-    motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    reducedMotion.value = motion.matches;
     observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       sync();
     });
     observer.observe(workSection.value);
     document.addEventListener("visibilitychange", sync);
-    motion.addEventListener("change", preferenceChanged);
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     update();
@@ -76,12 +57,10 @@ export function useHomeMotion() {
     observer?.disconnect();
     cancelAnimationFrame(raf);
     document.removeEventListener("visibilitychange", sync);
-    motion?.removeEventListener("change", preferenceChanged);
     window.removeEventListener("scroll", update);
     window.removeEventListener("resize", update);
   });
   return {
     workSection, mission, carouselRunning, progress, rotation, copyScale,
-    reducedMotion, motionOverride, toggleMotion,
   };
 }

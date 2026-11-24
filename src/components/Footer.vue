@@ -18,18 +18,25 @@
       <button
         class="email-link"
         type="button"
+        aria-label="Copy fanta@orangeglobalmedia.agency"
         @click="copyEmail"
-        aria-describedby="footer-copy-status"
+        aria-describedby="footer-copy-hint"
       >
         <img
           class="email-glass"
           :src="a.imgUnion1"
           alt=""
         />fanta@orangeglobalmedia.agency
+        <span
+          id="footer-copy-hint"
+          class="copy-hint"
+          :class="{ 'has-feedback': copyStatus }"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          >{{ copyStatus || "Click to copy" }}</span
+        >
       </button>
-      <span id="footer-copy-status" class="copy-status" role="status">{{
-        copyStatus
-      }}</span>
       <span class="contact-sticker" aria-hidden="true">Contact us!</span>
     </div>
     <nav class="footer-nav shell" aria-label="Footer navigation">
@@ -159,13 +166,41 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
 .email-link:active {
   scale: 0.95;
 }
-.copy-status {
+.copy-hint {
   position: absolute;
   left: 50%;
-  top: calc(685 * var(--du));
-  transform: translateX(-50%);
-  width: min(90%, 550px);
-  font-size: 14px;
+  top: calc(100% + 12px);
+  transform: translateX(-50%) rotate(3.32deg);
+  display: grid;
+  place-items: center;
+  width: max-content;
+  min-width: 80px;
+  max-width: min(280px, 80vw);
+  min-height: 28px;
+  padding: 6px 10px;
+  border: 1px solid #ffffff66;
+  border-radius: 14px;
+  background: linear-gradient(120deg, #ff5526b3, #ff966780);
+  backdrop-filter: blur(2px) saturate(1.5);
+  box-shadow: 0 4px 7.4px rgb(0 0 0 / 9%), inset 0 1px 1px #ffffff70;
+  color: #492116;
+  font: 500 10px/1.2 var(--font-body);
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 4;
+}
+.email-link:hover .copy-hint,
+.email-link:focus-visible .copy-hint { opacity: 1; }
+@media (hover: none) { .email-link:hover .copy-hint { opacity: 0; } }
+.email-link .copy-hint.has-feedback {
+  opacity: 1;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
   color: #ffd2bb;
 }
 .footer-nav {
@@ -240,10 +275,6 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
     border-radius: 6px;
     white-space: normal;
     overflow-wrap: anywhere;
-  }
-  .copy-status {
-    top: auto;
-    margin-top: 20px;
   }
   .footer-orbit {
     top: 110px;
@@ -353,6 +384,19 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   max-width: none;
   z-index: -1;
 }
+.email-link::before {
+  content: "";
+  position: absolute;
+  left: calc(-7.9 * var(--du));
+  top: calc(-4.4 * var(--du));
+  width: calc(566.111 * var(--du));
+  height: calc(102.299 * var(--du));
+  mask-image: url("../assets/figma/d4ddb.svg");
+  mask-size: 100% 100%;
+  backdrop-filter: blur(2px) saturate(1.4);
+  pointer-events: none;
+  z-index: -2;
+}
 .contact-sticker {
   position: absolute;
   left: calc(656 * var(--du));
@@ -374,9 +418,6 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   justify-content: space-between;
   top: calc(970.59 * var(--du));
   font-size: calc(20 * var(--du));
-}
-.copy-status {
-  top: calc(710 * var(--du));
 }
 @media (max-width: 1023px) {
   .footer-orbit {
@@ -409,11 +450,9 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   .email-glass {
     display: none;
   }
+  .email-link::before { display: none; }
   .contact-sticker {
     display: none;
-  }
-  .copy-status {
-    top: auto;
   }
   .footer-nav {
     width: 100%;

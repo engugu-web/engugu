@@ -17,13 +17,6 @@ let mount,
   observe,
   top = 900;
 const events = new Map();
-const media = {
-  matches: false,
-  addEventListener(_, fn) {
-    this.change = fn;
-  },
-  removeEventListener() {},
-};
 const document = {
   hidden: false,
   addEventListener(k, fn) {
@@ -44,7 +37,7 @@ const context = vm.createContext({
   document,
   window: {
     innerHeight: 1000,
-    matchMedia: () => media,
+    matchMedia: () => { throw new Error("Requested motion must not be gated by system preferences"); },
     addEventListener(k, fn) {
       if (k === "scroll") scroll = fn;
     },
@@ -97,30 +90,15 @@ events.get("visibilitychange")();
 assert.equal(motion.carouselRunning.value, false, "background tab stops its carousel");
 await Promise.resolve();
 document.hidden = false;
-media.matches = true;
-media.change();
+events.get("visibilitychange")();
 await Promise.resolve();
-assert.equal(
-  motion.carouselRunning.value,
-  false,
-  "reduced motion disables automatic image changes",
-);
-assert.equal(motion.progress.value, 0, "reduced motion does not skip the grid reveal");
+assert.equal(motion.carouselRunning.value, true, "foreground resumes fixed-frame replacements");
 top = 625;
 scroll();
 await Promise.resolve();
-assert.equal(motion.progress.value, 0.5, "color reveal still follows scroll with reduced motion");
-assert.equal(motion.rotation.value, 0, "3D motion respects the system preference");
-motion.toggleMotion();
-await Promise.resolve();
-assert.equal(motion.rotation.value, 180, "explicit opt-in enables the scroll rotation");
-assert.equal(motion.carouselRunning.value, true, "explicit opt-in enables the image carousel");
-motion.toggleMotion();
-await Promise.resolve();
-assert.equal(motion.rotation.value, 0);
-assert.equal(motion.carouselRunning.value, false);
+assert.equal(motion.rotation.value, 180, "requested 3D turn remains active");
 unmount();
 assert.equal(events.size, 0, "route exit removes visibility listener");
 console.log(
-  "Home motion checks passed: carousel, scroll progress, background pause, reduced motion, cleanup.",
+  "Home motion checks passed: carousel, scroll progress, background pause, always-enabled requested motion, cleanup.",
 );

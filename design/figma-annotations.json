@@ -8,15 +8,15 @@
     },
     {
       "annotation": "图片内部轮播，仅展示，鼠标接触无效果无反应。",
-      "implementation": "Original image fills and crops circulate on one counterclockwise belt: upper row left, hidden left turn down, lower row right, hidden right turn up. Four extra cards fill offscreen turns for a seamless 80s circuit, preserving the original initial 6-by-2 arrangement and fixed ring mask. No hover response; pause offscreen, in hidden tabs or with reduced motion unless explicitly enabled."
+      "implementation": "Twelve stationary frames simultaneously crossfade to the next neighboring image every 2000ms, with a 650ms opacity transition. Original crops and ring mask are preserved. Offscreen and hidden tabs pause playback."
     },
     {
       "annotation": "首页滑动时，games由黑色转变为彩色渐变，转变效果为格子呈现",
-      "implementation": "24 clipped gradient cells revealed according to scroll progress, including in reduced-motion mode; scrolling back restores the black state"
+      "implementation": "User confirmed no reduced-motion fallback for GAMES. Actual Micro 5 glyphs and original gradient assemble as flying pixel cells from the left. IntersectionObserver starts a complete 1600ms entrance independent of scroll speed or system reduced-motion; leaving view resets for replay. Rendering stops after completion and observers/RAF are removed on unmount."
     },
     {
       "annotation": "首页滑动时，global360度竖向翻转一周",
-      "implementation": "Original 221x57 GLOBAL bitmap with scroll-linked perspective rotateX 0 to 360 degrees; reduced-motion mode keeps it still and offers an explicit Enable scroll animations control"
+      "implementation": "Original GLOBAL artwork rendered in a small canvas with projected side depth, scroll-linked vertical rotation from 0 to 360 degrees and moving gold highlights. Requested motion is not gated by system reduced-motion preferences."
     },
     {
       "annotation": "液态玻璃效果，点击邮箱文案直接复制进粘贴板",
@@ -28,7 +28,7 @@
     },
     {
       "annotation": "logo被hover放大20%，左右轻微摇摆",
-      "implementation": "brand and client images scale to 1.2 and oscillate without changing carousel positions"
+      "implementation": "Client capsule and its logo scale together to 1.2; the independent orbit wrapper keeps the arc path intact. Wiggle duration increased from 650ms to 1300ms."
     },
     {
       "annotation": "卡片描边+发光",
@@ -40,7 +40,7 @@
     },
     {
       "annotation": "鼠标在该板块移动时 跟随鼠标手，增加玻璃块",
-      "implementation": "Original glass SVG follows pointer movement in orange services panel; bounded trail, no timers or interactions on touch/reduced-motion"
+      "implementation": "Original Figma glass asset 7659e.svg follows the pointer directly. The visible glass body is 15x15 design pixels; the SVG retains its original 29.8x29.8 shadow bounds, offset -7.4/-3.4 so the body centers on the pointer. One element only; no custom rounded-square background, easing or trail; removed on leave/cancel."
     },
     {
       "annotation": "内部为星环蒙版",
@@ -68,7 +68,7 @@
     "mobile": "375px, 390px and 430px viewports; shared ring/mask/gallery canvas, gallery lowered into the ring, no horizontal overflow or broken images, positive gap before mission copy; counterclockwise animation verified",
     "navigation": "GO START reaches /services; no browser console errors observed",
     "clipboard": "success announcement observed; browser-tool clipboard read did not expose written contents",
-    "browserMotionPreference": "Reduced-motion enabled during browser QA; continuous animation timing is implemented from text annotations, not Figma keyframe data.",
+    "browserMotionPreference": "Requested homepage animation remains enabled regardless of system motion preferences; offscreen/background lifecycle pauses remain.",
     "desktop": "1920px content width; no horizontal overflow; original icons, stat artwork and footer resources loaded",
     "comments": "No unresolved comments overlapping landing frame 157:4",
     "buildOutputBytes": 4757754
@@ -92,5 +92,56 @@
     "spacing24px": "157:201 partner section spacing, not footer navigation",
     "clientMask": "88a64.svg original upward semicircle fade mask",
     "gamesFont": "Micro 5 Regular 97px, source Google Fonts, local font and OFL notice included"
+  },
+  "latestFeedback": {
+    "observedOn": "2026-11-24",
+    "sessionId": "e51754ea-9033-4194-93e2-769133765c67",
+    "changes": [
+      "176:29 fixed image frames with rotating image fills",
+      "176:59 single pointer glass without trail",
+      "176:22 black 9% hover shadow, radius 7.4px and y-offset 4px",
+      "176:36 radial alpha feathering on glow source boundary",
+      "176:81 with user clarification: fixed tooltip appears on email hover/focus, never follows the cursor; click copies the email",
+      "176:64 intro paragraph bottom aligned to dividers independent of font line count; OOH aligned with all second-row icons and titles",
+      "176:67 entire client capsule scales and wiggles together, wiggle slowed by 50%",
+      "GAMES grid cells fade in; GLOBAL corrects its reverse-facing orientation through the 360-degree scroll flip, with mobile rendering verified",
+      "176:76 original email glass silhouette used as backdrop mask; native blur approximates Figma glass, not an identical refraction shader",
+      "User identified extra Enable scroll animations control: removed button, styles and opt-in override; retain system reduced-motion behavior",
+      "Replaced 24-cell color overlay with canvas pixel assembly based on user-supplied video; no new runtime dependencies or on-page controls",
+      "Removed GAMES reduced-motion color-fill branch after manual QA; replaced scroll-scrubbing with a complete visibility-triggered 1600ms entrance",
+      "Latest user clarification: all twelve fixed image frames change to their neighboring image simultaneously every 2 seconds, using a 650ms opacity-only crossfade.",
+      "GLOBAL uses a single canvas projection with side depth and moving orange-gold highlights, following the supplied video; requested homepage motion ignores system reduced-motion settings.",
+      "Services pointer glass: removed leftover reduced-motion gating; a single visible rounded glass block with backdrop blur tracks mouse coordinates directly, without transition or trail.",
+      "Email copy confirmation now replaces Click to copy inside the same fixed hover hint; removed the separate copy-status line and its desktop/mobile styles. Feedback remains visible for 3.5 seconds, including on touch, then returns to the hover hint.",
+      "User requested original small glass resource: restored 7659e.svg at its 15x15 design-pixel visible body size, including original shadow padding; removed the custom 32–48px glass square.",
+      "Copy feedback is plain text in the original hint position: no capsule background, border, shadow or blur. The idle Click to copy hover capsule remains unchanged."
+    ],
+    "pending": [],
+    "verification": [
+      "Vite production build passed",
+      "Existing home motion lifecycle checks passed",
+      "Browser compared all 12 frame offsets before/after: positions unchanged while source images advance",
+      "390x844 mobile screenshot: images remain within ring; no horizontal overflow or broken images",
+      "Email click reports Email copied; hint visible",
+      "Client hover: capsule transform matrix scale 1.2, inner image transform none",
+      "Email tooltip opacity changes 1 to 0 on pointer leave; clipboard action reports success",
+      "Intro bottom vs divider differs by <0.01px; all second-row heading tops identical",
+      "Final 390x844 preview: GLOBAL visible, services in flow, no horizontal overflow or broken images",
+      "Email hint remains fixed under the button, clears on pointer leave; success message no longer overlaps it",
+      "Production build, home motion checks and git diff --check passed",
+      "Browser renderer harness checked progress 0, .2, .4, .6, .8 and 1: leftward source flight, staggered assembly and original final glyphs; reduced-motion removes scatter",
+      "390px viewport: pixel word 92px wide at 46px font; no horizontal overflow and original ring/mobile layout preserved",
+      "Actual production homepage in IAB: leaving viewport restores black label opacity 1; re-entry yields opacity 1, 1, .70006, .32506, 0; captured real page frames with left-flying particles and completed word",
+      "Latest production preview: all twelve next-image sources advance together; every slot retains identical x/y coordinates and transform none. GLOBAL renders correctly with original orange-gold artwork.",
+      "Browser: glass moved from (516.286,81.8304) to (204.286,202.973) with exactly one element; leaving the services panel removed it (count 0). Production build and motion lifecycle checks passed.",
+      "Production preview: footer-copy-hint changes from Click to copy to Email copied! on click, with no separate footer-copy-status element. Screenshot captured and build passed.",
+      "Latest preview: one loaded original SVG, 9.875px body at 1265px viewport (15 design pixels), 19.634px SVG including shadow, no added background or transition; position updates directly on pointer movement. Production build and git diff --check passed.",
+      "Browser copy action: Email copied! has background none, border 0px, box-shadow none and backdrop-filter none. Production build passed."
+    ],
+    "deployment": "User requested production deployment; source and generated docs committed together. Deployment status is verified separately after the Git push.",
+    "reviewMethod": "User requested browser-only Figma review, no additional Figma MCP calls. Viewed original feedback canvas, images 12, 15, 16, 19 and 22, and wowww.art in browser.",
+    "deferred": [
+      "About, Our Work and Contact secondary pages: user confirmed not designed yet; keep current homepage links and complete homepage only."
+    ]
   }
 }

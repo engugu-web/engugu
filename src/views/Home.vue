@@ -28,57 +28,33 @@
           :style="{ transform: `scaleX(${copyScale || 1})` }"
           >FOUNDED TO HELP CHINESE</span
         >
-        <span class="games-word"
-          >GAMES<span
-            v-for="n in 24"
-            :key="n"
-            class="games-color"
-            aria-hidden="true"
-            :style="{
-              opacity: progress >= (((n * 7) % 24) + 1) / 24 ? 1 : 0,
-              clipPath: `inset(${(Math.floor((n - 1) / 8) * 100) / 3}% ${100 - (n % 8 || 8) * 12.5}% ${100 - ((Math.floor((n - 1) / 8) + 1) * 100) / 3}% ${((n - 1) % 8) * 12.5}%)`,
-            }"
-            >GAMES</span
-          ></span
+        <span class="games-word"><PixelGames /></span
         ><span class="mission-second"
           >REACH
           <span
             class="global-word"
-            :style="{
-              transform: `perspective(600px) rotateX(${rotation}deg)`,
-            }"
-            ><img :src="a.imgGlobal1" alt="GLOBAL"
-          /></span>
+            ><GlobalArtwork :rotation="rotation" :playing="carouselRunning" /></span>
           AUDIENCES.</span
         >
       </h2>
-      <button
-        v-if="reducedMotion"
-        class="motion-toggle"
-        type="button"
-        :aria-pressed="motionOverride"
-        @click="toggleMotion"
-      >
-        {{ motionOverride ? 'Disable scroll animations' : 'Enable scroll animations' }}
-      </button>
     </section>
     <section
       id="our-services-row"
       class="services-panel shell"
+      @pointerenter="trackGlass"
       @pointermove="trackGlass"
-      @pointerleave="glassTrail = []"
+      @pointerleave="glassPointer = null"
+      @pointercancel="glassPointer = null"
     >
       <div class="service-background" aria-hidden="true">
         <img :src="a.img5" alt="" />
       </div>
-      <img
-        v-for="point in glassTrail"
-        :key="point.id"
+      <span
+        v-if="glassPointer"
         class="pointer-glass"
-        :src="a.img"
-        alt=""
-        :style="{ left: point.x + 'px', top: point.y + 'px' }"
-      />
+        aria-hidden="true"
+        :style="{ left: glassPointer.x + 'px', top: glassPointer.y + 'px' }"
+      ><img :src="a.img" alt="" /></span>
       <h2>7 CORE SERVICES</h2>
       <div class="service-grid">
         <div class="service-intro">
@@ -159,13 +135,14 @@
 import { ref } from "vue";
 import { figmaAssets as a } from "../data/figmaAssets";
 import GameArtwork from "../components/GameArtwork.vue";
+import PixelGames from "../components/PixelGames.vue";
+import GlobalArtwork from "../components/GlobalArtwork.vue";
 import StatArtwork from "../components/StatArtwork.vue";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import OurClients from "../components/OurClinets.vue";
 import { useHomeMotion } from "../composables/useHomeMotion";
-const { workSection, mission, carouselRunning, progress, rotation, copyScale,
-  reducedMotion, motionOverride, toggleMotion } = useHomeMotion();
+const { workSection, mission, carouselRunning, rotation, copyScale } = useHomeMotion();
 import { services } from "../data/services";
 const portraits = [
   a.imgEllipse5,
@@ -196,7 +173,7 @@ const serviceCoordinates = [
   [513, 252, 220],
   [865, 252, 283],
   [1223, 252, 248],
-  [173, 572, 220],
+  [173, 567, 220],
   [513, 567, 220],
   [865, 567, 296],
   [1223, 567, 248],
@@ -206,22 +183,14 @@ const servicePosition = (i) => ({
   "--service-y": serviceCoordinates[i][1],
   "--title-width": serviceCoordinates[i][2],
 });
-const glassTrail = ref([]);
-let lastGlass = 0;
+const glassPointer = ref(null);
 function trackGlass(event) {
-  if (
-    event.pointerType === "touch" ||
-    matchMedia("(prefers-reduced-motion: reduce)").matches
-  )
+  if (event.pointerType === "touch") {
+    glassPointer.value = null;
     return;
-  const now = performance.now();
-  if (now - lastGlass < 65) return;
-  lastGlass = now;
+  }
   const rect = event.currentTarget.getBoundingClientRect();
-  glassTrail.value = [
-    ...glassTrail.value.filter((p) => now - p.id < 1400).slice(-11),
-    { id: now, x: event.clientX - rect.left, y: event.clientY - rect.top },
-  ];
+  glassPointer.value = { x: event.clientX - rect.left, y: event.clientY - rect.top };
 }
 const stats = [
   {
@@ -314,7 +283,7 @@ const stats = [
   font: 500 calc(24 * var(--du))/1 var(--font-display);
 }
 .start-button:hover {
-  box-shadow: 0 5px 20px #f1542d30;
+  box-shadow: 0 4px 7.4px rgb(0 0 0 / 9%);
 }
 .work-section {
   position: absolute;
@@ -342,13 +311,6 @@ const stats = [
   display: inline-block;
   color: var(--ink);
 }
-.games-color {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, #ed84b7, #86b7bb, #f29535);
-  color: transparent;
-  background-clip: text;
-}
 .global-word {
   display: inline-block;
   width: calc(221 * var(--du));
@@ -356,38 +318,11 @@ const stats = [
   vertical-align: middle;
   transform-origin: center;
 }
-.global-word img {
-  width: 100%;
-  height: auto;
-}
-.motion-toggle {
-  position: absolute;
-  top: calc(1245 * var(--du));
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 8px 14px;
-  border: 1px solid #dedede;
-  border-radius: 20px;
-  background: #ffffffd9;
-  color: #555;
-  font-size: 12px;
-}
 .games-word {
   font-family: "Micro 5", monospace;
   font-size: calc(97 * var(--du));
   line-height: 1.2;
   vertical-align: middle;
-}
-.games-color {
-  background-image: linear-gradient(
-    101.65deg,
-    #ee63b4 3.6%,
-    #e8e89f 22.3%,
-    #4cc0df 33.9%,
-    #a2b1b1 45.5%,
-    #fc7212 67.4%,
-    #e7d975 96.4%
-  );
 }
 .services-panel {
   position: absolute;
@@ -822,10 +757,14 @@ const stats = [
   position: absolute;
   left: calc(175 * var(--du));
   top: calc(251 * var(--du));
+  height: calc(256 * var(--du));
 }
 .service-intro p {
   width: calc(260 * var(--du));
   font: 400 calc(16 * var(--du))/1.2 var(--font-display);
+  margin-top: 0;
+  position: absolute;
+  bottom: 0;
 }
 .service-item {
   position: absolute;
@@ -895,21 +834,23 @@ const stats = [
 }
 .pointer-glass {
   position: absolute;
-  width: calc(29.8 * var(--du));
-  height: auto;
+  width: calc(15 * var(--du));
+  height: calc(15 * var(--du));
   pointer-events: none;
   z-index: 3;
-  animation: glass-trace 1.4s ease-out both;
+  transform: translate(-50%, -50%);
+  /* Follow the latest pointer position directly, without easing or copies. */
+  transition: none;
+  animation: none;
 }
-@keyframes glass-trace {
-  from {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(-50%, -90%) scale(0.5);
-  }
+.pointer-glass img {
+  /* The original 15px glass shape has 7.4px side / 3.4px top shadow padding. */
+  position: absolute;
+  left: calc(-7.4 * var(--du));
+  top: calc(-3.4 * var(--du));
+  width: calc(29.8 * var(--du));
+  height: calc(29.8 * var(--du));
+  max-width: none;
 }
 .partner-portraits {
   position: relative;
@@ -953,7 +894,7 @@ const stats = [
     height: auto;
     background: #fff7;
     backdrop-filter: blur(18px);
-    box-shadow: 0 4px 8px #0001;
+    box-shadow: 0 4px 7.4px rgb(0 0 0 / 9%);
   }
   .start-glass {
     display: none;
@@ -984,6 +925,8 @@ const stats = [
   .service-intro p {
     width: auto;
     font-size: 14px;
+    position: static;
+    margin-top: 18px;
   }
   .service-item h3,
   .service-item p {
@@ -1078,14 +1021,6 @@ const stats = [
     left: auto;
     transform: none;
     margin: 0 auto;
-  }
-  .motion-toggle {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    display: block;
-    margin: 16px auto 0;
   }
   .services-panel > h2 {
     position: relative;

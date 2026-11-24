@@ -7,21 +7,22 @@
     <div
       class="game-window"
       role="img"
-      aria-label="Game campaigns circulating counterclockwise inside the star ring"
+      aria-label="Game campaigns changing within fixed frames inside the star ring"
       :style="{
         '--ring-mask': ringMask,
-        '--carousel-state': playing ? 'running' : 'paused',
       }"
     >
       <div class="game-mask">
         <div class="game-wall" aria-hidden="true">
           <div
-            v-for="(s, i) in orbitSlides"
+            v-for="(s, i) in visibleSlides"
             :key="i"
             class="game-tile"
-            :style="{ '--slot': initialSlots[i] }"
+            :style="{ '--column': i % 6, '--row': Math.floor(i / 6) }"
           >
-            <img :src="s.src" :style="crop(s)" alt="" decoding="async" />
+            <Transition name="game-change">
+              <img :key="s.src" :src="s.src" :style="crop(s)" alt="" decoding="async" />
+            </Transition>
           </div>
         </div>
       </div>
@@ -29,10 +30,11 @@
   </div>
 </template>
 <script setup>
+import { computed, onBeforeUnmount, ref, watch } from "vue";
 import { figmaAssets as a } from "../data/figmaAssets";
 // Production SVG data URLs contain parentheses; quote them for valid CSS urls.
 const ringMask = `url("${a.imgRectangle6}")`;
-defineProps({ playing: { type: Boolean, default: false } });
+const props = defineProps({ playing: { type: Boolean, default: false } });
 // The original twelve image fills, including their Figma crop transforms.
 const slides = [
   [a.imgRectangle7, 239.97, 144.89, -69.73, -6.14],
@@ -48,11 +50,17 @@ const slides = [
   [a.imgRectangle16, 100, 100, 0, 0],
   [a.imgRectangle18, 190.35, 118.12, -44.95, -4.37],
 ].map(([src, w, h, x, y]) => ({ src, w, h, x, y }));
-// One connected counterclockwise belt. Four extra cards fill its hidden turns,
-// so cards never overlap at a visible corner or jump between the two rows.
-// Slots 2–7 form the lower row; 10–15 form the upper row in reverse order.
-const orbitSlides = [...slides, slides[4], slides[2], slides[7], slides[9]];
-const initialSlots = [15, 14, 13, 12, 11, 10, 2, 3, 4, 5, 6, 7, 0, 1, 8, 9];
+// All twelve fixed frames crossfade to their next image together; no tile moves.
+const step = ref(0);
+const visibleSlides = computed(() => slides.map((_, index) => slides[(index + step.value) % slides.length]));
+let timer;
+watch(() => props.playing, (playing) => {
+  clearInterval(timer);
+  if (playing) timer = setInterval(() => {
+    step.value = (step.value + 1) % slides.length;
+  }, 2000);
+}, { immediate: true });
+onBeforeUnmount(() => clearInterval(timer));
 const crop = (s) => ({
   width: `${s.w}%`,
   height: `${s.h}%`,
@@ -91,6 +99,8 @@ const crop = (s) => ({
   max-width: none;
   transform: rotate(-21.46deg);
   flex: none;
+  /* Feather the source artwork's rectangular boundary (feedback 176:36). */
+  mask-image: radial-gradient(ellipse closest-side, #000 48%, transparent 100%);
 }
 .orbit-ring {
   position: absolute;
@@ -103,7 +113,6 @@ const crop = (s) => ({
 }
 .game-window {
   --gallery-unit: var(--orbit-unit);
-  --orbit-duration: 80s;
   position: absolute;
   left: calc(440 * var(--orbit-unit));
   top: calc(517 * var(--orbit-unit));
@@ -141,38 +150,20 @@ const crop = (s) => ({
   width: calc(160 * var(--gallery-unit));
   height: calc(160 * var(--gallery-unit));
   position: absolute;
-  top: 0;
-  left: 0;
+  top: calc(var(--row) * 176 * var(--gallery-unit));
+  left: calc(var(--column) * 176 * var(--gallery-unit));
   border-radius: calc(14 * var(--gallery-unit));
   overflow: hidden;
-  animation: game-orbit var(--orbit-duration) linear
-    calc(var(--slot) * var(--orbit-duration) / -16) infinite;
-  animation-play-state: var(--carousel-state);
 }
 .game-tile img {
   position: absolute;
   max-width: none;
   object-fit: cover;
 }
-/* Turns are one full card + gap outside the viewport. The upper row moves
-   left, then down the hidden left edge, right along the lower row and up the
-   hidden right edge. Cards stay upright throughout the circuit. */
-@keyframes game-orbit {
-  0% { transform: translate(calc(-176 * var(--gallery-unit)), 0); }
-  6.25% { transform: translate(calc(-176 * var(--gallery-unit)), calc(176 * var(--gallery-unit))); }
-  50% { transform: translate(calc(1056 * var(--gallery-unit)), calc(176 * var(--gallery-unit))); }
-  56.25% { transform: translate(calc(1056 * var(--gallery-unit)), 0); }
-  100% { transform: translate(calc(-176 * var(--gallery-unit)), 0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  /* Paused by default via the composable; the existing explicit opt-in may
-     resume it without changing the visitor's system preference. */
-  .game-tile {
-    animation: game-orbit var(--orbit-duration) linear
-      calc(var(--slot) * var(--orbit-duration) / -16) infinite !important;
-    animation-play-state: var(--carousel-state) !important;
-  }
-}
+.game-change-enter-active,
+.game-change-leave-active { transition: opacity 650ms ease; }
+.game-change-enter-from,
+.game-change-leave-to { opacity: 0; }
 @media (max-width: 1023px) {
   /* Scale and move the entire Figma canvas together. The ring, alpha mask and
      card belt must never use independent mobile dimensions or offsets. */
