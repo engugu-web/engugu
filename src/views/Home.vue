@@ -21,7 +21,7 @@
       class="work-section"
       aria-label="Our work"
     >
-      <GameArtwork :frame="frame" />
+      <GameArtwork :playing="carouselRunning" />
       <h2 ref="mission" class="mission">
         <span
           class="mission-first"
@@ -164,7 +164,7 @@ import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import OurClients from "../components/OurClinets.vue";
 import { useHomeMotion } from "../composables/useHomeMotion";
-const { workSection, mission, frame, progress, rotation, copyScale,
+const { workSection, mission, carouselRunning, progress, rotation, copyScale,
   reducedMotion, motionOverride, toggleMotion } = useHomeMotion();
 import { services } from "../data/services";
 const portraits = [

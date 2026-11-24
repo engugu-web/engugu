@@ -3,24 +3,33 @@
     <div class="orbit-glow"><img :src="a.imgEllipse1" alt="" /></div>
     <img class="orbit-ring" :src="a.img13X2" alt="" />
   </div>
-  <div class="game-wall" :style="{ '--ring-mask': `url(${a.imgRectangle6})` }">
-    <div v-for="(_, i) in slides" :key="i" class="game-tile">
-      <Transition name="game-crossfade">
-        <img
-          :key="(i + frame) % slides.length"
-          :src="slide(i).src"
-          :style="crop(slide(i))"
-          :alt="`Game campaign ${i + 1}`"
-          loading="lazy"
-          decoding="async"
-        />
-      </Transition>
+  <div
+    class="game-window"
+    role="img"
+    aria-label="Game campaigns scrolling inside the star ring"
+    :style="{
+      '--ring-mask': `url(${a.imgRectangle6})`,
+      '--carousel-state': playing ? 'running' : 'paused',
+    }"
+  >
+    <div class="game-mask">
+      <div class="game-wall" aria-hidden="true">
+        <div v-for="(row, r) in rows" :key="r" class="game-row">
+          <div class="game-strip">
+            <div v-for="copy in 2" :key="copy" class="game-sequence">
+              <div v-for="s in row" :key="s.src" class="game-tile">
+                <img :src="s.src" :style="crop(s)" alt="" decoding="async" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
 import { figmaAssets as a } from "../data/figmaAssets";
-const props = defineProps({ frame: { type: Number, default: 0 } });
+defineProps({ playing: { type: Boolean, default: false } });
 // The original twelve image fills, including their Figma crop transforms.
 const slides = [
   [a.imgRectangle7, 239.97, 144.89, -69.73, -6.14],
@@ -36,7 +45,7 @@ const slides = [
   [a.imgRectangle16, 100, 100, 0, 0],
   [a.imgRectangle18, 190.35, 118.12, -44.95, -4.37],
 ].map(([src, w, h, x, y]) => ({ src, w, h, x, y }));
-const slide = (i) => slides[(i + props.frame) % slides.length];
+const rows = [slides.slice(0, 6), slides.slice(6)];
 const crop = (s) => ({
   width: `${s.w}%`,
   height: `${s.h}%`,
@@ -77,23 +86,64 @@ const crop = (s) => ({
   max-width: none;
   object-fit: cover;
 }
-.game-wall {
+.game-window {
+  --gallery-unit: var(--du);
   position: absolute;
   left: calc(440 * var(--du));
   top: calc(517 * var(--du));
-  width: calc(1040 * var(--du));
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: calc(16 * var(--du));
+  width: calc(1040 * var(--gallery-unit));
+  height: calc(336 * var(--gallery-unit));
+  pointer-events: none;
+}
+/* Keep the original alpha mask in its Figma coordinate system. The asset is
+   unrotated; applying it to its rotated bounding box loses the ring's slope.
+   These offsets include the SVG's 24px blur padding. */
+.game-mask {
+  position: absolute;
+  left: calc(-617.603893 * var(--gallery-unit));
+  top: calc(325.950144 * var(--gallery-unit));
+  width: calc(1735.34 * var(--gallery-unit));
+  height: calc(426.365 * var(--gallery-unit));
+  transform: rotate(-21.585144deg);
+  transform-origin: 0 0;
+  mask-mode: alpha;
   mask-image: var(--ring-mask);
-  mask-size: calc(1623.274 * var(--du)) calc(761.645 * var(--du));
-  mask-position: calc(-543.99 * var(--du)) calc(-175.842 * var(--du));
+  mask-size: 100% 100%;
   mask-repeat: no-repeat;
 }
+.game-wall {
+  position: absolute;
+  left: calc(694.204187 * var(--gallery-unit));
+  top: calc(-75.885619 * var(--gallery-unit));
+  width: calc(1040 * var(--gallery-unit));
+  height: calc(336 * var(--gallery-unit));
+  transform: rotate(21.585144deg);
+  transform-origin: 0 0;
+  overflow: hidden;
+}
+.game-row + .game-row {
+  margin-top: calc(16 * var(--gallery-unit));
+}
+.game-strip,
+.game-sequence {
+  display: flex;
+  width: max-content;
+}
+.game-strip {
+  animation: game-scroll 30s linear infinite;
+  animation-play-state: var(--carousel-state);
+}
+.game-sequence {
+  gap: calc(16 * var(--gallery-unit));
+  padding-right: calc(16 * var(--gallery-unit));
+  flex: none;
+}
 .game-tile {
+  flex: 0 0 calc(160 * var(--gallery-unit));
+  width: calc(160 * var(--gallery-unit));
+  height: calc(160 * var(--gallery-unit));
   position: relative;
-  aspect-ratio: 1;
-  border-radius: calc(14 * var(--du));
+  border-radius: calc(14 * var(--gallery-unit));
   overflow: hidden;
 }
 .game-tile img {
@@ -101,13 +151,16 @@ const crop = (s) => ({
   max-width: none;
   object-fit: cover;
 }
-.game-crossfade-enter-active,
-.game-crossfade-leave-active {
-  transition: opacity 700ms ease;
+@keyframes game-scroll {
+  to { transform: translateX(-50%); }
 }
-.game-crossfade-enter-from,
-.game-crossfade-leave-to {
-  opacity: 0;
+@media (prefers-reduced-motion: reduce) {
+  /* Paused by default via the composable; the existing explicit opt-in may
+     resume it without changing the visitor's system preference. */
+  .game-strip {
+    animation: game-scroll 30s linear infinite !important;
+    animation-play-state: var(--carousel-state) !important;
+  }
 }
 @media (max-width: 1023px) {
   .orbit-glow {
@@ -127,16 +180,10 @@ const crop = (s) => ({
     height: 430px;
     object-fit: fill;
   }
-  .game-wall {
+  .game-window {
+    --gallery-unit: calc(78vw / 1040);
     left: 11%;
     top: 160px;
-    width: 78%;
-    gap: 8px;
-    mask-size: 156.08% 226.68%;
-    mask-position: center;
-  }
-  .game-tile {
-    border-radius: 8px;
   }
 }
 </style>

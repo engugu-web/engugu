@@ -4,32 +4,21 @@ import { onMounted, onBeforeUnmount, ref } from "vue";
 export function useHomeMotion() {
   const workSection = ref(null);
   const mission = ref(null);
-  const frame = ref(0);
+  const carouselRunning = ref(false);
   const progress = ref(0);
   const rotation = ref(0);
   const reducedMotion = ref(false);
   const motionOverride = ref(false);
   const copyScale = ref(1);
   let observer;
-  let timer;
   let raf;
   let visible = false;
   let motion;
 
-  const stop = () => {
-    clearInterval(timer);
-    timer = undefined;
-  };
   const sync = () => {
-    stop();
-    if (
+    carouselRunning.value =
       visible && !document.hidden &&
-      (!reducedMotion.value || motionOverride.value)
-    ) {
-      timer = setInterval(() => {
-        frame.value += 1;
-      }, 4200);
-    }
+      (!reducedMotion.value || motionOverride.value);
     update();
   };
   const update = () => {
@@ -83,7 +72,7 @@ export function useHomeMotion() {
     document.fonts?.ready.then(update);
   });
   onBeforeUnmount(() => {
-    stop();
+    carouselRunning.value = false;
     observer?.disconnect();
     cancelAnimationFrame(raf);
     document.removeEventListener("visibilitychange", sync);
@@ -92,7 +81,7 @@ export function useHomeMotion() {
     window.removeEventListener("resize", update);
   });
   return {
-    workSection, mission, frame, progress, rotation, copyScale,
+    workSection, mission, carouselRunning, progress, rotation, copyScale,
     reducedMotion, motionOverride, toggleMotion,
   };
 }

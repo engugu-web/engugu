@@ -8,7 +8,7 @@
     },
     {
       "annotation": "图片内部轮播，仅展示，鼠标接触无效果无反应。",
-      "implementation": "12 original Figma image fills and crop transforms, crossfading every 4.2s without hover movement; pause offscreen, in hidden tabs or with reduced motion"
+      "implementation": "12 original image fills and crops in two continuously translating rows; duplicated sequences provide a seamless 30s loop, no hover response; pause offscreen, in hidden tabs or with reduced motion unless explicitly enabled"
     },
     {
       "annotation": "首页滑动时，games由黑色转变为彩色渐变，转变效果为格子呈现",
@@ -44,7 +44,7 @@
     },
     {
       "annotation": "内部为星环蒙版",
-      "implementation": "Original 6467b.svg alpha mask applied to twelve game tiles with original crop transforms"
+      "implementation": "Original 6467b.svg alpha mask with Figma's -21.585144 degree rotation, original 1735.34 x 426.365 dimensions and 24px blur padding; inner gallery counter-rotates so cards stay upright while their top-left and bottom-right edges are clipped by the star ring"
     },
     {
       "annotation": "这块的模糊边缘 是向上的半圆",

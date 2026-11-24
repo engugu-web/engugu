@@ -13,11 +13,9 @@ const source = (
   .replace("export function", "function");
 let mount,
   unmount,
-  tick,
   scroll,
   observe,
-  top = 900,
-  intervals = 0;
+  top = 900;
 const events = new Map();
 const media = {
   matches: false,
@@ -59,14 +57,6 @@ const context = vm.createContext({
     observe() {}
     disconnect() {}
   },
-  setInterval(fn) {
-    tick = fn;
-    intervals++;
-    return 1;
-  },
-  clearInterval() {
-    tick = undefined;
-  },
   requestAnimationFrame(fn) {
     queueMicrotask(fn);
     return 1;
@@ -82,9 +72,10 @@ await Promise.resolve();
 assert.equal(motion.progress.value, 0);
 assert.equal(motion.rotation.value, 0);
 observe([{ isIntersecting: true }]);
-assert.equal(intervals, 1);
-tick();
-assert.equal(motion.frame.value, 1, "visible carousel advances");
+assert.equal(motion.carouselRunning.value, true, "visible carousel runs");
+observe([{ isIntersecting: false }]);
+assert.equal(motion.carouselRunning.value, false, "offscreen carousel pauses");
+observe([{ isIntersecting: true }]);
 await Promise.resolve();
 top = 625;
 scroll();
@@ -103,15 +94,15 @@ await Promise.resolve();
 assert.equal(motion.rotation.value, 0, "scrolling back reverses the turn");
 document.hidden = true;
 events.get("visibilitychange")();
-assert.equal(tick, undefined, "background tab stops its carousel");
+assert.equal(motion.carouselRunning.value, false, "background tab stops its carousel");
 await Promise.resolve();
 document.hidden = false;
 media.matches = true;
 media.change();
 await Promise.resolve();
 assert.equal(
-  tick,
-  undefined,
+  motion.carouselRunning.value,
+  false,
   "reduced motion disables automatic image changes",
 );
 assert.equal(motion.progress.value, 0, "reduced motion does not skip the grid reveal");
@@ -123,11 +114,11 @@ assert.equal(motion.rotation.value, 0, "3D motion respects the system preference
 motion.toggleMotion();
 await Promise.resolve();
 assert.equal(motion.rotation.value, 180, "explicit opt-in enables the scroll rotation");
-assert.ok(tick, "explicit opt-in enables the image carousel");
+assert.equal(motion.carouselRunning.value, true, "explicit opt-in enables the image carousel");
 motion.toggleMotion();
 await Promise.resolve();
 assert.equal(motion.rotation.value, 0);
-assert.equal(tick, undefined);
+assert.equal(motion.carouselRunning.value, false);
 unmount();
 assert.equal(events.size, 0, "route exit removes visibility listener");
 console.log(
