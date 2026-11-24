@@ -45,13 +45,22 @@
           <span
             class="global-word"
             :style="{
-              transform: `perspective(600px) rotateX(${progress * 360}deg)`,
+              transform: `perspective(600px) rotateX(${rotation}deg)`,
             }"
             ><img :src="a.imgGlobal1" alt="GLOBAL"
           /></span>
           AUDIENCES.</span
         >
       </h2>
+      <button
+        v-if="reducedMotion"
+        class="motion-toggle"
+        type="button"
+        :aria-pressed="motionOverride"
+        @click="toggleMotion"
+      >
+        {{ motionOverride ? 'Disable scroll animations' : 'Enable scroll animations' }}
+      </button>
     </section>
     <section
       id="our-services-row"
@@ -155,7 +164,8 @@ import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import OurClients from "../components/OurClinets.vue";
 import { useHomeMotion } from "../composables/useHomeMotion";
-const { workSection, mission, frame, progress, copyScale } = useHomeMotion();
+const { workSection, mission, frame, progress, rotation, copyScale,
+  reducedMotion, motionOverride, toggleMotion } = useHomeMotion();
 import { services } from "../data/services";
 const portraits = [
   a.imgEllipse5,
@@ -349,6 +359,18 @@ const stats = [
 .global-word img {
   width: 100%;
   height: auto;
+}
+.motion-toggle {
+  position: absolute;
+  top: calc(1245 * var(--du));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 14px;
+  border: 1px solid #dedede;
+  border-radius: 20px;
+  background: #ffffffd9;
+  color: #555;
+  font-size: 12px;
 }
 .games-word {
   font-family: "Micro 5", monospace;
@@ -1054,6 +1076,14 @@ const stats = [
     left: auto;
     transform: none;
     margin: 0 auto;
+  }
+  .motion-toggle {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    display: block;
+    margin: 16px auto 0;
   }
   .services-panel > h2 {
     position: relative;

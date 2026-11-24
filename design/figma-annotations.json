@@ -12,11 +12,11 @@
     },
     {
       "annotation": "首页滑动时，games由黑色转变为彩色渐变，转变效果为格子呈现",
-      "implementation": "24 clipped gradient cells revealed according to scroll progress"
+      "implementation": "24 clipped gradient cells revealed according to scroll progress, including in reduced-motion mode; scrolling back restores the black state"
     },
     {
       "annotation": "首页滑动时，global360度竖向翻转一周",
-      "implementation": "Original 221x57 GLOBAL bitmap with scroll-linked perspective rotateX 0 to 360 degrees"
+      "implementation": "Original 221x57 GLOBAL bitmap with scroll-linked perspective rotateX 0 to 360 degrees; reduced-motion mode keeps it still and offers an explicit Enable scroll animations control"
     },
     {
       "annotation": "液态玻璃效果，点击邮箱文案直接复制进粘贴板",

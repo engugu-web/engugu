@@ -6,6 +6,9 @@ export function useHomeMotion() {
   const mission = ref(null);
   const frame = ref(0);
   const progress = ref(0);
+  const rotation = ref(0);
+  const reducedMotion = ref(false);
+  const motionOverride = ref(false);
   const copyScale = ref(1);
   let observer;
   let timer;
@@ -19,7 +22,10 @@ export function useHomeMotion() {
   };
   const sync = () => {
     stop();
-    if (visible && !document.hidden && !motion.matches) {
+    if (
+      visible && !document.hidden &&
+      (!reducedMotion.value || motionOverride.value)
+    ) {
       timer = setInterval(() => {
         frame.value += 1;
       }, 4200);
@@ -37,27 +43,40 @@ export function useHomeMotion() {
       if (first && games && first.scrollWidth) {
         copyScale.value = Math.min(1, games.offsetLeft / first.scrollWidth);
       }
-      progress.value = motion.matches
-        ? 1
-        : Math.max(
-            0,
-            Math.min(
-              1,
-              (window.innerHeight * 0.9 - top) / (window.innerHeight * 0.55),
-            ),
-          );
+      // Color changes are safe in reduced-motion mode. Never skip directly to
+      // the final frame: the grid reveal is driven by the user's own scroll.
+      progress.value = Math.max(
+        0,
+        Math.min(
+          1,
+          (window.innerHeight * 0.9 - top) / (window.innerHeight * 0.55),
+        ),
+      );
+      rotation.value = reducedMotion.value && !motionOverride.value
+        ? 0
+        : progress.value * 360;
     });
+  };
+  const preferenceChanged = () => {
+    reducedMotion.value = motion.matches;
+    motionOverride.value = false;
+    sync();
+  };
+  const toggleMotion = () => {
+    motionOverride.value = !motionOverride.value;
+    sync();
   };
 
   onMounted(() => {
     motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    reducedMotion.value = motion.matches;
     observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       sync();
     });
     observer.observe(workSection.value);
     document.addEventListener("visibilitychange", sync);
-    motion.addEventListener("change", sync);
+    motion.addEventListener("change", preferenceChanged);
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     update();
@@ -68,9 +87,12 @@ export function useHomeMotion() {
     observer?.disconnect();
     cancelAnimationFrame(raf);
     document.removeEventListener("visibilitychange", sync);
-    motion?.removeEventListener("change", sync);
+    motion?.removeEventListener("change", preferenceChanged);
     window.removeEventListener("scroll", update);
     window.removeEventListener("resize", update);
   });
-  return { workSection, mission, frame, progress, copyScale };
+  return {
+    workSection, mission, frame, progress, rotation, copyScale,
+    reducedMotion, motionOverride, toggleMotion,
+  };
 }

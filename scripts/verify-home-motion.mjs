@@ -80,6 +80,7 @@ motion.mission.value = { getBoundingClientRect: () => ({ top }) };
 mount();
 await Promise.resolve();
 assert.equal(motion.progress.value, 0);
+assert.equal(motion.rotation.value, 0);
 observe([{ isIntersecting: true }]);
 assert.equal(intervals, 1);
 tick();
@@ -89,6 +90,17 @@ top = 625;
 scroll();
 await Promise.resolve();
 assert.equal(motion.progress.value, 0.5, "scroll maps to half a turn");
+assert.equal(motion.rotation.value, 180);
+
+top = 350;
+scroll();
+await Promise.resolve();
+assert.equal(motion.progress.value, 1, "all grid cells are revealed");
+assert.equal(motion.rotation.value, 360, "GLOBAL completes one full turn");
+top = 900;
+scroll();
+await Promise.resolve();
+assert.equal(motion.rotation.value, 0, "scrolling back reverses the turn");
 document.hidden = true;
 events.get("visibilitychange")();
 assert.equal(tick, undefined, "background tab stops its carousel");
@@ -102,11 +114,20 @@ assert.equal(
   undefined,
   "reduced motion disables automatic image changes",
 );
-assert.equal(
-  motion.progress.value,
-  1,
-  "reduced motion shows the final readable text",
-);
+assert.equal(motion.progress.value, 0, "reduced motion does not skip the grid reveal");
+top = 625;
+scroll();
+await Promise.resolve();
+assert.equal(motion.progress.value, 0.5, "color reveal still follows scroll with reduced motion");
+assert.equal(motion.rotation.value, 0, "3D motion respects the system preference");
+motion.toggleMotion();
+await Promise.resolve();
+assert.equal(motion.rotation.value, 180, "explicit opt-in enables the scroll rotation");
+assert.ok(tick, "explicit opt-in enables the image carousel");
+motion.toggleMotion();
+await Promise.resolve();
+assert.equal(motion.rotation.value, 0);
+assert.equal(tick, undefined);
 unmount();
 assert.equal(events.size, 0, "route exit removes visibility listener");
 console.log(
