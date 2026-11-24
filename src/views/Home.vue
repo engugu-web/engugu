@@ -1066,9 +1066,11 @@ const stats = [
 }
 @media (max-width: 1023px) {
   .work-section {
+    --mobile-orbit-unit: calc(78vw / 1040);
+    --mobile-gallery-top: clamp(200px, 56.4vw, 240px);
     height: auto;
     min-height: 620px;
-    padding: 445px 0 80px;
+    padding: max(445px, calc(var(--mobile-gallery-top) + 336 * var(--mobile-orbit-unit) + 64px)) 0 80px;
   }
   .mission {
     position: relative;

@@ -55,13 +55,17 @@
       "implementation": "Partner portrait/star row and heading use 24 design-pixel gaps; removed mistaken footer spacing override"
     }
   ],
-  "pending": [
-    "MADE Okine Sans and SF Pro Display font files are unavailable; substitute glyphs and font metrics remain a visual difference."
-  ],
+  "pending": [],
+  "webFonts": {
+    "source": "User-provided font files in src/assets/font",
+    "display": "MADE Okine Sans PERSONAL USE; original Thin, Light, Regular, Medium, Bold and Black weights",
+    "body": "SF Pro Display; original Regular, Medium, Semibold and Bold weights",
+    "delivery": "WOFF2; complete MADE character sets, SF Latin/punctuation/symbol subset with shaping and name metadata retained; font-display swap"
+  },
   "verification": {
     "build": "passed",
     "motionLogic": "node scripts/verify-home-motion.mjs passed; no authored keyframes in get_motion_context (nodes: [])",
-    "mobile": "390px viewport / 375px content; no horizontal overflow, no broken images, service heading visible, mission and service sections separated",
+    "mobile": "375px, 390px and 430px viewports; shared ring/mask/gallery canvas, gallery lowered into the ring, no horizontal overflow or broken images, positive gap before mission copy; counterclockwise animation verified",
     "navigation": "GO START reaches /services; no browser console errors observed",
     "clipboard": "success announcement observed; browser-tool clipboard read did not expose written contents",
     "browserMotionPreference": "Reduced-motion enabled during browser QA; continuous animation timing is implemented from text annotations, not Figma keyframe data.",

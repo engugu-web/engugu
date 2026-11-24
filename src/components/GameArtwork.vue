@@ -1,26 +1,28 @@
 <template>
-  <div class="original-orbit" aria-hidden="true">
-    <div class="orbit-glow"><img :src="a.imgEllipse1" alt="" /></div>
-    <img class="orbit-ring" :src="a.img13X2" alt="" />
-  </div>
-  <div
-    class="game-window"
-    role="img"
-    aria-label="Game campaigns circulating counterclockwise inside the star ring"
-    :style="{
-      '--ring-mask': ringMask,
-      '--carousel-state': playing ? 'running' : 'paused',
-    }"
-  >
-    <div class="game-mask">
-      <div class="game-wall" aria-hidden="true">
-        <div
-          v-for="(s, i) in orbitSlides"
-          :key="i"
-          class="game-tile"
-          :style="{ '--slot': initialSlots[i] }"
-        >
-          <img :src="s.src" :style="crop(s)" alt="" decoding="async" />
+  <div class="orbit-scene">
+    <div class="original-orbit" aria-hidden="true">
+      <div class="orbit-glow"><img :src="a.imgEllipse1" alt="" /></div>
+      <img class="orbit-ring" :src="a.img13X2" alt="" />
+    </div>
+    <div
+      class="game-window"
+      role="img"
+      aria-label="Game campaigns circulating counterclockwise inside the star ring"
+      :style="{
+        '--ring-mask': ringMask,
+        '--carousel-state': playing ? 'running' : 'paused',
+      }"
+    >
+      <div class="game-mask">
+        <div class="game-wall" aria-hidden="true">
+          <div
+            v-for="(s, i) in orbitSlides"
+            :key="i"
+            class="game-tile"
+            :style="{ '--slot': initialSlots[i] }"
+          >
+            <img :src="s.src" :style="crop(s)" alt="" decoding="async" />
+          </div>
         </div>
       </div>
     </div>
@@ -59,6 +61,14 @@ const crop = (s) => ({
 });
 </script>
 <style scoped>
+.orbit-scene {
+  --orbit-unit: var(--du);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(1920 * var(--orbit-unit));
+  height: calc(1623 * var(--orbit-unit));
+}
 .original-orbit {
   position: absolute;
   inset: 0;
@@ -67,36 +77,36 @@ const crop = (s) => ({
 }
 .orbit-glow {
   position: absolute;
-  left: calc(-400 * var(--du));
-  top: calc(174 * var(--du));
-  width: calc(2258.305 * var(--du));
-  height: calc(1294.01 * var(--du));
+  left: calc(-400 * var(--orbit-unit));
+  top: calc(174 * var(--orbit-unit));
+  width: calc(2258.305 * var(--orbit-unit));
+  height: calc(1294.01 * var(--orbit-unit));
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .orbit-glow img {
-  width: calc(2763.87 * var(--du));
-  height: calc(1056.31 * var(--du));
+  width: calc(2763.87 * var(--orbit-unit));
+  height: calc(1056.31 * var(--orbit-unit));
   max-width: none;
   transform: rotate(-21.46deg);
   flex: none;
 }
 .orbit-ring {
   position: absolute;
-  left: calc(-302.65 * var(--du));
-  top: calc(277 * var(--du));
-  width: calc(2066 * var(--du));
-  height: calc(950 * var(--du));
+  left: calc(-302.65 * var(--orbit-unit));
+  top: calc(277 * var(--orbit-unit));
+  width: calc(2066 * var(--orbit-unit));
+  height: calc(950 * var(--orbit-unit));
   max-width: none;
   object-fit: cover;
 }
 .game-window {
-  --gallery-unit: var(--du);
+  --gallery-unit: var(--orbit-unit);
   --orbit-duration: 80s;
   position: absolute;
-  left: calc(440 * var(--du));
-  top: calc(517 * var(--du));
+  left: calc(440 * var(--orbit-unit));
+  top: calc(517 * var(--orbit-unit));
   width: calc(1040 * var(--gallery-unit));
   height: calc(336 * var(--gallery-unit));
   pointer-events: none;
@@ -164,27 +174,12 @@ const crop = (s) => ({
   }
 }
 @media (max-width: 1023px) {
-  .orbit-glow {
-    left: -45%;
-    top: 30px;
-    width: 170%;
-    height: 600px;
-  }
-  .orbit-glow img {
-    width: 150%;
-    height: auto;
-  }
-  .orbit-ring {
-    left: -28%;
-    top: 70px;
-    width: 145%;
-    height: 430px;
-    object-fit: fill;
-  }
-  .game-window {
-    --gallery-unit: calc(78vw / 1040);
-    left: 11%;
-    top: 160px;
+  /* Scale and move the entire Figma canvas together. The ring, alpha mask and
+     card belt must never use independent mobile dimensions or offsets. */
+  .orbit-scene {
+    --orbit-unit: var(--mobile-orbit-unit);
+    left: calc(50% - 960 * var(--orbit-unit));
+    top: calc(var(--mobile-gallery-top) - 517 * var(--orbit-unit));
   }
 }
 </style>
