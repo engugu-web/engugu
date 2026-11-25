@@ -54,17 +54,6 @@ const menuOpen = ref(false);
   align-items: center;
   height: calc(25 * var(--du));
 }
-.brand:hover .wordmark {
-  animation: brand-wiggle 700ms ease-in-out infinite alternate;
-}
-@keyframes brand-wiggle {
-  0% {
-    transform: scale(1.2) rotate(-3deg);
-  }
-  100% {
-    transform: scale(1.2) rotate(3deg);
-  }
-}
 .wordmark {
   width: calc(146 * var(--du));
   height: calc(26 * var(--du));

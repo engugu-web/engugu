@@ -46,6 +46,23 @@
       @pointerleave="glassPointer = null"
       @pointercancel="glassPointer = null"
     >
+      <svg class="service-effect-defs" width="0" height="0" aria-hidden="true">
+        <defs>
+          <filter id="service-icon-rim" primitiveUnits="objectBoundingBox" color-interpolation-filters="sRGB">
+            <!-- Normalize the faint source alpha before extracting a continuous contour. -->
+            <feComponentTransfer in="SourceAlpha" result="glass-shape">
+              <feFuncA type="linear" slope="16" intercept="-0.35" />
+            </feComponentTransfer>
+            <feMorphology in="glass-shape" operator="erode" radius="0.007" result="glass-inner" />
+            <feComposite in="glass-shape" in2="glass-inner" operator="arithmetic" k2="1" k3="-1" result="glass-edge" />
+            <feComponentTransfer in="glass-edge" result="bright-edge">
+              <feFuncA type="linear" slope="1.8" />
+            </feComponentTransfer>
+            <feFlood flood-color="#fff4e3" />
+            <feComposite in2="bright-edge" operator="in" />
+          </filter>
+        </defs>
+      </svg>
       <div class="service-background" aria-hidden="true">
         <img :src="a.img5" alt="" />
       </div>
@@ -82,6 +99,7 @@
               :class="`service-icon-base service-icon-${index}`"
             />
             <img class="service-icon-glass" :src="glassServiceIcons[index]" alt="" />
+            <img class="service-icon-rim" :src="glassServiceIcons[index]" alt="" aria-hidden="true" />
           </div>
           <h3>
             <template
@@ -295,7 +313,10 @@ const stats = [
   border: 1px solid #ffffffc2;
   background: linear-gradient(135deg, #ffffffb8, #ffffff4d);
   backdrop-filter: blur(18px) saturate(1.5);
-  font: 500 calc(24 * var(--du))/1 var(--font-display);
+  font-family: var(--font-display);
+  font-size: calc(24 * var(--du));
+  font-weight: 500; /* MADE Okine Sans Medium */
+  line-height: 1;
 }
 .start-button:hover {
   box-shadow: 0 4px 7.4px rgb(0 0 0 / 9%);
@@ -834,13 +855,29 @@ const stats = [
   height: auto;
   transition: opacity 180ms ease;
 }
-.service-icon .service-icon-glass {
+.service-icon .service-icon-glass,
+.service-icon .service-icon-rim {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
   opacity: 0;
+}
+.service-effect-defs {
+  position: absolute;
+  pointer-events: none;
+}
+.service-icon .service-icon-rim {
+  pointer-events: none;
+  filter: url("#service-icon-rim");
+  /* Fixed reflections on two small areas, with the rest of the rim unlit. */
+  -webkit-mask-image:
+    radial-gradient(ellipse 35% 25% at 32% 19%, #fff 0%, #fff9 35%, transparent 80%),
+    radial-gradient(ellipse 18% 30% at 81% 74%, #fff7 0%, #fff3 30%, transparent 80%);
+  mask-image:
+    radial-gradient(ellipse 35% 25% at 32% 19%, #fff 0%, #fff9 35%, transparent 80%),
+    radial-gradient(ellipse 18% 30% at 81% 74%, #fff7 0%, #fff3 30%, transparent 80%);
 }
 .service-icon-3 {
   position: absolute;
@@ -861,6 +898,10 @@ const stats = [
 .service-icon:hover .service-icon-glass,
 .service-item:focus-visible .service-icon-glass {
   opacity: 1;
+}
+.service-icon:hover .service-icon-rim,
+.service-item:focus-visible .service-icon-rim {
+  opacity: 0.55;
 }
 .service-item:active .service-icon {
   transform: scale(0.95);
