@@ -59,10 +59,11 @@ const featured = [
 .logo-arc {
   --arc-rise: calc(220 * var(--du));
   --hover-bleed: calc(24 * var(--du));
+  --side-bleed: calc(160 * var(--du));
   position: absolute;
   top: calc(171 * var(--du) - var(--hover-bleed));
-  left: calc(82.37 * var(--du));
-  width: calc(1052.83 * var(--du));
+  left: calc(82.37 * var(--du) - var(--side-bleed));
+  width: calc(1052.83 * var(--du) + 2 * var(--side-bleed));
   height: calc(297.65 * var(--du) + 2 * var(--hover-bleed));
   overflow: hidden;
   mask-image: linear-gradient(
@@ -76,8 +77,9 @@ const featured = [
 .client-track {
   position: absolute;
   top: var(--hover-bleed);
-  left: 0;
-  width: 100%;
+  /* Keep the orbit geometry fixed while giving its fading edges room to paint. */
+  left: var(--side-bleed);
+  width: calc(100% - 2 * var(--side-bleed));
   height: calc(100% - 2 * var(--hover-bleed));
 }
 .client-logo {
@@ -260,6 +262,7 @@ const featured = [
   .logo-arc {
     --arc-rise: 140px;
     --hover-bleed: 24px;
+    --side-bleed: 0px;
     position: relative;
     top: auto;
     left: auto;
@@ -321,10 +324,18 @@ const featured = [
   }
 }
 .logo-arc {
-  mask-image: url("../assets/figma/88a64.svg");
-  mask-size: calc(1347 * var(--du)) calc(545 * var(--du));
-  mask-position: calc(-132.37 * var(--du)) calc(-221 * var(--du) + var(--hover-bleed));
+  /* Preserve the original curved mask; fade to zero before the expanded clip boundary. */
+  mask-image:
+    url("../assets/figma/88a64.svg"),
+    linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-size:
+    calc(1347 * var(--du)) calc(545 * var(--du)),
+    100% 100%;
+  mask-position:
+    calc(-132.37 * var(--du) + var(--side-bleed)) calc(-221 * var(--du) + var(--hover-bleed)),
+    center;
   mask-repeat: no-repeat;
+  mask-composite: intersect;
 }
 .client-logo {
   width: calc(169 * var(--du));

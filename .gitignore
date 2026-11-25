@@ -2,8 +2,15 @@
 .idea
 
 # Package Manager
-node_modules
-.pnpm-debug.log*
+node_modules/
+.pnpm-store/
+*.log
+
+# Local build caches
+.cache/
+.vite/
+.vite-temp/
+*.tsbuildinfo
 
 # System
 .DS_Store
@@ -11,9 +18,9 @@ __MACOSX/
 ._*
 
 # Bundle
-dist
-.vercel
-coverage
+dist/
+.vercel/
+coverage/
 packages/element-plus/version.ts
 
 # local env files
@@ -24,4 +31,4 @@ packages/element-plus/version.ts
 .eslintcache
 cypress/screenshots/*
 cypress/videos/*
-tmp
+tmp/
