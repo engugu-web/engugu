@@ -1,0 +1,28 @@
+{
+  "source": "User-supplied Figma Glass reference screenshot, 2026-11-25",
+  "lightAngle": -45,
+  "lightIntensity": 80,
+  "refraction": 83,
+  "depth": 23,
+  "dispersion": 100,
+  "frost": 2,
+  "splay": 22,
+  "fillOpacity": 0.2,
+  "strokeColor": "#FFFFFF",
+  "strokeOpacity": 0.49,
+  "strokeWidth": 1,
+  "note": "Figma controls recorded verbatim as design reference. Final appearance is now supplied by the complete exported PNG; no browser approximation is applied.",
+  "implementation": "User-provided src/assets/image/email.png contains the complete rendered result. No live glass shader or overlaid text/sticker is applied.",
+  "artwork": {
+    "path": "src/assets/image/email.png",
+    "pixelDimensions": [
+      1920,
+      420
+    ],
+    "designDimensions": [
+      640,
+      140
+    ],
+    "sha256": "80feeb18a77e079b898f924082ecf91f2e030b4ea6b0cbfd1148d06c56e148b7"
+  }
+}

@@ -92,7 +92,7 @@
     "spacing24px": "157:201 partner section spacing, not footer navigation",
     "clientMask": "88a64.svg original upward semicircle fade mask",
     "gamesFont": "Micro 5 Regular 97px, source Google Fonts, local font and OFL notice included",
-    "emailGlass": "Original d4ddb.svg retained. email-glass-smooth.svg only changes crispEdges to geometricPrecision; email-glass-mask.svg uses the same geometry with an opaque mask and no drop-shadow filter. Browser SVG backdrop displacement approximates Figma Glass; native Figma shader parity is not claimed; Safari uses blur fallback."
+    "emailGlass": "Superseded live shader: complete user-provided src/assets/image/email.png now renders all lettering, sticker, glass, refraction and shadow. Original PNG is unchanged; no extra rotation, HTML text/sticker overlay or backdrop filter. The transparent rotated copy target and 32 CSS-pixel halo remain separate from the artwork."
   },
   "latestFeedback": {
     "observedOn": "2026-11-25",
@@ -126,7 +126,9 @@
       "GO START jagged vector edge: use a derivative of original ab763.svg with shape-rendering geometricPrecision instead of crispEdges; geometry, fill, noise and shadow unchanged. Original retained; vector stays resolution-independent.",
       "Services: import user-provided src/assets/image/icon1.png through icon7.png in business order; icon hover and keyboard focus crossfade white SVG to supplied glass PNG over 180ms. Removed whole-card translucent background, inset outline and glow; retained original small pointer glass.",
       "Large star ring resolved: use user-provided 5289x2850 transparent PNG (资源 1@3x 2.png) at its 1763x950 design size, left=0/top=277. Export already clips original ~303px off-canvas left, so removed old negative offset instead of stretching it into the old full-image slot. Gallery and mobile scene geometry unchanged.",
-      "Entire services panel now has a semantic stretched router-link to /services. Title, intro text and blank space pass pointer events to the panel link; seven business cards remain independent links to matching /services#id anchors above it. Keyboard focus remains visible, without restoring the removed glass card hover effect."
+      "Entire services panel now has a semantic stretched router-link to /services. Title, intro text and blank space pass pointer events to the panel link; seven business cards remain independent links to matching /services#id anchors above it. Keyboard focus remains visible, without restoring the removed glass card hover effect.",
+      "New user Glass reference: light -45deg/80%, refraction 83, depth 23, dispersion 100, frost 2, splay 22; fill 20%, stroke white 49%/1px. Removed hand-drawn white paper-corner patch and old banded field; generated original-silhouette normal field at 3x resolution. Separate RGB refraction samples the actual backdrop, with proportionate frost blur and directional highlight. Explicit user-space feImage dimensions fix percentage sizing against the zero-sized hidden SVG viewport.",
+      "User provided complete 1920x420 transparent email.png and confirmed assets/image location. Replaced live glass implementation and separate sticker/text with this unchanged 3x export, displayed 640x140 design pixels. Copy hit target retains original 550.311x85.999/-3.32deg geometry. Mobile artwork scales to parent content width; removed optical filter, resize observer, generated field and its generator; Figma values retained as design documentation."
     ],
     "pending": [],
     "verification": [
@@ -157,10 +159,12 @@
       "Vite production build and git diff --check passed. Seven supplied glass PNGs load successfully (150x150, OOH 144x150); each icon tested in Chromium: glass opacity 1, white opacity 0 on hover. Cards have transparent background and box-shadow none. Leaving the icon after clearing keyboard focus restores glass opacity 0 and white opacity 1.",
       "GO START smooth SVG loaded in production preview with unchanged 285.8x95.8 viewBox and placement; source comparison verifies only crispEdges to geometricPrecision change.",
       "New 3x ring: production preview confirms loaded natural size 5289x2850, proportional contain rendering 935.009x503.830 at default desktop viewport. Desktop and 390x844 mobile screenshots checked: 12 tiles remain within ring, document width 375 <= viewport 390. Vite build and git diff --check passed; viewport override reset.",
-      "Browser native click on panel heading, intro and blank corner each reached /services with OUR SERVICES heading visible; first business card click reached /services#influencer-row. Pointer hit testing confirms heading/intro target full-panel link and card target specific anchor. Production build and git diff --check passed."
+      "Browser native click on panel heading, intro and blank corner each reached /services with OUR SERVICES heading visible; first business card click reached /services#influencer-row. Pointer hit testing confirms heading/intro target full-panel link and card target specific anchor. Production build and git diff --check passed.",
+      "Chromium preview: 0 paper-refraction patches; feImage dimensions 300.384x54.281 CSS pixels; RGB displacement 21.235/20.259/19.282 and blur 0.531 at default canvas scale. Screenshot shows actual sticker lettering/white paper refracted inside bubble. Outside-bubble halo click still returns Email copied!. At 390px, document width 375px, existing mobile blur fallback active, desktop optical layer hidden; no console errors. Production build and git diff --check passed; viewport reset.",
+      "Provided attachment and src/assets/image/email.png SHA256 match; transparent RGBA 1920x420, alpha bounds (48,29)-(1895,399). Desktop preview loaded the PNG, no duplicate text/sticker nodes or live filter; native click within outer halo gives pointer cursor and plain Email copied!, beyond halo hides hint. Mobile preview loaded full image without document overflow; subsequently changed width to parent-relative 100% to preserve equal side margins. Final browser recheck timed out; production build, source review, existing motion checks and git diff --check passed."
     ],
-    "deployment": "Prepared for production release through main on 2026-11-25; deployment status tracked by GitHub commit checks and reported in the release conversation.",
-    "reviewMethod": "Figma browser read attempted; current Figma tab timed out. Latest email layering checked against user-supplied Figma screenshot and existing local original SVG. No Figma MCP used, per prior user instruction.",
+    "deployment": "Prepared for release through main; deployment result tracked via GitHub commit checks and verified production assets.",
+    "reviewMethod": "User-provided complete PNG and screenshot of assets/image location inspected; PNG reused unchanged. No Figma MCP used.",
     "deferred": [
       "About, Our Work and Contact secondary pages: user confirmed not designed yet; keep current homepage links and complete homepage only."
     ]

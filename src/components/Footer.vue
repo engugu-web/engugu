@@ -1,13 +1,5 @@
 <template>
   <footer id="contact" class="site-footer" :class="{ 'is-near-email': nearEmail }" @pointermove="trackEmailPointer" @pointerleave="nearEmail = false" @click="copyNearbyEmail">
-    <svg class="glass-filter-defs" aria-hidden="true" width="0" height="0">
-      <defs>
-        <filter id="footer-liquid-refraction" x="-10%" y="-30%" width="120%" height="160%" color-interpolation-filters="sRGB">
-          <feImage :href="refractionMap" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="edgeRefraction" />
-          <feDisplacementMap in="SourceGraphic" in2="edgeRefraction" :scale="refractionScale" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-      </defs>
-    </svg>
     <a class="back-top" href="#app">TOP</a>
     <div class="footer-orbit" aria-hidden="true">
       <img :src="a.img13X4" alt="" />
@@ -23,7 +15,9 @@
         If you'd like to learn more or explore collaboration opportunities,
         please feel free to reach out to us via the following email addresses.
       </p>
-      <button
+      <div class="email-artwork-wrap">
+        <img class="email-artwork" :src="emailArtwork" alt="" aria-hidden="true" />
+        <button
         ref="emailButton"
         class="email-link"
         type="button"
@@ -32,17 +26,8 @@
         @focus="focusEmail"
         @blur="keyboardHint = false"
         aria-describedby="footer-copy-hint"
-      >
-        <img
-          class="email-glass"
-          :src="emailGlass"
-          alt=""
         />
-        <svg class="paper-refraction" viewBox="0 0 47 22" aria-hidden="true">
-          <path d="M0 0H43C43 5 47 12 45 20C33 20 13 16 0 13Z" fill="#f0f0f0" />
-        </svg>
-        <span class="email-address">fanta@orangeglobalmedia.agency</span>
-      </button>
+      </div>
       <Teleport to="body">
         <span
           v-show="nearEmail || keyboardHint || copyStatus"
@@ -56,7 +41,6 @@
           >{{ copyStatus || "Click to copy" }}</span
         >
       </Teleport>
-      <span class="contact-sticker" aria-hidden="true">Contact us!</span>
     </div>
     <nav class="footer-nav shell" aria-label="Footer navigation">
       <router-link to="/services">Services</router-link
@@ -70,8 +54,7 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 import { figmaAssets as a } from "../data/figmaAssets";
-import emailGlass from "../assets/figma/email-glass-smooth.svg";
-import refractionMap from "../assets/figma/email-refraction-map.svg";
+import emailArtwork from "../assets/image/email.png";
 import Dialog from "./Dialog.vue";
 const dialogVisible = ref(false);
 const copyStatus = ref("");
@@ -79,8 +62,6 @@ const emailButton = ref(null);
 const nearEmail = ref(false);
 const keyboardHint = ref(false);
 const hintPosition = ref({ x: 0, y: 0 });
-const refractionScale = ref(14);
-let glassResize;
 function positionHint(x, y) {
   hintPosition.value = {
     x: Math.max(8, Math.min(x + 16, window.innerWidth - 104)),
@@ -135,17 +116,11 @@ async function copyEmail() {
   }, 3500);
 }
 onMounted(() => {
-  glassResize = new ResizeObserver(() => {
-    // Keep the paper-corner refraction proportional to the Figma canvas.
-    refractionScale.value = 14 * emailButton.value.offsetWidth / 550.311;
-  });
-  glassResize.observe(emailButton.value);
   window.addEventListener("scroll", clearPointerHint, { passive: true });
   window.addEventListener("resize", clearPointerHint);
 });
 onBeforeUnmount(() => {
   clearTimeout(copyTimer);
-  glassResize?.disconnect();
   window.removeEventListener("scroll", clearPointerHint);
   window.removeEventListener("resize", clearPointerHint);
 });
@@ -173,21 +148,23 @@ onBeforeUnmount(() => {
   font: 400 calc(14 * var(--du))/1.2 var(--font-display);
 }
 .footer-orbit {
-  clip-path: inset(-50% -50% 45% -50%);
   position: absolute;
   z-index: -1;
-  width: 125%;
-  height: calc(400 * var(--du));
-  left: -10%;
-  top: calc(100 * var(--du));
-  border: calc(80 * var(--du)) solid #e95100;
-  border-radius: 50%;
-  transform: rotate(-23deg);
-  filter: blur(calc(38 * var(--du)));
-  opacity: 0.72;
-  box-shadow:
-    0 0 40px #f60,
-    inset 0 0 55px #f50;
+  inset: 0;
+  width: 100%;
+  height: calc(930 * var(--du));
+  pointer-events: none;
+  mask: url("../assets/figma/8d917.svg") center / 100% 100%;
+}
+.footer-orbit img {
+  position: absolute;
+  left: calc(187 * var(--du));
+  top: calc(-147 * var(--du));
+  width: calc(1872 * var(--du));
+  height: calc(791 * var(--du));
+  max-width: none;
+  object-fit: fill;
+  filter: blur(calc(67.3 * var(--du)));
 }
 .contact-content h2 {
   position: absolute;
@@ -196,18 +173,7 @@ onBeforeUnmount(() => {
   width: calc(466 * var(--du));
   height: calc(122 * var(--du));
   font: 500 calc(102 * var(--du))/1.2 var(--font-display);
-  letter-spacing: 0;
   white-space: nowrap;
-}
-.contact-content h2 img {
-  position: absolute;
-  left: calc(100% + 10 * var(--du));
-  top: calc(-15 * var(--du));
-  width: calc(80 * var(--du));
-  height: calc(80 * var(--du));
-  border-radius: 50%;
-  object-fit: cover;
-  transform: rotate(-18deg);
 }
 .contact-content p {
   position: absolute;
@@ -216,37 +182,58 @@ onBeforeUnmount(() => {
   width: calc(768 * var(--du));
   height: calc(38 * var(--du));
   font: 400 calc(16 * var(--du))/1.2 var(--font-display);
-  letter-spacing: 0;
 }
-.email-link {
-  color: inherit;
-  backdrop-filter: blur(18px) saturate(1.5);
-  box-shadow:
-    inset 0 1px 0 #ffffff70,
-    0 8px 28px #00000050;
+.footer-sticker {
   position: absolute;
-  top: calc(598 * var(--du));
-  left: 50%;
+  left: calc(100% + 10 * var(--du));
+  top: calc(-27 * var(--du));
+  width: calc(100 * var(--du));
+  height: calc(100 * var(--du));
+}
+.footer-sticker img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+}
+.footer-sticker img:nth-child(2) {
+  left: 13%;
+  top: 23%;
+  width: 74%;
+}
+.email-artwork-wrap {
+  --email-unit: var(--du);
+  position: absolute;
+  left: calc(50% - 321.5 * var(--email-unit));
+  top: calc(579.3 * var(--du));
+  width: calc(640 * var(--email-unit));
+  height: calc(140 * var(--email-unit));
+  z-index: 3;
+}
+.email-artwork {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+/* The supplied PNG includes its rotation, lettering, sticker and glass.
+   Only this transparent hit target rotates; the artwork is never rotated twice. */
+.email-link {
+  position: absolute;
+  left: 54.465625%;
+  top: 14.785714%;
+  width: 85.986094%;
+  height: 61.427857%;
   transform: translateX(-50%) rotate(-3.32deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: calc(560 * var(--du));
-  height: calc(64 * var(--du));
-  padding-left: calc(53 * var(--du));
-  border: 1px solid #777;
-  border-radius: calc(6 * var(--du));
-  background: #ffffff17;
-  font: 500 calc(28 * var(--du))/1.2 var(--font-display);
-  letter-spacing: 0;
-  white-space: nowrap;
+  padding: 0;
+  border: 0;
+  border-radius: 2.18% / 13.95%;
+  background: transparent;
+  color: inherit;
+  cursor: inherit;
 }
-.email-link:hover {
-  background: #ffffff30;
-}
-.email-link:active {
-  scale: 0.95;
-}
+.email-artwork-wrap:has(.email-link:active) .email-artwork { scale: .95; }
 .copy-hint {
   position: fixed;
   display: grid;
@@ -272,21 +259,19 @@ onBeforeUnmount(() => {
   border-radius: 0;
   background: none;
   backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   box-shadow: none;
   color: #ffd2bb;
 }
 .footer-nav {
   position: absolute;
-  top: calc(960 * var(--du));
+  top: calc(970.59 * var(--du));
   left: 50%;
   transform: translateX(-50%);
-  width: max-content;
+  width: calc(1000 * var(--du));
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
-  font: 400 calc(14 * var(--du))/1.2 var(--font-display);
+  justify-content: space-between;
+  font: 400 calc(20 * var(--du))/1.2 var(--font-display);
 }
 .footer-nav button {
   color: inherit;
@@ -308,9 +293,7 @@ onBeforeUnmount(() => {
     transform: none;
     font-size: 12px;
   }
-  .contact-content {
-    padding: 150px 0 135px;
-  }
+  .contact-content { padding: 150px 0 135px; }
   .contact-content h2 {
     position: relative;
     top: auto;
@@ -320,12 +303,6 @@ onBeforeUnmount(() => {
     margin: 0 auto;
     font-size: 64px;
   }
-  .contact-content h2 img {
-    top: -12px;
-    left: calc(100% + 8px);
-    width: 48px;
-    height: 48px;
-  }
   .contact-content p {
     position: static;
     width: min(100%, 600px);
@@ -334,26 +311,28 @@ onBeforeUnmount(() => {
     font-size: 15px;
     line-height: 1.4;
   }
-  .email-link {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: rotate(-3.32deg);
-    width: fit-content;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-    padding: 12px 20px;
-    font-size: 20px;
-    border-radius: 6px;
-    white-space: normal;
-    overflow-wrap: anywhere;
+  .footer-sticker {
+    width: 56px;
+    height: 56px;
+    top: -18px;
+    left: calc(100% + 8px);
   }
-  .footer-orbit {
-    top: 110px;
-    height: 270px;
-    border-width: 55px;
-    filter: blur(26px);
+  .email-artwork-wrap {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(640px, 100%);
+    height: auto;
+    aspect-ratio: 32 / 7;
+    margin: 0 auto;
+  }
+  .footer-orbit { height: 520px; }
+  .footer-orbit img {
+    left: 0;
+    top: 0;
+    width: 115%;
+    height: 400px;
+    filter: blur(30px);
   }
   .footer-nav {
     position: relative;
@@ -366,191 +345,8 @@ onBeforeUnmount(() => {
   }
 }
 @media (max-width: 500px) {
-  .site-footer {
-    min-height: 560px;
-  }
-  .contact-content {
-    padding: 120px 0 110px;
-  }
-  .contact-content h2 {
-    font-size: 48px;
-  }
-  .contact-content h2 img {
-    width: 36px;
-    height: 36px;
-  }
-  .email-link {
-    font-size: 16px;
-  }
-  .footer-orbit {
-    height: 190px;
-    border-width: 35px;
-  }
-}
-/* Source artwork and exact layer slots: Figma 157:167. */
-.footer-orbit {
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: calc(930 * var(--du));
-  border: 0;
-  border-radius: 0;
-  transform: none;
-  filter: none;
-  opacity: 1;
-  box-shadow: none;
-  clip-path: none;
-  mask-image: url("../assets/figma/8d917.svg");
-  mask-size: 100% 100%;
-}
-.footer-orbit img {
-  position: absolute;
-  left: calc(187 * var(--du));
-  top: calc(-147 * var(--du));
-  width: calc(1872 * var(--du));
-  height: calc(791 * var(--du));
-  max-width: none;
-  object-fit: fill;
-  filter: blur(calc(67.3 * var(--du)));
-}
-.footer-sticker {
-  position: absolute;
-  left: calc(100% + 10 * var(--du));
-  top: calc(-27 * var(--du));
-  width: calc(100 * var(--du));
-  height: calc(100 * var(--du));
-}
-.contact-content h2 .footer-sticker img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: auto;
-  transform: none;
-  border-radius: 0;
-}
-.contact-content h2 .footer-sticker img:nth-child(2) {
-  left: 13%;
-  top: 23%;
-  width: 74%;
-}
-.email-link {
-  left: calc(50% + 27.08 * var(--du));
-  top: calc(600 * var(--du));
-  width: calc(550.311 * var(--du));
-  height: calc(85.999 * var(--du));
-  padding: 0;
-  border: 0;
-  box-shadow: none;
-  background: transparent;
-  backdrop-filter: none;
-  z-index: 3;
-}
-.email-link:hover {
-  background: transparent;
-}
-.email-glass {
-  position: absolute;
-  left: calc(-7.9 * var(--du));
-  top: calc(-4.4 * var(--du));
-  width: calc(566.111 * var(--du));
-  height: calc(102.299 * var(--du));
-  max-width: none;
-  z-index: -1;
-}
-.email-link::before {
-  content: "";
-  position: absolute;
-  left: calc(-7.9 * var(--du));
-  top: calc(-4.4 * var(--du));
-  width: calc(566.111 * var(--du));
-  height: calc(102.299 * var(--du));
-  mask-image: url("../assets/figma/email-glass-mask.svg");
-  mask-size: 100% 100%;
-  -webkit-backdrop-filter: blur(4px) saturate(1.4);
-  backdrop-filter: url("#footer-liquid-refraction") blur(calc(0.7 * var(--du))) saturate(1.15);
-  pointer-events: none;
-  z-index: -2;
-}
-.glass-filter-defs { position: absolute; pointer-events: none; }
-.email-address { position: relative; z-index: 1; }
-/* The paper corner bends through the glass rim, beneath its tint and stroke. */
-.paper-refraction {
-  position: absolute;
-  left: calc(32 * var(--du));
-  top: calc(8 * var(--du));
-  width: calc(49 * var(--du));
-  height: calc(14 * var(--du));
-  transform: rotate(11.85deg);
-  transform-origin: 0 0;
-  filter: blur(calc(0.8 * var(--du)));
-  pointer-events: none;
-  z-index: -1;
-}
-.email-glass { z-index: 0; pointer-events: none; }
-.contact-sticker {
-  position: absolute;
-  left: calc(656 * var(--du));
-  /* Reference image 2: tuck the paper's lower-right corner behind the glass. */
-  top: calc(600.33 * var(--du));
-  width: calc(134 * var(--du));
-  height: calc(36 * var(--du));
-  font:
-    400 calc(26 * var(--du))/1.2 "Micro 5",
-    monospace;
-  background: #f0f0f0;
-  border: 1px solid #000;
-  color: #000;
-  transform: rotate(8.53deg);
-  z-index: 2;
-}
-.footer-nav {
-  width: calc(1000 * var(--du));
-  gap: 0;
-  justify-content: space-between;
-  top: calc(970.59 * var(--du));
-  font-size: calc(20 * var(--du));
-}
-@media (max-width: 1023px) {
-  .footer-orbit {
-    height: 520px;
-  }
-  .footer-orbit img {
-    left: 0;
-    top: 0;
-    width: 115%;
-    height: 400px;
-    filter: blur(30px);
-  }
-  .footer-sticker {
-    width: 56px;
-    height: 56px;
-    top: -18px;
-    left: calc(100% + 8px);
-  }
-  .email-link {
-    left: auto;
-    top: auto;
-    width: fit-content;
-    max-width: 100%;
-    height: auto;
-    padding: 18px 10px;
-    background: #ffffff17;
-    border: 1px solid #ffffff70;
-    backdrop-filter: blur(18px);
-  }
-  .email-glass {
-    display: none;
-  }
-  .paper-refraction { display: none; }
-  .email-link::before { display: none; }
-  .contact-sticker {
-    display: none;
-  }
-  .footer-nav {
-    width: 100%;
-    top: auto;
-    justify-content: space-evenly;
-    font-size: 14px;
-  }
+  .site-footer { min-height: 560px; }
+  .contact-content { padding: 120px 0 110px; }
+  .contact-content h2 { font-size: 48px; }
 }
 </style>

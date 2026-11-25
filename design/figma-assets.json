@@ -454,5 +454,20 @@
     "file": "c938c.svg",
     "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/c938c.svg",
     "runtimeFile": "c938c.svg"
+  },
+  {
+    "key": "emailComposite",
+    "file": "../image/email.png",
+    "runtimeFile": "../image/email.png",
+    "source": "Complete user-provided Figma export, with lettering, sticker and baked glass/refraction",
+    "runtimeDimensions": [
+      1920,
+      420
+    ],
+    "designDimensions": [
+      640,
+      140
+    ],
+    "losslessPixelsVerified": true
   }
 ]
