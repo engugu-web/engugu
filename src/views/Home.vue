@@ -28,7 +28,7 @@
           :style="{ transform: `scaleX(${copyScale || 1})` }"
           >FOUNDED TO HELP CHINESE</span
         >
-        <span class="games-word"><PixelGames /></span
+        <span class="games-word"><PixelGames @progress="setMissionProgress" /></span
         ><span class="mission-second"
           >REACH
           <span
@@ -156,7 +156,7 @@ import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import OurClients from "../components/OurClinets.vue";
 import { useHomeMotion } from "../composables/useHomeMotion";
-const { workSection, mission, carouselRunning, rotation, copyScale } = useHomeMotion();
+const { workSection, mission, carouselRunning, rotation, copyScale, setMissionProgress } = useHomeMotion();
 import { services } from "../data/services";
 const portraits = [
   a.imgEllipse5,

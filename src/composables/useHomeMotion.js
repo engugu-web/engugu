@@ -1,6 +1,6 @@
 import { onMounted, onBeforeUnmount, ref } from "vue";
 
-// Figma annotations: display-only image carousel and scroll-linked mission text.
+// The carousel follows visibility; mission artwork shares the GAMES timeline.
 export function useHomeMotion() {
   const workSection = ref(null);
   const mission = ref(null);
@@ -11,6 +11,10 @@ export function useHomeMotion() {
   let observer;
   let raf;
   let visible = false;
+  const setMissionProgress = (value) => {
+    progress.value = Math.max(0, Math.min(1, value));
+    rotation.value = progress.value * 360;
+  };
 
   const sync = () => {
     carouselRunning.value =
@@ -22,21 +26,11 @@ export function useHomeMotion() {
     raf = requestAnimationFrame(() => {
       raf = undefined;
       if (!mission.value) return;
-      const top = mission.value.getBoundingClientRect().top;
       const first = mission.value.querySelector?.(".mission-first");
       const games = mission.value.querySelector?.(".games-word");
       if (first && games && first.scrollWidth) {
         copyScale.value = Math.min(1, games.offsetLeft / first.scrollWidth);
       }
-      // The GLOBAL turn follows the visitor's scroll in both directions.
-      progress.value = Math.max(
-        0,
-        Math.min(
-          1,
-          (window.innerHeight * 0.9 - top) / (window.innerHeight * 0.55),
-        ),
-      );
-      rotation.value = progress.value * 360;
     });
   };
 
@@ -61,6 +55,6 @@ export function useHomeMotion() {
     window.removeEventListener("resize", update);
   });
   return {
-    workSection, mission, carouselRunning, progress, rotation, copyScale,
+    workSection, mission, carouselRunning, progress, rotation, copyScale, setMissionProgress,
   };
 }
