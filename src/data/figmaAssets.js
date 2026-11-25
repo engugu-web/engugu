@@ -1,5 +1,5 @@
 // Original resources from Figma landing page 157:4; provenance in design/figma-assets.json.
-import img13X2 from "../assets/figma/064f1.webp";
+import img13X2 from "../assets/image/资源 1@3x 2.png";
 import imgRectangle7 from "../assets/figma/6a087-2x.webp";
 import imgRectangle12 from "../assets/figma/0e809-2x.webp";
 import imgRectangle8 from "../assets/figma/ec0dc-2x.webp";

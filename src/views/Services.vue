@@ -57,7 +57,7 @@ import { serviceImages } from "../data/serviceImages";
   margin: 24px 0;
 }
 .services-heading > p:last-child {
-  color: #666;
+  color: var(--text-muted);
   line-height: 1.7;
 }
 .service-list {
@@ -83,7 +83,7 @@ import { serviceImages } from "../data/serviceImages";
 }
 .service-list p {
   font-size: 16px;
-  color: #666;
+  color: var(--text-muted);
   line-height: 1.8;
   margin-bottom: 28px;
   max-width: 470px;

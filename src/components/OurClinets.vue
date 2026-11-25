@@ -5,15 +5,19 @@
       :class="{ 'is-paused': paused }"
       aria-label="Our game publishing clients"
     >
+      <div class="client-track">
       <div
         v-for="(client, i) in featured"
         :key="client.name"
         :class="['client-orbit', client.tone]"
         :style="{ '--delay': `${-(featured.length - i - 0.5) * 4.8}s` }"
       >
-        <div :class="['client-logo', client.tone]">
-          <img :src="client.url" :alt="client.name" />
+        <div class="client-hover">
+          <div :class="['client-logo', client.tone]">
+            <img :src="client.url" :alt="client.name" />
+          </div>
         </div>
+      </div>
       </div>
     </div>
     <button
@@ -54,11 +58,12 @@ const featured = [
 }
 .logo-arc {
   --arc-rise: calc(220 * var(--du));
+  --hover-bleed: calc(24 * var(--du));
   position: absolute;
-  top: calc(171 * var(--du));
+  top: calc(171 * var(--du) - var(--hover-bleed));
   left: calc(82.37 * var(--du));
   width: calc(1052.83 * var(--du));
-  height: calc(297.65 * var(--du));
+  height: calc(297.65 * var(--du) + 2 * var(--hover-bleed));
   overflow: hidden;
   mask-image: linear-gradient(
     to right,
@@ -67,6 +72,13 @@ const featured = [
     black 88%,
     transparent
   );
+}
+.client-track {
+  position: absolute;
+  top: var(--hover-bleed);
+  left: 0;
+  width: 100%;
+  height: calc(100% - 2 * var(--hover-bleed));
 }
 .client-logo {
   position: absolute;
@@ -87,6 +99,14 @@ const featured = [
   animation: client-orbit 24s linear var(--delay) infinite !important;
 }
 .client-orbit.dark { width: calc(76 * var(--du)); }
+.client-hover {
+  position: absolute;
+  inset: 0;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1) !important;
+  will-change: transform;
+}
 .logo-arc.is-paused .client-orbit {
   animation-play-state: paused !important;
 }
@@ -99,7 +119,7 @@ const featured = [
   padding: 6px 12px;
   border: 0;
   background: transparent;
-  color: #737373;
+  color: var(--text-muted);
   font-size: 12px;
 }
 .carousel-control:hover {
@@ -114,23 +134,23 @@ const featured = [
   object-fit: contain;
 }
 @media (hover: hover) {
-  .client-orbit:hover .client-logo {
+  .client-orbit:hover .client-hover {
     transform: scale(1.2);
-    transform-origin: center top;
   }
-}
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .client-orbit:hover .client-logo {
-    animation: logo-wiggle 1300ms ease-in-out infinite alternate;
-    transform-origin: center top;
+    animation: logo-wiggle 2600ms ease-in-out infinite !important;
+    transform-origin: center;
   }
 }
 @keyframes logo-wiggle {
-  from {
-    transform: scale(1.2) rotate(-4deg);
+  0%, 50%, 100% {
+    transform: rotate(0deg);
   }
-  to {
-    transform: scale(1.2) rotate(4deg);
+  25% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(4deg);
   }
 }
 .client-logo.monochrome img {
@@ -213,7 +233,7 @@ const featured = [
   margin: 0;
   font: 400 calc(16 * var(--du))/1.2 var(--font-display);
   letter-spacing: 0;
-  color: #666;
+  color: var(--text-muted);
 }
 .clients h2 {
   position: absolute;
@@ -239,13 +259,14 @@ const featured = [
   }
   .logo-arc {
     --arc-rise: 140px;
+    --hover-bleed: 24px;
     position: relative;
     top: auto;
     left: auto;
     width: 100%;
     max-width: 820px;
-    height: 190px;
-    margin: 0 auto;
+    height: calc(190px + 2 * var(--hover-bleed));
+    margin: calc(-1 * var(--hover-bleed)) auto;
   }
   .client-logo {
     width: 130px;
@@ -282,7 +303,7 @@ const featured = [
   }
   .logo-arc {
     --arc-rise: 100px;
-    height: 130px;
+    height: calc(130px + 2 * var(--hover-bleed));
   }
   .client-logo {
     width: 82px;
@@ -302,7 +323,7 @@ const featured = [
 .logo-arc {
   mask-image: url("../assets/figma/88a64.svg");
   mask-size: calc(1347 * var(--du)) calc(545 * var(--du));
-  mask-position: calc(-132.37 * var(--du)) calc(-221 * var(--du));
+  mask-position: calc(-132.37 * var(--du)) calc(-221 * var(--du) + var(--hover-bleed));
   mask-repeat: no-repeat;
 }
 .client-logo {

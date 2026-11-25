@@ -16,7 +16,7 @@
     },
     {
       "annotation": "首页滑动时，global360度竖向翻转一周",
-      "implementation": "Original GLOBAL artwork rendered in a small canvas with projected side depth, scroll-linked vertical rotation from 0 to 360 degrees and moving gold highlights. Requested motion is not gated by system reduced-motion preferences."
+      "implementation": "Original orange-gold GLOBAL image rotates as one complete CSS perspective surface, scroll-linked from 0 to 360 degrees. Removed canvas strips, artificial depth-plane swaps and the animated highlight halo; original image material retained."
     },
     {
       "annotation": "液态玻璃效果，点击邮箱文案直接复制进粘贴板",
@@ -28,7 +28,7 @@
     },
     {
       "annotation": "logo被hover放大20%，左右轻微摇摆",
-      "implementation": "Client capsule and its logo scale together to 1.2; the independent orbit wrapper keeps the arc path intact. Wiggle duration increased from 650ms to 1300ms."
+      "implementation": "Separate centered hover wrapper scales the entire capsule to 1.2 using a 420ms cubic-bezier transition in both directions. Inner capsule wiggles around its center without overriding scale. Added 24 design-pixel vertical painting bleed to the arc, compensating track/mask offsets and responsive margins to preserve the original path and layout. Requested transitions remain enabled despite global reduced-motion rules."
     },
     {
       "annotation": "卡片描边+发光",
@@ -91,10 +91,11 @@
     "pointerGlassRegion": "157:116 orange services panel; original glass asset 7659e.svg",
     "spacing24px": "157:201 partner section spacing, not footer navigation",
     "clientMask": "88a64.svg original upward semicircle fade mask",
-    "gamesFont": "Micro 5 Regular 97px, source Google Fonts, local font and OFL notice included"
+    "gamesFont": "Micro 5 Regular 97px, source Google Fonts, local font and OFL notice included",
+    "emailGlass": "Original d4ddb.svg retained. email-glass-smooth.svg only changes crispEdges to geometricPrecision; email-glass-mask.svg uses the same geometry with an opaque mask and no drop-shadow filter. Browser SVG backdrop displacement approximates Figma Glass; native Figma shader parity is not claimed; Safari uses blur fallback."
   },
   "latestFeedback": {
-    "observedOn": "2026-11-24",
+    "observedOn": "2026-11-25",
     "sessionId": "e51754ea-9033-4194-93e2-769133765c67",
     "changes": [
       "176:29 fixed image frames with rotating image fills",
@@ -114,7 +115,18 @@
       "Services pointer glass: removed leftover reduced-motion gating; a single visible rounded glass block with backdrop blur tracks mouse coordinates directly, without transition or trail.",
       "Email copy confirmation now replaces Click to copy inside the same fixed hover hint; removed the separate copy-status line and its desktop/mobile styles. Feedback remains visible for 3.5 seconds, including on touch, then returns to the hover hint.",
       "User requested original small glass resource: restored 7659e.svg at its 15x15 design-pixel visible body size, including original shadow padding; removed the custom 32–48px glass square.",
-      "Copy feedback is plain text in the original hint position: no capsule background, border, shadow or blur. The idle Click to copy hover capsule remains unchanged."
+      "Copy feedback is plain text in the original hint position: no capsule background, border, shadow or blur. The idle Click to copy hover capsule remains unchanged.",
+      "Gray small copy shares --text-muted: #9A9AA3 across Home, client captions/controls and Services.",
+      "GLOBAL: replaced sliced canvas projection with one intact image using native CSS rotateX/perspective. Removed all added radial highlights and the idle redraw loop.",
+      "Client hover scales about capsule center with a 420ms eased transition; scale and wiggle have separate wrappers. Expanded vertical arc painting bounds to prevent enlarged logos from being clipped, preserving original path and mask coordinates.",
+      "Email bubble: use a geometricPrecision derivative of original d4ddb.svg; retain original source. Separate opaque silhouette mask restores full backdrop blur/refraction strength. Bubble z-index 3 covers Contact us sticker z-index 2, matching supplied design screenshot.",
+      "New explicit user clarification supersedes fixed email tooltip: show Click to copy within 32 CSS pixels of the rotated bubble and follow the pointer with a viewport-fixed, non-interactive tooltip. Copy feedback remains plain text. Keyboard focus and touch copy keep feedback visible.",
+      "Image 2 comparison: moved Contact us paper down 16 design pixels (top 600.33), retaining bubble above paper; added a softly bent paper-corner detail beneath the glass tint to approximate the visible refracted overlap. Backdrop displacement now concentrates at the rim and scales with canvas size; blur reduced to 0.7 design pixels.",
+      "Email halo: same rotated 32 CSS-pixel boundary now controls hover cursor and delegated click-to-copy. Direct button click stops propagation to avoid duplicate copy; footer links and controls retain their actions.",
+      "GO START jagged vector edge: use a derivative of original ab763.svg with shape-rendering geometricPrecision instead of crispEdges; geometry, fill, noise and shadow unchanged. Original retained; vector stays resolution-independent.",
+      "Services: import user-provided src/assets/image/icon1.png through icon7.png in business order; icon hover and keyboard focus crossfade white SVG to supplied glass PNG over 180ms. Removed whole-card translucent background, inset outline and glow; retained original small pointer glass.",
+      "Large star ring resolved: use user-provided 5289x2850 transparent PNG (资源 1@3x 2.png) at its 1763x950 design size, left=0/top=277. Export already clips original ~303px off-canvas left, so removed old negative offset instead of stretching it into the old full-image slot. Gallery and mobile scene geometry unchanged.",
+      "Entire services panel now has a semantic stretched router-link to /services. Title, intro text and blank space pass pointer events to the panel link; seven business cards remain independent links to matching /services#id anchors above it. Keyboard focus remains visible, without restoring the removed glass card hover effect."
     ],
     "pending": [],
     "verification": [
@@ -136,10 +148,19 @@
       "Browser: glass moved from (516.286,81.8304) to (204.286,202.973) with exactly one element; leaving the services panel removed it (count 0). Production build and motion lifecycle checks passed.",
       "Production preview: footer-copy-hint changes from Click to copy to Email copied! on click, with no separate footer-copy-status element. Screenshot captured and build passed.",
       "Latest preview: one loaded original SVG, 9.875px body at 1265px viewport (15 design pixels), 19.634px SVG including shadow, no added background or transition; position updates directly on pointer movement. Production build and git diff --check passed.",
-      "Browser copy action: Email copied! has background none, border 0px, box-shadow none and backdrop-filter none. Production build passed."
+      "Browser copy action: Email copied! has background none, border 0px, box-shadow none and backdrop-filter none. Production build passed.",
+      "GLOBAL browser preview: one loaded image, no canvas, 600px perspective. Scrolled through 324.683, 226.502, 128.32 and 360 degrees with intact artwork; original orange-gold image visible without added highlight halo. Production build and existing home motion checks passed.",
+      "Production preview, paused orbit: hover scale 1.2, center delta X=0/Y=-0.0000038px; enlarged/wiggling capsule clears top by 6.06px, bottom by 117.71px; transition 0.42s cubic-bezier confirmed. Build and git diff --check passed.",
+      "Preview: hint visible at 24px outside bubble, hidden at 44px; pointer moved 30px and hint left changed 540px to 570px. Copy click reports Email copied! without background or border. Chromium computed backdrop uses SVG displacement plus blur; no console errors; 390px viewport has no horizontal overflow. Build passed.",
+      "Latest local production preview screenshot compared with supplied image 2: paper lower-right corner overlaps the glass without covering the email text. SVG rim displacement and blur active in Chromium. Vite production build passed; screenshot saved as email-sticker-overlap-reference2.png.",
+      "Browser native click at (523,864), outside bubble but within halo: computed cursor pointer and Email copied! displayed. After reload, click at (523,884), outside halo: cursor auto, near=false, hint hidden, no success feedback. Vite production build and git diff --check passed.",
+      "Vite production build and git diff --check passed. Seven supplied glass PNGs load successfully (150x150, OOH 144x150); each icon tested in Chromium: glass opacity 1, white opacity 0 on hover. Cards have transparent background and box-shadow none. Leaving the icon after clearing keyboard focus restores glass opacity 0 and white opacity 1.",
+      "GO START smooth SVG loaded in production preview with unchanged 285.8x95.8 viewBox and placement; source comparison verifies only crispEdges to geometricPrecision change.",
+      "New 3x ring: production preview confirms loaded natural size 5289x2850, proportional contain rendering 935.009x503.830 at default desktop viewport. Desktop and 390x844 mobile screenshots checked: 12 tiles remain within ring, document width 375 <= viewport 390. Vite build and git diff --check passed; viewport override reset.",
+      "Browser native click on panel heading, intro and blank corner each reached /services with OUR SERVICES heading visible; first business card click reached /services#influencer-row. Pointer hit testing confirms heading/intro target full-panel link and card target specific anchor. Production build and git diff --check passed."
     ],
-    "deployment": "User requested production deployment; source and generated docs committed together. Deployment status is verified separately after the Git push.",
-    "reviewMethod": "User requested browser-only Figma review, no additional Figma MCP calls. Viewed original feedback canvas, images 12, 15, 16, 19 and 22, and wowww.art in browser.",
+    "deployment": "Prepared for production release through main on 2026-11-25; deployment status tracked by GitHub commit checks and reported in the release conversation.",
+    "reviewMethod": "Figma browser read attempted; current Figma tab timed out. Latest email layering checked against user-supplied Figma screenshot and existing local original SVG. No Figma MCP used, per prior user instruction.",
     "deferred": [
       "About, Our Work and Contact secondary pages: user confirmed not designed yet; keep current homepage links and complete homepage only."
     ]

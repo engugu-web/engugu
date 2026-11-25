@@ -1,5 +1,13 @@
 <template>
-  <footer id="contact" class="site-footer">
+  <footer id="contact" class="site-footer" :class="{ 'is-near-email': nearEmail }" @pointermove="trackEmailPointer" @pointerleave="nearEmail = false" @click="copyNearbyEmail">
+    <svg class="glass-filter-defs" aria-hidden="true" width="0" height="0">
+      <defs>
+        <filter id="footer-liquid-refraction" x="-10%" y="-30%" width="120%" height="160%" color-interpolation-filters="sRGB">
+          <feImage :href="refractionMap" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="edgeRefraction" />
+          <feDisplacementMap in="SourceGraphic" in2="edgeRefraction" :scale="refractionScale" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
     <a class="back-top" href="#app">TOP</a>
     <div class="footer-orbit" aria-hidden="true">
       <img :src="a.img13X4" alt="" />
@@ -16,27 +24,38 @@
         please feel free to reach out to us via the following email addresses.
       </p>
       <button
+        ref="emailButton"
         class="email-link"
         type="button"
         aria-label="Copy fanta@orangeglobalmedia.agency"
-        @click="copyEmail"
+        @click.stop="copyEmail"
+        @focus="focusEmail"
+        @blur="keyboardHint = false"
         aria-describedby="footer-copy-hint"
       >
         <img
           class="email-glass"
-          :src="a.imgUnion1"
+          :src="emailGlass"
           alt=""
-        />fanta@orangeglobalmedia.agency
+        />
+        <svg class="paper-refraction" viewBox="0 0 47 22" aria-hidden="true">
+          <path d="M0 0H43C43 5 47 12 45 20C33 20 13 16 0 13Z" fill="#f0f0f0" />
+        </svg>
+        <span class="email-address">fanta@orangeglobalmedia.agency</span>
+      </button>
+      <Teleport to="body">
         <span
+          v-show="nearEmail || keyboardHint || copyStatus"
           id="footer-copy-hint"
           class="copy-hint"
           :class="{ 'has-feedback': copyStatus }"
+          :style="{ left: hintPosition.x + 'px', top: hintPosition.y + 'px', maxWidth: `min(280px, calc(100vw - ${hintPosition.x + 8}px))` }"
           role="status"
           aria-live="polite"
           aria-atomic="true"
           >{{ copyStatus || "Click to copy" }}</span
         >
-      </button>
+      </Teleport>
       <span class="contact-sticker" aria-hidden="true">Contact us!</span>
     </div>
     <nav class="footer-nav shell" aria-label="Footer navigation">
@@ -49,11 +68,58 @@
   </footer>
 </template>
 <script setup>
-import { ref, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { figmaAssets as a } from "../data/figmaAssets";
+import emailGlass from "../assets/figma/email-glass-smooth.svg";
+import refractionMap from "../assets/figma/email-refraction-map.svg";
 import Dialog from "./Dialog.vue";
 const dialogVisible = ref(false);
 const copyStatus = ref("");
+const emailButton = ref(null);
+const nearEmail = ref(false);
+const keyboardHint = ref(false);
+const hintPosition = ref({ x: 0, y: 0 });
+const refractionScale = ref(14);
+let glassResize;
+function positionHint(x, y) {
+  hintPosition.value = {
+    x: Math.max(8, Math.min(x + 16, window.innerWidth - 104)),
+    y: Math.max(8, Math.min(y + 18, window.innerHeight - 44)),
+  };
+}
+function isWithinEmailHalo(event) {
+  if (!emailButton.value) return false;
+  const rect = emailButton.value.getBoundingClientRect();
+  // Measure the 32 CSS-pixel halo in the bubble's rotated coordinate system.
+  const angle = -3.32 * Math.PI / 180;
+  const dx = event.clientX - (rect.left + rect.width / 2);
+  const dy = event.clientY - (rect.top + rect.height / 2);
+  const x = dx * Math.cos(angle) + dy * Math.sin(angle);
+  const y = -dx * Math.sin(angle) + dy * Math.cos(angle);
+  const distance = Math.hypot(
+    Math.max(0, Math.abs(x) - emailButton.value.offsetWidth / 2),
+    Math.max(0, Math.abs(y) - emailButton.value.offsetHeight / 2),
+  );
+  return distance <= 32;
+}
+function trackEmailPointer(event) {
+  if (event.pointerType === "touch") return;
+  nearEmail.value = isWithinEmailHalo(event);
+  if (nearEmail.value) positionHint(event.clientX, event.clientY);
+}
+function copyNearbyEmail(event) {
+  // Preserve navigation and other controls that happen to overlap the halo.
+  if (event.target.closest('a, button') || !isWithinEmailHalo(event)) return;
+  positionHint(event.clientX, event.clientY);
+  copyEmail();
+}
+function focusEmail() {
+  if (nearEmail.value) return;
+  keyboardHint.value = true;
+  const rect = emailButton.value.getBoundingClientRect();
+  positionHint(rect.left + rect.width / 2, rect.bottom);
+}
+function clearPointerHint() { nearEmail.value = false; keyboardHint.value = false; }
 let copyTimer;
 async function copyEmail() {
   clearTimeout(copyTimer);
@@ -68,7 +134,21 @@ async function copyEmail() {
     copyStatus.value = "";
   }, 3500);
 }
-onBeforeUnmount(() => clearTimeout(copyTimer));
+onMounted(() => {
+  glassResize = new ResizeObserver(() => {
+    // Keep the paper-corner refraction proportional to the Figma canvas.
+    refractionScale.value = 14 * emailButton.value.offsetWidth / 550.311;
+  });
+  glassResize.observe(emailButton.value);
+  window.addEventListener("scroll", clearPointerHint, { passive: true });
+  window.addEventListener("resize", clearPointerHint);
+});
+onBeforeUnmount(() => {
+  clearTimeout(copyTimer);
+  glassResize?.disconnect();
+  window.removeEventListener("scroll", clearPointerHint);
+  window.removeEventListener("resize", clearPointerHint);
+});
 </script>
 <style scoped>
 .site-footer {
@@ -83,6 +163,7 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   color: white;
   text-align: center;
 }
+.site-footer.is-near-email { cursor: pointer; }
 .back-top {
   position: absolute;
   top: calc(42 * var(--du));
@@ -167,10 +248,7 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   scale: 0.95;
 }
 .copy-hint {
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 12px);
-  transform: translateX(-50%) rotate(3.32deg);
+  position: fixed;
   display: grid;
   place-items: center;
   width: max-content;
@@ -187,14 +265,9 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   font: 500 10px/1.2 var(--font-body);
   white-space: normal;
   pointer-events: none;
-  opacity: 0;
-  z-index: 4;
+  z-index: 1000;
 }
-.email-link:hover .copy-hint,
-.email-link:focus-visible .copy-hint { opacity: 1; }
-@media (hover: none) { .email-link:hover .copy-hint { opacity: 0; } }
-.email-link .copy-hint.has-feedback {
-  opacity: 1;
+.copy-hint.has-feedback {
   border: 0;
   border-radius: 0;
   background: none;
@@ -370,7 +443,7 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   box-shadow: none;
   background: transparent;
   backdrop-filter: none;
-  isolation: isolate;
+  z-index: 3;
 }
 .email-link:hover {
   background: transparent;
@@ -391,16 +464,34 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   top: calc(-4.4 * var(--du));
   width: calc(566.111 * var(--du));
   height: calc(102.299 * var(--du));
-  mask-image: url("../assets/figma/d4ddb.svg");
+  mask-image: url("../assets/figma/email-glass-mask.svg");
   mask-size: 100% 100%;
-  backdrop-filter: blur(2px) saturate(1.4);
+  -webkit-backdrop-filter: blur(4px) saturate(1.4);
+  backdrop-filter: url("#footer-liquid-refraction") blur(calc(0.7 * var(--du))) saturate(1.15);
   pointer-events: none;
   z-index: -2;
 }
+.glass-filter-defs { position: absolute; pointer-events: none; }
+.email-address { position: relative; z-index: 1; }
+/* The paper corner bends through the glass rim, beneath its tint and stroke. */
+.paper-refraction {
+  position: absolute;
+  left: calc(32 * var(--du));
+  top: calc(8 * var(--du));
+  width: calc(49 * var(--du));
+  height: calc(14 * var(--du));
+  transform: rotate(11.85deg);
+  transform-origin: 0 0;
+  filter: blur(calc(0.8 * var(--du)));
+  pointer-events: none;
+  z-index: -1;
+}
+.email-glass { z-index: 0; pointer-events: none; }
 .contact-sticker {
   position: absolute;
   left: calc(656 * var(--du));
-  top: calc(584.33 * var(--du));
+  /* Reference image 2: tuck the paper's lower-right corner behind the glass. */
+  top: calc(600.33 * var(--du));
   width: calc(134 * var(--du));
   height: calc(36 * var(--du));
   font:
@@ -450,6 +541,7 @@ onBeforeUnmount(() => clearTimeout(copyTimer));
   .email-glass {
     display: none;
   }
+  .paper-refraction { display: none; }
   .email-link::before { display: none; }
   .contact-sticker {
     display: none;

@@ -3,8 +3,25 @@
     "key": "img13X2",
     "file": "064f1.png",
     "url": "https://www.figma.com/api/mcp/asset/7fcdebfa-bfc5-4c23-a1c2-b049592eb7de/064f1.png",
-    "runtimeFile": "064f1.webp",
-    "losslessPixelsVerified": true
+    "runtimeFile": "../image/资源 1@3x 2.png",
+    "losslessPixelsVerified": true,
+    "replacementSource": {
+      "providedBy": "user",
+      "exportScale": 3,
+      "pixelDimensions": [
+        5289,
+        2850
+      ],
+      "designDimensions": [
+        1763,
+        950
+      ],
+      "canvasPlacement": [
+        0,
+        277
+      ],
+      "note": "New export clips original off-canvas left portion; old PNG/WebP retained as source history."
+    }
   },
   {
     "key": "imgRectangle7",
@@ -13,7 +30,10 @@
     "runtimeFile": "6a087-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "6a087.webp",
-    "runtimeDimensions": [768, 464],
+    "runtimeDimensions": [
+      768,
+      464
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -23,7 +43,10 @@
     "runtimeFile": "0e809-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "0e809.webp",
-    "runtimeDimensions": [320, 195],
+    "runtimeDimensions": [
+      320,
+      195
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -33,7 +56,10 @@
     "runtimeFile": "ec0dc-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "ec0dc.webp",
-    "runtimeDimensions": [579, 354],
+    "runtimeDimensions": [
+      579,
+      354
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -43,7 +69,10 @@
     "runtimeFile": "1da4a-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "1da4a.webp",
-    "runtimeDimensions": [525, 320],
+    "runtimeDimensions": [
+      525,
+      320
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -53,7 +82,10 @@
     "runtimeFile": "6aaf2-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "6aaf2.webp",
-    "runtimeDimensions": [758, 424],
+    "runtimeDimensions": [
+      758,
+      424
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -63,7 +95,10 @@
     "runtimeFile": "08308-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "08308.webp",
-    "runtimeDimensions": [320, 174],
+    "runtimeDimensions": [
+      320,
+      174
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -73,7 +108,10 @@
     "runtimeFile": "23d14-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "23d14.webp",
-    "runtimeDimensions": [526, 296],
+    "runtimeDimensions": [
+      526,
+      296
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -83,7 +121,10 @@
     "runtimeFile": "ba6c9-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "ba6c9.webp",
-    "runtimeDimensions": [320, 180],
+    "runtimeDimensions": [
+      320,
+      180
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -93,7 +134,10 @@
     "runtimeFile": "1c354-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "1c354.webp",
-    "runtimeDimensions": [320, 195],
+    "runtimeDimensions": [
+      320,
+      195
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -103,7 +147,10 @@
     "runtimeFile": "73c98-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "73c98.webp",
-    "runtimeDimensions": [320, 180],
+    "runtimeDimensions": [
+      320,
+      180
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -113,7 +160,10 @@
     "runtimeFile": "56c73-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "56c73.webp",
-    "runtimeDimensions": [525, 320],
+    "runtimeDimensions": [
+      525,
+      320
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {
@@ -123,7 +173,10 @@
     "runtimeFile": "d9c54-2x.webp",
     "losslessPixelsVerified": true,
     "losslessMasterFile": "d9c54.webp",
-    "runtimeDimensions": [610, 379],
+    "runtimeDimensions": [
+      610,
+      379
+    ],
     "renderOptimization": "2x maximum design-slot resolution; original and pixel-identical lossless master retained"
   },
   {

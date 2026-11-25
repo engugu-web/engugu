@@ -11,7 +11,7 @@
       <router-link class="start-button" to="/services"
         >GO START <img class="start-arrow" :src="a.imgSubtract" alt="" /><img
           class="start-glass"
-          :src="a.imgUnion"
+          :src="startGlass"
           alt=""
       /></router-link>
     </section>
@@ -33,7 +33,7 @@
           >REACH
           <span
             class="global-word"
-            ><GlobalArtwork :rotation="rotation" :playing="carouselRunning" /></span>
+            ><GlobalArtwork :rotation="rotation" /></span>
           AUDIENCES.</span
         >
       </h2>
@@ -49,6 +49,11 @@
       <div class="service-background" aria-hidden="true">
         <img :src="a.img5" alt="" />
       </div>
+      <router-link
+        class="service-panel-link"
+        to="/services"
+        aria-label="View all services"
+      />
       <span
         v-if="glassPointer"
         class="pointer-glass"
@@ -74,8 +79,9 @@
             <img
               :src="serviceIcons[index]"
               alt=""
-              :class="`service-icon-${index}`"
+              :class="`service-icon-base service-icon-${index}`"
             />
+            <img class="service-icon-glass" :src="glassServiceIcons[index]" alt="" />
           </div>
           <h3>
             <template
@@ -134,6 +140,14 @@
 <script setup>
 import { ref } from "vue";
 import { figmaAssets as a } from "../data/figmaAssets";
+import startGlass from "../assets/figma/start-glass-smooth.svg";
+import glassIcon1 from "../assets/image/icon1.png";
+import glassIcon2 from "../assets/image/icon2.png";
+import glassIcon3 from "../assets/image/icon3.png";
+import glassIcon4 from "../assets/image/icon4.png";
+import glassIcon5 from "../assets/image/icon5.png";
+import glassIcon6 from "../assets/image/icon6.png";
+import glassIcon7 from "../assets/image/icon7.png";
 import GameArtwork from "../components/GameArtwork.vue";
 import PixelGames from "../components/PixelGames.vue";
 import GlobalArtwork from "../components/GlobalArtwork.vue";
@@ -160,6 +174,7 @@ const serviceIcons = [
   a.imgIcon6,
   a.imgIcon7,
 ];
+const glassServiceIcons = [glassIcon1, glassIcon2, glassIcon3, glassIcon4, glassIcon5, glassIcon6, glassIcon7];
 const serviceLines = [
   ["INFLUENCER &", "KOL PARTNERSHIPS"],
   ["MANAGEMENT", "COMMUNITY ECOSYSTEM"],
@@ -334,7 +349,17 @@ const stats = [
   background: linear-gradient(110deg, #ed3e13, #f07e51);
   color: white;
 }
+.service-panel-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  cursor: pointer;
+}
+.service-panel-link:focus-visible { outline-offset: -4px; }
 .services-panel > h2 {
+  z-index: 2;
+  pointer-events: none;
   position: absolute;
   top: calc(89 * var(--du));
   left: calc(553 * var(--du));
@@ -346,6 +371,8 @@ const stats = [
   white-space: nowrap;
 }
 .service-grid {
+  z-index: 2;
+  pointer-events: none;
   position: absolute;
   top: calc(251 * var(--du));
   left: calc(175 * var(--du));
@@ -377,16 +404,8 @@ const stats = [
   margin-top: calc(44 * var(--du));
 }
 .service-item {
-  border-radius: 16px;
-  transition:
-    background 0.2s,
-    box-shadow 0.2s;
-}
-.service-item:hover {
-  background: #ffffff12;
-  box-shadow:
-    0 0 28px #ffffff26,
-    inset 0 0 0 1px #ffffff38;
+  pointer-events: auto;
+  background: transparent;
 }
 
 .stat-card {
@@ -450,7 +469,7 @@ const stats = [
   top: calc(197.61 * var(--du));
   left: calc(58.01 * var(--du));
   width: calc(398.84 * var(--du));
-  color: #9a9aa3;
+  color: var(--text-muted);
   font: 400 calc(18.13 * var(--du))/1.2 var(--font-body);
   letter-spacing: 0;
 }
@@ -481,7 +500,7 @@ const stats = [
 }
 .partner-section > p {
   margin-top: calc(30 * var(--du));
-  color: #777;
+  color: var(--text-muted);
   font: 400 calc(16 * var(--du))/2 var(--font-display);
 }
 @media (max-width: 1023px) {
@@ -813,6 +832,15 @@ const stats = [
 .service-icon img {
   width: calc(50 * var(--du));
   height: auto;
+  transition: opacity 180ms ease;
+}
+.service-icon .service-icon-glass {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
 }
 .service-icon-3 {
   position: absolute;
@@ -826,8 +854,13 @@ const stats = [
   top: 10%;
   width: calc(37.5827 * var(--du)) !important;
 }
-.service-item:hover .service-icon {
-  filter: drop-shadow(0 0 8px #fff8);
+.service-icon:hover .service-icon-base,
+.service-item:focus-visible .service-icon-base {
+  opacity: 0;
+}
+.service-icon:hover .service-icon-glass,
+.service-item:focus-visible .service-icon-glass {
+  opacity: 1;
 }
 .service-item:active .service-icon {
   transform: scale(0.95);

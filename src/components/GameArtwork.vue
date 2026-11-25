@@ -104,12 +104,13 @@ const crop = (s) => ({
 }
 .orbit-ring {
   position: absolute;
-  left: calc(-302.65 * var(--orbit-unit));
+  /* The supplied 3x export already clips the original 303px off-canvas left. */
+  left: 0;
   top: calc(277 * var(--orbit-unit));
-  width: calc(2066 * var(--orbit-unit));
+  width: calc(1763 * var(--orbit-unit));
   height: calc(950 * var(--orbit-unit));
   max-width: none;
-  object-fit: cover;
+  object-fit: contain;
 }
 .game-window {
   --gallery-unit: var(--orbit-unit);
