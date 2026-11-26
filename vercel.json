@@ -4,7 +4,11 @@
   "buildCommand": "npm run build",
   "installCommand": "npm ci",
   "outputDirectory": "docs",
+  "headers": [
+    { "source": "/carousel/manifest.json", "headers": [{ "key": "Cache-Control", "value": "no-store" }] }
+  ],
   "rewrites": [
+    { "source": "/carousel/:path*", "destination": "https://engugu-web.github.io/engugu-images/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

@@ -21,7 +21,7 @@
             :style="{ '--column': i % 6, '--row': Math.floor(i / 6) }"
           >
             <Transition name="game-change">
-              <img :key="s.src" :src="s.src" :style="crop(s)" alt="" decoding="async" />
+              <img :key="s.src" :src="s.src" :style="crop(s)" alt="" decoding="async" @error="restoreFallback" />
             </Transition>
           </div>
         </div>
@@ -30,13 +30,14 @@
   </div>
 </template>
 <script setup>
-import { computed, onBeforeUnmount, ref, watch } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref, shallowRef, watch } from "vue";
 import { figmaAssets as a } from "../data/figmaAssets";
+import { parseCarouselManifest, preloadCarouselImages } from "../data/carousel";
 // Production SVG data URLs contain parentheses; quote them for valid CSS urls.
 const ringMask = `url("${a.imgRectangle6}")`;
 const props = defineProps({ playing: { type: Boolean, default: false } });
 // The original twelve image fills, including their Figma crop transforms.
-const slides = [
+const fallbackSlides = [
   [a.imgRectangle7, 239.97, 144.89, -69.73, -6.14],
   [a.imgRectangle8, 180.93, 110.7, -36.33, 0],
   [a.imgRectangle9, 236.63, 132.5, -65.36, -16.48],
@@ -50,17 +51,42 @@ const slides = [
   [a.imgRectangle16, 100, 100, 0, 0],
   [a.imgRectangle18, 190.35, 118.12, -44.95, -4.37],
 ].map(([src, w, h, x, y]) => ({ src, w, h, x, y }));
+const slides = shallowRef(fallbackSlides);
 // All twelve fixed frames crossfade to their next image together; no tile moves.
 const step = ref(0);
-const visibleSlides = computed(() => slides.map((_, index) => slides[(index + step.value) % slides.length]));
+const visibleSlides = computed(() => Array.from({ length: 12 }, (_, index) =>
+  slides.value[(index + step.value) % slides.value.length]));
+const restoreFallback = () => {
+  if (slides.value === fallbackSlides) return;
+  slides.value = fallbackSlides;
+  step.value = 0;
+};
+let loadController;
+onMounted(async () => {
+  loadController = new AbortController();
+  const { signal } = loadController;
+  const deadline = setTimeout(() => loadController.abort(), 15000);
+  try {
+    // A fresh manifest avoids the asset host's shared manifest cache after image pushes.
+    const response = await fetch(`/carousel/manifest.json?v=${Date.now()}`, { cache: 'no-store', signal });
+    if (!response.ok) throw new Error('Carousel manifest unavailable');
+    const updated = parseCarouselManifest(await response.json());
+    await preloadCarouselImages(updated, signal);
+    if (!signal.aborted) { slides.value = updated; step.value = 0; }
+  } catch {
+    // Keep the original images available while publishing or during a network failure.
+  } finally {
+    clearTimeout(deadline);
+  }
+});
 let timer;
 watch(() => props.playing, (playing) => {
   clearInterval(timer);
   if (playing) timer = setInterval(() => {
-    step.value = (step.value + 1) % slides.length;
+    step.value = (step.value + 1) % slides.value.length;
   }, 2000);
 }, { immediate: true });
-onBeforeUnmount(() => clearInterval(timer));
+onBeforeUnmount(() => { clearInterval(timer); loadController?.abort(); });
 const crop = (s) => ({
   width: `${s.w}%`,
   height: `${s.h}%`,

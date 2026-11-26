@@ -46,3 +46,16 @@ Production website: https://express-glacier-fotrgir.vercel.app/
 directory, and the SPA fallback used by routes such as `/services`.
 
 Figma measurements and verification records are stored in `design/`.
+
+## Independent carousel image repository
+
+Homepage carousel images are managed in [engugu-images](https://github.com/engugu-web/engugu-images),
+with a local checkout at `D:\orangeMidea\engugu-images`. Edit only its `images/`
+folder and push `main`. Its Pages workflow creates a filename-sorted manifest
+and immutable image URLs. Once that workflow succeeds, refresh the website to
+load the new images; no website-code commit or Vercel rebuild is needed.
+
+Vercel proxies `/carousel/*` to that repository's Pages publication. Vite dev
+and preview use the same proxy. The original carousel images remain a fallback
+when the manifest or initial images fail to load. Twelve fixed frames and the
+existing two-second interval remain unchanged regardless of image count.

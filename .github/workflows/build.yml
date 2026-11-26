@@ -31,3 +31,5 @@ jobs:
         run: npm run build
       - name: Verify motion behavior
         run: node scripts/verify-home-motion.mjs
+      - name: Verify external carousel loading
+        run: node scripts/verify-carousel.mjs
