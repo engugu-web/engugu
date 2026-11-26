@@ -74,6 +74,12 @@ defineProps({ index: Number });
   width: 112.35%;
   height: 98.05%;
   max-width: none;
+  /* Reference alpha mask: 0% opacity at the upper edge, 100% below the blend. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 100%);
+  mask-mode: alpha;
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
 }
 .earth-art {
   position: absolute;

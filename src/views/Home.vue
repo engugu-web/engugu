@@ -22,20 +22,12 @@
       aria-label="Our work"
     >
       <GameArtwork :playing="carouselRunning" />
-      <h2 ref="mission" class="mission">
-        <span
-          class="mission-first"
-          :style="{ transform: `scaleX(${copyScale || 1})` }"
-          >FOUNDED TO HELP CHINESE</span
-        >
-        <span class="games-word"><PixelGames @progress="setMissionProgress" /></span
-        ><span class="mission-second"
-          >REACH
-          <span
-            class="global-word"
-            ><GlobalArtwork :rotation="rotation" /></span>
-          AUDIENCES.</span
-        >
+      <h2 class="mission">
+        <span class="mission-line">
+          <span class="mission-first">FOUNDED TO HELP CHINESE</span>
+          <span class="games-word"><PixelGames /></span>
+        </span>
+        <span class="mission-second">REACH GLOBAL AUDIENCES.</span>
       </h2>
     </section>
     <section
@@ -168,13 +160,12 @@ import glassIcon6 from "../assets/image/icon6.png";
 import glassIcon7 from "../assets/image/icon7.png";
 import GameArtwork from "../components/GameArtwork.vue";
 import PixelGames from "../components/PixelGames.vue";
-import GlobalArtwork from "../components/GlobalArtwork.vue";
 import StatArtwork from "../components/StatArtwork.vue";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import OurClients from "../components/OurClinets.vue";
 import { useHomeMotion } from "../composables/useHomeMotion";
-const { workSection, mission, carouselRunning, rotation, copyScale, setMissionProgress } = useHomeMotion();
+const { workSection, carouselRunning } = useHomeMotion();
 import { services } from "../data/services";
 const portraits = [
   a.imgEllipse5,
@@ -336,10 +327,10 @@ const stats = [
   top: calc(1080 * var(--du));
   left: 50%;
   transform: translateX(-50%);
-  width: calc(970 * var(--du));
-  height: calc(140 * var(--du));
+  width: calc(1148 * var(--du));
+  height: auto;
   text-align: center;
-  font: 500 calc(58 * var(--du))/1.2 var(--font-display);
+  font: 500 calc(70 * var(--du))/1.2 var(--font-display);
   letter-spacing: 0;
 }
 .games-word {
@@ -347,16 +338,9 @@ const stats = [
   display: inline-block;
   color: var(--ink);
 }
-.global-word {
-  display: inline-block;
-  width: calc(221 * var(--du));
-  height: calc(57 * var(--du));
-  vertical-align: middle;
-  transform-origin: center;
-}
 .games-word {
   font-family: "Micro 5", monospace;
-  font-size: calc(97 * var(--du));
+  font-size: calc(110 * var(--du));
   line-height: 1.2;
   vertical-align: middle;
 }
@@ -992,12 +976,8 @@ const stats = [
     width: 21px;
     height: 17px;
   }
-  .global-word {
-    width: 125px;
-    height: auto;
-  }
   .games-word {
-    font-size: 46px;
+    font-size: 52px;
   }
   .service-grid {
     position: relative;
@@ -1073,28 +1053,21 @@ const stats = [
   }
 }
 
-.mission-first {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  transform-origin: left center;
-}
-.mission > .games-word {
-  position: absolute;
-  left: calc(774 * var(--du));
-  top: calc(-19 * var(--du));
-  width: calc(194 * var(--du));
-}
-.mission-second {
-  position: absolute;
-  top: calc(70 * var(--du));
-  left: 0;
-  width: 100%;
+.mission-line {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
   gap: calc(20 * var(--du));
+}
+.mission-first {
+  white-space: nowrap;
+}
+.mission-line > .games-word {
+  flex: 0 0 calc(220 * var(--du));
+  width: calc(220 * var(--du));
+}
+.mission-second {
+  display: block;
 }
 @media (max-width: 1023px) {
   .work-section {
@@ -1119,27 +1092,21 @@ const stats = [
     z-index: 1;
     font-size: clamp(24px, 6vw, 38px);
   }
-  .mission-first,
-  .mission > .games-word,
-  .mission-second {
-    position: static;
-    width: auto;
+  .mission-line {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
   .mission-first {
     display: block;
     white-space: normal;
-    transform: none !important;
   }
   .mission-second {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    white-space: normal;
   }
-  .mission > .games-word {
-    position: relative;
-    left: auto;
-    top: auto;
-    display: inline-block;
+  .mission-line > .games-word {
+    flex: none;
+    width: 104px;
     margin: 6px 0;
   }
   .service-item h3 {

@@ -12,7 +12,6 @@ import imgRectangle11 from "../assets/figma/1c354-2x.webp";
 import imgRectangle16 from "../assets/figma/73c98-2x.webp";
 import imgRectangle17 from "../assets/figma/56c73-2x.webp";
 import imgRectangle18 from "../assets/figma/d9c54-2x.webp";
-import imgGlobal1 from "../assets/figma/a51ab.webp";
 import img1 from "../assets/figma/c3360.webp";
 import imgFunplusRemovebgPreview1 from "../assets/figma/64143.webp";
 import imgIgg1 from "../assets/figma/8b6ac.webp";
@@ -69,7 +68,6 @@ export const figmaAssets = {
   imgRectangle16,
   imgRectangle17,
   imgRectangle18,
-  imgGlobal1,
   img1,
   imgFunplusRemovebgPreview1,
   imgIgg1,

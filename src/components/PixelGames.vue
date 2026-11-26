@@ -7,7 +7,6 @@
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-const emit = defineEmits(["progress"]);
 const root = ref(null);
 const baseline = ref(null);
 const canvas = ref(null);
@@ -72,8 +71,6 @@ function paint(now) {
   startedAt ??= now;
   const progress = clamp((now - startedAt) / 1600);
   animationProgress.value = progress;
-  // GLOBAL consumes this exact timeline, including font readiness and resets.
-  emit("progress", progress);
   const originX = width * 2.2, originY = height * 0.6;
   for (const tile of tiles) {
     const local = clamp((progress - tile.start) / 0.3);
@@ -97,7 +94,6 @@ function schedule() {
 function visibilityChanged() {
   startedAt = undefined;
   animationProgress.value = 0;
-  emit("progress", 0);
   schedule();
 }
 onMounted(() => {
