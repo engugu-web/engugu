@@ -7,7 +7,7 @@ const carouselProxy = {
   '/carousel': {
     target: 'https://engugu-web.github.io',
     changeOrigin: true,
-    rewrite: (path) => path.replace(/^\/carousel/, '/engugu-images'),
+    rewrite: (path) => path.replace(/^\/carousel/, '/orangeGlobalMedia-images'),
   },
 };
 

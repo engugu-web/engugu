@@ -37,7 +37,7 @@ The production files are generated in `docs/`.
 ## Vercel deployment
 
 Connect the existing Vercel project `express-glacier-fotrgir` to the GitHub
-repository `engugu-web/engugu`, using `main` as the production branch.
+repository `engugu-web/orangeGlobalMedia`, using `main` as the production branch.
 Subsequent pushes to `main` trigger production deployments.
 
 Production website: https://express-glacier-fotrgir.vercel.app/
@@ -49,7 +49,7 @@ Figma measurements and verification records are stored in `design/`.
 
 ## Independent carousel image repository
 
-Homepage carousel images are managed in [engugu-images](https://github.com/engugu-web/engugu-images),
+Homepage carousel images are managed in [orangeGlobalMedia-images](https://github.com/engugu-web/orangeGlobalMedia-images),
 with a local checkout at `D:\orangeMidea\engugu-images`. Edit only its `images/`
 folder and push `main`. Its Pages workflow creates a filename-sorted manifest
 and immutable image URLs. Once that workflow succeeds, refresh the website to
