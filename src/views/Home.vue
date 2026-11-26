@@ -118,7 +118,7 @@
       class="about-grid shell"
       aria-label="About Orange Global Media"
     >
-      <article v-for="(item, i) in stats" :key="item.title" class="stat-card">
+      <article v-for="(item, i) in stats" :key="item.title" class="stat-card" :class="{ 'stat-card-map': i === 1 }">
         <h2>{{ item.title }}</h2>
         <strong>{{ item.value }}<span>+</span></strong>
         <div class="stat-copy">
@@ -474,6 +474,17 @@ const stats = [
   letter-spacing: 0;
   white-space: nowrap;
 }
+.stat-card-map {
+  /* The map starts at 59.65% + 16.73% of its 40.35%-high artwork slot. */
+  --map-image-top: 66.4%;
+  background: linear-gradient(
+    to bottom,
+    #191919 0%,
+    #101010 calc(var(--map-image-top) - 24%),
+    #161616 var(--map-image-top),
+    #161616 100%
+  );
+}
 .stat-card strong {
   position: absolute;
   top: calc(87.93 * var(--du));
@@ -649,6 +660,10 @@ const stats = [
     position: static;
     width: auto;
     height: auto;
+  }
+  .stat-card-map {
+    /* Mobile artwork is 150px high, with the image inset by 16.73%. */
+    --map-image-top: calc(100% - 124.905px);
   }
   .stat-card h2 {
     font-size: 24px;

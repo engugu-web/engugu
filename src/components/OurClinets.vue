@@ -14,7 +14,9 @@
       >
         <div class="client-hover">
           <div :class="['client-logo', client.tone]">
-            <img :src="client.url" :alt="client.name" />
+            <span class="client-mark" :style="client.crop">
+              <img :src="client.url" :alt="client.name" />
+            </span>
           </div>
         </div>
       </div>
@@ -39,12 +41,20 @@
 import { ref } from "vue";
 import { figmaAssets as a } from "../data/figmaAssets";
 const paused = ref(false);
+// Size the visible alpha bounds, rather than the transparent source canvas.
+const logoCrop = (width, height, [left, top, right, bottom]) => ({
+  '--mark-aspect': `${right - left} / ${bottom - top}`,
+  '--image-width': `${width / (right - left) * 100}%`,
+  '--image-height': `${height / (bottom - top) * 100}%`,
+  '--image-left': `${-left / (right - left) * 100}%`,
+  '--image-top': `${-top / (bottom - top) * 100}%`,
+});
 const featured = [
-  { name: "Bilibili Games", url: a.imgBilibili1, tone: "bilibili" },
-  { name: "FunPlus", url: a.imgFunplusRemovebgPreview1, tone: "orange" },
-  { name: "Lilith Games", url: a.img1, tone: "red" },
-  { name: "IGG", url: a.imgIgg1, tone: "dark" },
-  { name: "Nuverse", url: a.imgRemovebgPreview1, tone: "nuverse" },
+  { name: "Bilibili Games", url: a.imgBilibili1, tone: "bilibili", crop: logoCrop(220, 105, [42, 22, 179, 83]) },
+  { name: "FunPlus", url: a.imgFunplusRemovebgPreview1, tone: "orange", crop: logoCrop(783, 319, [18, 55, 764, 242]) },
+  { name: "Lilith Games", url: a.img1, tone: "red", crop: logoCrop(186, 60, [0, 0, 186, 56]) },
+  { name: "IGG", url: a.imgIgg1, tone: "dark", crop: logoCrop(200, 128, [0, 0, 200, 128]) },
+  { name: "Nuverse", url: a.imgRemovebgPreview1, tone: "nuverse", crop: logoCrop(443, 146, [101, 27, 385, 124]) },
 ];
 </script>
 <style scoped>
@@ -86,7 +96,7 @@ const featured = [
   position: absolute;
   width: calc(170 * var(--du));
   height: calc(80 * var(--du));
-  padding: calc(18 * var(--du)) calc(22 * var(--du));
+  padding: 0;
   border: 1px solid #ddd;
   border-radius: calc(50 * var(--du));
   background: white;
@@ -131,9 +141,21 @@ const featured = [
   opacity: 1;
   pointer-events: auto;
 }
+.client-mark {
+  position: relative;
+  width: 50%;
+  flex: 0 0 50%;
+  aspect-ratio: var(--mark-aspect);
+  overflow: hidden;
+}
 .client-logo img {
-  max-height: 100%;
-  object-fit: contain;
+  position: absolute;
+  left: var(--image-left);
+  top: var(--image-top);
+  width: var(--image-width);
+  height: var(--image-height);
+  max-width: none;
+  max-height: none;
 }
 @media (hover: hover) {
   .client-orbit:hover .client-hover {
@@ -168,7 +190,6 @@ const featured = [
 }
 .client-logo.dark {
   width: calc(80 * var(--du));
-  padding: calc(10 * var(--du));
   background: #181818;
 }
 @keyframes client-orbit {
@@ -274,12 +295,10 @@ const featured = [
   .client-logo {
     width: 130px;
     height: 65px;
-    padding: 17px 22px;
     border-radius: 40px;
   }
   .client-logo.dark {
     width: 65px;
-    padding: 10px;
   }
   .clients > p,
   .clients h2 {
@@ -311,7 +330,6 @@ const featured = [
   .client-logo {
     width: 82px;
     height: 44px;
-    padding: 10px 13px;
   }
   .client-logo.dark {
     width: 44px;
@@ -345,23 +363,12 @@ const featured = [
 .client-logo.bilibili {
   background: #939393;
 }
-.client-logo img {
-  width: calc(87 * var(--du));
-  height: auto;
-  max-height: 100%;
-}
 .client-logo.orange img,
 .client-logo.red img {
   filter: none;
 }
 .client-logo.dark {
   width: calc(76 * var(--du));
-}
-.client-logo.dark img {
-  width: calc(43 * var(--du));
-}
-.client-logo.nuverse img {
-  width: calc(91.482 * var(--du));
 }
 @media (max-width: 1023px) {
   .logo-arc {
@@ -382,12 +389,6 @@ const featured = [
   .client-logo.dark {
     width: 65px;
   }
-  .client-logo img {
-    width: 87px;
-  }
-  .client-logo.dark img {
-    width: 43px;
-  }
 }
 @media (max-width: 650px) {
   .client-logo {
@@ -396,12 +397,6 @@ const featured = [
   }
   .client-logo.dark {
     width: 44px;
-  }
-  .client-logo img {
-    width: 58px;
-  }
-  .client-logo.dark img {
-    width: 30px;
   }
 }
 </style>
